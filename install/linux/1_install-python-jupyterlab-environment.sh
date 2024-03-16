@@ -3,11 +3,10 @@ cd ~
 curl -LO --no-progress-meter https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
 bash Miniconda3-*.sh -b
-~/miniconda3/bin/conda init $SHELL
+~/miniconda3/bin/conda init bash
+source ~/.bashrc
 
 rm Miniconda3-latest-Linux-x86_64.sh
-
-source .bashrc
 
 conda install -y -c conda-forge jupyterlab= 4.1.5
 conda install -y -c conda-forge jupyterlab_execute_time= 3.1.2
