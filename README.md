@@ -16,6 +16,7 @@ curl -L -o %installdir%\wordslab-notebooks.zip https://github.com/wordslab-org/w
 tar -x -f %installdir%\wordslab-notebooks.zip -C %installdir%
 del %installdir%\wordslab-notebooks.zip
 ren %installdir%\wordslab-notebooks-main wordslab-notebooks
+
 ```
 
 ### 1- Install or update Windows Subsystem for Linux
@@ -23,8 +24,11 @@ ren %installdir%\wordslab-notebooks-main wordslab-notebooks
 Open a Command Prompt as Administrator:
 
 ```
+set installdir=%HOMEPATH%
+
 cd %installdir%\wordslab-notebooks\install\windows-linux
 1_install-or-update-windows-subsystem-for-linux.bat
+
 ```
 
 Reboot if necessary.
@@ -34,8 +38,11 @@ Reboot if necessary.
 Open a Command Prompt:
 
 ```
+set installdir=%HOMEPATH%
+
 cd %installdir%\wordslab-notebooks\install\windows-linux
 2_create-linux-virtual-machine.bat
+
 ```
 
 ### 3- Start Jupyterlab and initialize a project
@@ -43,8 +50,11 @@ cd %installdir%\wordslab-notebooks\install\windows-linux
 Open a Command Prompt:
 
 ```
+set installdir=%HOMEPATH%
+
 cd %installdir%\wordslab-notebooks
 start-wordslab-notebooks.bat
+
 ```
 
 Open your browser to navigate to the following URL: [http:127.0.0.1:8888](http:127.0.0.1:8888).
