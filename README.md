@@ -4,11 +4,9 @@ Simple procedures and scripts to initialize a Jupyterlab workspace with GPU acce
 
 # Windows machine
 
-# Step 1: Install or update Windows Subsystem for Linux
+# Step 0: Download the wordslab-notebook scripts:
 
-Choose the install directory on your machine by replacing .
-
-Open a Command Prompt as Administrator:
+Choose the install directory on your machine by replacing %HOMEPATH% with a specific path on your machine.
 
 ```
 set installdir=%HOMEPATH%
@@ -18,7 +16,13 @@ curl -L -o %installdir%\wordslab-notebooks.zip https://github.com/wordslab-org/w
 tar -x -f %installdir%\wordslab-notebooks.zip -C %installdir%
 del %installdir%\wordslab-notebooks.zip
 ren %installdir%\wordslab-notebooks-main wordslab-notebooks
+```
 
+# Step 1: Install or update Windows Subsystem for Linux
+
+Open a Command Prompt as Administrator:
+
+```
 cd %installdir%\wordslab-notebooks\install\windows-linux
 1_install-or-update-windows-subsystem-for-linux.bat
 ```
