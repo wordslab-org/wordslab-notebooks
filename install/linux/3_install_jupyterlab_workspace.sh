@@ -11,3 +11,8 @@ mkdir -p /workspace
 
 conda env config vars set JUPYTERLAB_SETTINGS_DIR=/workspace/.jupyter/lab/user-settings
 conda env config vars set JUPYTERLAB_WORKSPACES_DIR=/workspace/.jupyter/lab/workspaces
+
+cp ./create_workspace_project /usr/local/bin/create-workspace-project
+chmod u+x /usr/local/bin/create-workspace-project
+cp ./delete_workspace_project /usr/local/bin/delete-workspace-project
+chmod u+x /usr/local/bin/delete-workspace-project
