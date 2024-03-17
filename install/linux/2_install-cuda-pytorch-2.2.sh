@@ -1,3 +1,5 @@
+eval "$('/root/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+
 conda create -y --name pytorch-2.2 python==3.11.8 ninja=1.10.2
 conda activate pytorch-2.2
 
@@ -12,4 +14,5 @@ conda env config vars set FASTAI_HOME=/models/fastai
 conda env config vars set TORCH_HOME=/models/torch
 conda env config vars set KERAS_HOME=/models/keras
 conda env config vars set TFHUB_CACHE_DIR=/models/tfhub_modules
-conda activate pytorch-2.2
+
+./3_install_jupyterlab_workspace.sh pytorch-2.2
