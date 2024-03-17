@@ -2,9 +2,9 @@
 
 Simple procedures and scripts to initialize a Jupyterlab workspace with GPU access for AI workloads
 
-# Windows machine
+## Windows machine
 
-# Step 0: Download the wordslab-notebook scripts:
+### 0- Download the wordslab-notebook scripts:
 
 Choose the install directory on your machine by replacing %HOMEPATH% with a specific path on your machine.
 
@@ -18,7 +18,7 @@ del %installdir%\wordslab-notebooks.zip
 ren %installdir%\wordslab-notebooks-main wordslab-notebooks
 ```
 
-# Step 1: Install or update Windows Subsystem for Linux
+### 1- Install or update Windows Subsystem for Linux
 
 Open a Command Prompt as Administrator:
 
@@ -29,7 +29,7 @@ cd %installdir%\wordslab-notebooks\install\windows-linux
 
 Reboot if necessary.
 
-# Step 2: Create a linux virtual machine with Jupyterlab 4 and Pytorch 2.2
+### 2- Create a linux virtual machine with Jupyterlab 4 and Pytorch 2.2
 
 Open a Command Prompt:
 
@@ -38,7 +38,7 @@ cd %installdir%\wordslab-notebooks\install\windows-linux
 2_create-linux-virtual-machine.bat
 ```
 
-# Step3: Start Jupyterlab and initialize a project
+### 3- Start Jupyterlab and initialize a project
 
 Open a Command Prompt:
 
