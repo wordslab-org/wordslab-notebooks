@@ -16,3 +16,5 @@ conda env config vars set KERAS_HOME=/models/keras
 conda env config vars set TFHUB_CACHE_DIR=/models/tfhub_modules
 
 ./3_install_jupyterlab_workspace.sh pytorch-2.2
+
+echo 'conda activate pytorch-2.2' >> ~/.bashrc
