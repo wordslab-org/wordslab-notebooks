@@ -6,7 +6,7 @@ conda activate pytorch
 conda install -y cuda -c nvidia/label/cuda-12.1.0
 conda install --force-reinstall -y libnvjitlink=12.1.105 libnvjitlink-dev=12.1.105 -c nvidia
 conda install -y pytorch=2.3.1 torchvision=0.18.1 torchaudio=2.3.1 pytorch-cuda=12.1 -c pytorch -c nvidia/label/cuda-12.1.0
-conda install -y pandas=2.2.1
+conda install -y pandas=2.2.1 scikit-learn=1.4.2
 
 mkdir -p /models
 
