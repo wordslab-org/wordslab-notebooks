@@ -18,3 +18,5 @@ cp ./delete-workspace-project /usr/local/bin/delete-workspace-project
 chmod u+x /usr/local/bin/delete-workspace-project
 
 echo 'cd /workspace' >> ~/.bashrc
+
+create-workspace-project https://github.com/wordslab-org/wordslab-notebooks-tutorials.git
