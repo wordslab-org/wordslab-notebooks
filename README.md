@@ -45,7 +45,12 @@ cd %installdir%\wordslab-notebooks\install\windows-linux
 
 ```
 
-### 3- Start Jupyterlab and initialize a project
+Note
+- this operation will download and unpack around 18 GB of software
+- on a fast computer with a 300 MBits/sec internet connection, this operation takes **8 minutes**
+- the disk size of the %installdir%\wordslab-notebooks directory after install is **18.6 GB**
+
+### 3- Start Jupyterlab and test your environment
 
 Open a Command Prompt:
 
@@ -58,6 +63,8 @@ start-wordslab-notebooks.bat
 ```
 
 Open your browser to navigate to the following URL: [http:127.0.0.1:8888](http:127.0.0.1:8888).
+
+### 4- Initialize your first project
 
 1. Initialize a Github project.
 
