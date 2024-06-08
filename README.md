@@ -33,7 +33,7 @@ cd %installdir%\wordslab-notebooks\install\windows-linux
 
 Reboot if necessary.
 
-### 2- Create a linux virtual machine with Jupyterlab 4 and Pytorch 2.2
+### 2- Create a linux virtual machine with Jupyterlab and Pytorch
 
 Open a Command Prompt:
 
