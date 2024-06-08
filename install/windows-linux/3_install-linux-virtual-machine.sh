@@ -1,3 +1,5 @@
+export DEBIAN_FRONTEND=noninteractive
+
 apt update
 apt install --yes sudo curl wget unzip less vim emacs tmux screen git git-lfs htop nvtop iputils-ping net-tools traceroute openssh-client build-essential cmake locales 
 
