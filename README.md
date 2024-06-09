@@ -1,12 +1,23 @@
 # wordslab-notebooks
 
-Simple procedures and scripts to initialize a Jupyterlab workspace with GPU access for AI workloads
+The simplest way to set up a GPU-accelerated workspace on your local PC to develop and test AI applications.
 
-## Windows machine
+What you need
+- a computer with a x64 processor (Intel or AMD) and at least 8 GB of RAM
+- a disk with at least 20 GB space free (50 GB recommended)
+- a Nvidia GPU if you want to train and use powerful deep learning models (RTX 3060 or higher recommended)
+- Windows 10 or 11 (up to date with the latest updates) or Ubuntu Linux 22.04 or 24.04
+- Windows only: administrator privileges to install the Windows Subsystem for Linux on your machine if it is not already available
 
-### Download wordslab-notebooks scripts
+What you will get
+- a fully featured AI development environment based on Jupyterlab notebooks and popular tools and extensions
+- a consistent installation of all the GPU-accelerated libraries you need to start your projects right away (see list below)
+- scripts and tutorials to guide you through the whole development lifecycle (with Github and Huggingface)
+- all that with a one click install contained in a single directory on your machine
 
-1. Choose the parent directory where you want to install wordslab-notebooks on your Windows machine.
+## Windows installation instructions
+
+### 1. Choose the parent directory where you want to install wordslab-notebooks
 
 For example if you choose the parent directory: C:\\wordslab, all files (software, your data, later downloads) will be stored inside: C:\\wordslab\\**wordslab-notebooks**.
 
@@ -14,7 +25,7 @@ Check that there is enough space on the disk: **20 GB minimum**, 50 GB recommend
 
 Make sure that the directory you choose is not automatically mirrored in the cloud by a tool like OneDrive or DropBox. The virtual machine disk is represented by a single file which gets very large and changes constantly.
 
-2. Open a Windows Terminal and navigate to the parent directory.
+#### 2. Open a Windows Terminal and navigate to the parent directory
    
 If the Windows Subsystem for Linux is already installed on your machine: press the [Win + x] keys to open the Quick link menu, then the [i] key to open a Terminal without elevated privileges.
 
@@ -24,7 +35,9 @@ Create the parent directory if it doesn't already exist: *mkdir c:\\wordslab\\*
 
 Navigate to the parent directory: *cd c:\\wordslab\\*
 
-4. Copy and paste the commands below in the Terminal to download wordslab-notebooks scripts.
+#### 3. Download wordslab-notebooks scripts
+
+Copy and paste the commands below in the Terminal to download wordslab-notebooks scripts on your machine:
 
 Click on the copy icon on the top right of the code section below.
 
@@ -38,13 +51,17 @@ ren wordslab-notebooks-main wordslab-notebooks
 cd wordslab-notebooks
 ```
 
-### Install wordslab-notebooks virtual machine
+###  4. Install wordslab-notebooks virtual machine
 
-4. Copy and paste the command below in the same Terminal to install wordslabs-notebooks on your machine. 
+Copy and paste the command below in the same Terminal to install wordslabs-notebooks on your machine:
 
 ```
 install-wordslab-notebooks.bat
 ```
+
+Note: this procedure will download and unpack around 18 GB of software
+- on a fast computer with a 300 MBits/sec internet connection, this operation takes **8 minutes**
+- the disk size of the .\\wordslab-notebooks directory after install is **18.6 GB**
 
 The installation script will execute the following steps in order:
 
@@ -79,22 +96,6 @@ Installs a minimal Python environment manager
 
 
 
-### 2- Create a linux virtual machine with Jupyterlab and Pytorch
-
-Open a Command Prompt:
-
-```
-set installdir=%HOMEPATH%
-
-cd %installdir%\wordslab-notebooks\install\windows-linux
-2_create-linux-virtual-machine.bat
-
-```
-
-Note
-- this operation will download and unpack around 18 GB of software
-- on a fast computer with a 300 MBits/sec internet connection, this operation takes **8 minutes**
-- the disk size of the %installdir%\wordslab-notebooks directory after install is **18.6 GB**
 
 ### 3- Start Jupyterlab and test your environment
 
