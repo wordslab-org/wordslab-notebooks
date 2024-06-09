@@ -15,7 +15,7 @@ What you will get
 - scripts and tutorials to guide you through the whole development lifecycle (with Github and Huggingface)
 - all that with a **one click install** contained in a single directory on your machine
 
-WARNING: this local AI development environment is meant to be used **at home, on a computer used by a single user**
+WARNING: this local AI development environment is meant to be used **at home, on a computer not accessible from the internet**
 - ease of use was prioritized for this specific context
 - **no access control or security measures** are implemented
 
@@ -29,7 +29,7 @@ All files (the software, your data and later downloads) will be stored inside: *
 
 Check that there is enough space on the disk: **20 GB minimum**, 50 GB recommended. If you plan to download 100 GB of software and data for your project, you will need 100 (project) + 20 (wordslab-notebooks) = 120 GB of disk space.
 
-Make sure that the directory you choose is not automatically mirrored in the cloud by a tool like OneDrive or DropBox. The virtual machine disk is is stored as a single file which can get very large and changes constantly.
+Make sure that the directory you choose is not automatically mirrored in the cloud by a tool like OneDrive or DropBox. The virtual machine disk is stored as a single file which can get very large and changes constantly.
 
 ### 2. Open a Windows Terminal and navigate to the parent directory
    
@@ -69,7 +69,9 @@ Note: this procedure will download and unpack around 18 GB of software
 - on a fast computer with a 300 MBits/sec internet connection, this operation takes **8 minutes**
 - the disk size of the .\\wordslab-notebooks directory after install is **18.6 GB**
 
-WARNING: this local AI development environment is meant to be used **at home, on a computer used by a single user**
+You can take advantage of the next 8 minutes of installation time to read a description of all the actions executed on your computer below :-).
+
+WARNING: this local AI development environment is meant to be used **at home, on a computer not accessible from the internet**
 - ease of use was prioritized for this specific context
 - **no access control or security measures** are implemented
 - this virtual machine is not safe to use on a shared computer or in the cloud
@@ -120,30 +122,89 @@ Installs the following Python packages and system librairies:
 
 Creates a **/models directory** inside the virtual machine where all datasets, models code and weights will be downloaded.
 
-Set the following environment variables to achieve this goal:
+Sets the following environment variables to achieve this goal:
 - HF_HOME=/models/huggingface
 - FASTAI_HOME=/models/fastai
 - TORCH_HOME=/models/torch
 - KERAS_HOME=/models/keras
 - TFHUB_CACHE_DIR=/models/tfhub_modules
 
-The 'wordslab-notebooks' is automatically activated when you log in to the virtual machine.
+The 'wordslab-notebooks' conda environment is automatically activated when you log in to the virtual machine.
 
-### 3- Start Jupyterlab and test your environment
+[3_install_jupyterlab_workspace](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/linux/3_install_jupyterlab_workspace.sh)
 
-Open a Command Prompt:
+Installs the Jupyterlab notebooks environment with the following plugins
+- jupyterlab 4.2.1
+- jupyterlab_execute_time 3.1.2 - execution time of each cell
+- jupyterlab-nvdashboard 0.11.00 - graphs to monitor cpu, gpu and memory load
+- jupyterlab-git 0.50.0 - visual git UI to version your notebooks and files
+
+Creates a **/workspace directory** inside the virtual machine where all Jupyterlab config, notebooks and project directories will be stored.
+
+Sets the following environment variables to achieve this goal:
+- JUPYTER_CONFIG_DIR=/workspace/.jupyter/etc/jupyter
+- JUPYTER_DATA_DIR=/workspace/.jupyter/share/jupyter
+- JUPYTER_RUNTIME_DIR=/workspace/.jupyter/share/jupyter/runtime
+- JUPYTERLAB_SETTINGS_DIR=/workspace/.jupyter/lab/user-settings
+- JUPYTERLAB_WORKSPACES_DIR=/workspace/.jupyter/lab/workspaces
+
+When you log in to the virtual machine, the terminal is automatically positionned in the /workspace directory.
+
+Installs two scripts to help you initialize or delete workspace projects inside Jupyterlab
+- [/usr/local/bin/create-workspace-project](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/linux/create-workspace-project)
+- [/usr/local/bin/delete-workspace-project](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/linux/delete-workspace-project)
+
+The usage of these scripts will be described below in more details when we explain the lifecycle of a workspace project.
+
+Creates a first workspace project in /workspace/wordslab-notebooks-tutorials with the tutorials found at https://github.com/wordslab-org/wordslab-notebooks-tutorials.
+
+### 5. Start Jupyterlab and test your environment
+
+Each time you want to start your AI development environment after installation, you need to repeat the following steps:
+- press the [Win + x] keys to open the Quick link menu, then the [i] key to open a Terminal
+- navigate to the wordslab-notebooks directory, for example: *cd c:\\wordslab\\wordslab-notebooks*
+- then copy and paste the command below
 
 ```
-set installdir=%HOMEPATH%
-
-cd %installdir%\wordslab-notebooks
 start-wordslab-notebooks.bat
-
 ```
 
-Open your browser to navigate to the following URL: [http:127.0.0.1:8888](http:127.0.0.1:8888).
+The script [start-wordslab-notebooks](https://github.com/wordslab-org/wordslab-notebooks/blob/main/start-wordslab-notebooks.sh) launches a Jupyterlab environment
+- on the port 8888 of your local machine (you can simply update this value in the script if you want to change it)
+- without authentication and allowing accesses from other machines your local network 
 
-### 4- Initialize your first project
+**Leave the Terminal open** as long as you want to use Jupyterlab: you will see logs displayed on the screen as you work in Jupyterlab, this is normal, you can ignore them.
+
+**Open your browser** and navigate to the following URL: [http:127.0.0.1:8888](http:127.0.0.1:8888).
+
+You should see Jupyterlab with a file navigator on the left side of the screen.
+
+Double-click on the /wordslab-notebooks-tutorials directory, then double-click on the file 00_discover_noteboooks.ipynb
+- a notebook should be displayed in the center of the screen
+- Read its contents and click on the links to learn how to use Jupyterlab
+
+### 6. Stop Jupyterlab after your work session
+
+When your work session with Jupyterlab is finished
+- please **make sure that you have saved** all the opened files
+- click on the Terminal from which you launched Jupyterlab and which should still be open
+- press the following two keys to stop the server, then confirm by pressing the key [y]
+
+```
+[Ctrl + c]
+```
+
+All your work and the current configuration of your development environment will be saved until your next work session in the virtual machine disk file stored at the following location on your PC:
+
+> .\\wordslab-notebooks\\wsl-vm
+
+You may want to **compress and backup this file regularly** (but not in real time) if the files in your workspace are important.
+
+### 7. Read the tutorials
+
+See https://github.com/wordslab-org/wordslab-notebooks-tutorials
+
+### 8. Initialize your first project
 
 1. Initialize a Github project.
 
