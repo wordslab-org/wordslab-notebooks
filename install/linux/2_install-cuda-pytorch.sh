@@ -1,7 +1,7 @@
 eval "$('/root/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 
-conda create -y --name pytorch python==3.12.3 ninja=1.10.2
-conda activate pytorch
+conda create -y --name wordslab-notebooks python==3.12.3 ninja=1.10.2
+conda activate wordslab-notebooks
 
 conda install -y cuda -c nvidia/label/cuda-12.1.0
 conda install --force-reinstall -y libnvjitlink=12.1.105 libnvjitlink-dev=12.1.105 -c nvidia
@@ -16,6 +16,4 @@ conda env config vars set TORCH_HOME=/models/torch
 conda env config vars set KERAS_HOME=/models/keras
 conda env config vars set TFHUB_CACHE_DIR=/models/tfhub_modules
 
-./3_install_jupyterlab_workspace.sh pytorch
-
-echo 'conda activate pytorch' >> ~/.bashrc
+echo 'conda activate wordslab-notebooks' >> ~/.bashrc
