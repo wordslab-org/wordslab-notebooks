@@ -9,6 +9,9 @@ conda install -y -c conda-forge ipympl=0.9.4
 
 mkdir -p /workspace
 
+conda env config vars set JUPYTER_CONFIG_DIR=/workspace/.jupyter/etc/jupyter
+conda env config vars set JUPYTER_DATA_DIR=/workspace/.jupyter/share/jupyter
+conda env config vars set JUPYTER_RUNTIME_DIR=/workspace/.jupyter/share/jupyter/runtime
 conda env config vars set JUPYTERLAB_SETTINGS_DIR=/workspace/.jupyter/lab/user-settings
 conda env config vars set JUPYTERLAB_WORKSPACES_DIR=/workspace/.jupyter/lab/workspaces
 
