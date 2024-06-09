@@ -4,34 +4,46 @@ Simple procedures and scripts to initialize a Jupyterlab workspace with GPU acce
 
 ## Windows machine
 
-### 0- Download the wordslab-notebook scripts:
+### Download the wordslab-notebooks scripts
 
-Choose the install directory on your machine by replacing %HOMEPATH% with a specific path on your machine.
+1. Choose the parent directory where you want to install wordslab-notebooks on your Windows machine
+  - for example if you choose the parent directory: C:\\wordslab
+  - all files (software, your data, later downloads) will be stored inside: C:\\wordslab\\**wordslab-notebooks**\\
+  - check that there is enough space on the disk: **20 GB minimum**, 50 GB recommended
+  - if you plan to download 100 GB of software and data for your project, you will need 100 (project) + 20 (wordslab-notebooks) = 120 GB of disk space
+  - make sure that the directory you choose is not automatically mirrored in the cloud by a tool like OneDrive or DropBox
+  - the virtual machine disk is represented by a single file which gets very large and changes constantly
 
-```
-set installdir=%HOMEPATH%
+2. Open a Windows Terminal and navigate to the parent directory:
+   - if the Windows Subsystem for Linux is already installed on your machine: press the [Win + x] keys to open the Quick link menu, then the [i] key to open a Terminal without elevated privileges
+   - if the Windows Subsystem for Linux is NOT yet installed on your machine, or if you don't know what that means: press the [Win + x] keys to open the Quick link menu, then the [a] key to open a Terminal as Administrator, and click Yes to allow the Terminal to make changes on your computer
+   - create the parent directory if it doesn't already exist: *mkdir c:\\wordslab\\*
+   - navigate to the parent directory: *cd c:\\wordslab\\*
 
-mkdir %installdir%
-curl -L -o %installdir%\wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
-tar -x -f %installdir%\wordslab-notebooks.zip -C %installdir%
-del %installdir%\wordslab-notebooks.zip
-ren %installdir%\wordslab-notebooks-main wordslab-notebooks
-
-```
-
-### 1- Install or update Windows Subsystem for Linux
-
-Open a Command Prompt as Administrator:
-
-```
-set installdir=%HOMEPATH%
-
-cd %installdir%\wordslab-notebooks\install\windows-linux
-1_install-or-update-windows-subsystem-for-linux.bat
+3. Copy and paste the commands below in the Terminal to download the wordslab-notebooks scripts:
+  - click on the copy icon on the top left of the code section below
+  - click on the Terminal then press [Ctrl + v]
+  - press [Enter]
 
 ```
+curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
+tar -x -f wordslab-notebooks.zip
+del wordslab-notebooks.zip
+ren wordslab-notebooks-main wordslab-notebooks
+cd wordslab-notebooks
+```
 
-Reboot if necessary.
+### Install the wordslab-notebooks virtual machine
+
+4. Copy and paste the command below in the same Terminal to install wordslabs-notebooks on your machine: 
+
+```
+install-wordslab-notebooks.bat
+```
+
+This installation script will execute the following steps:
+- check if the Windows Subsystem for Linux is already installed on your machine
+- if the script needed to install, a reboot will be necessary at this point
 
 ### 2- Create a linux virtual machine with Jupyterlab and Pytorch
 
