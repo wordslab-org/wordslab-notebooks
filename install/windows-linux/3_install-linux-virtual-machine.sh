@@ -1,6 +1,6 @@
 export DEBIAN_FRONTEND=noninteractive
 
-export TZ="Europe/Paris"
+echo "postfix postfix/mailname string example.com" | sudo debconf-set-selections
 echo "postfix postfix/main_mailer_type string 'No configuration'" | debconf-set-selections
 
 apt update
