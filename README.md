@@ -1,6 +1,6 @@
 # wordslab-notebooks
 
-The simplest way to set up a GPU-accelerated workspace on your local PC to develop and test AI applications.
+**wordslab-notebooks** is the simplest way to set up a GPU-accelerated workspace on your local PC to develop and test AI applications.
 
 What you need
 - a computer with a **x64 processor** (Intel or AMD) and at least 8 GB of RAM
@@ -14,6 +14,8 @@ What you will get
 - a consistent installation of all the GPU-accelerated libraries you need to start your projects right away (see list below)
 - scripts and tutorials to guide you through the whole development lifecycle (with Github and Huggingface)
 - all that with a **one click install** contained in a single directory on your machine
+
+Don't be deceived by the apparent simplicity of this solution: simplicity is the main feature of the product! It is the result of **many iterations over 4 years** to converge to this light and seamless experience. 
 
 WARNING: this local AI development environment is meant to be used **at home, on a computer not accessible from the internet**
 - ease of use was prioritized for this specific context
