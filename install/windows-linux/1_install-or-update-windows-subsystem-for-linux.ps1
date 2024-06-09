@@ -8,7 +8,7 @@ if ([string]::IsNullOrWhiteSpace($statusOutput)) {
 
     # Check if the script is running as Administrator
     if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-        Write-Error "This installation requires Administrator privileges. Please run it as Administrator."
+        Write-Error "This installation requires Administrator privileges. Please open a new terminal as Administrator and restart the installation script."
         exit
     }
     
