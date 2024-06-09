@@ -1,7 +1,8 @@
 export DEBIAN_FRONTEND=noninteractive
 
-echo "postfix postfix/mailname string example.com" | sudo debconf-set-selections
-echo "postfix postfix/main_mailer_type string 'No configuration'" | debconf-set-selections
+echo "postfix postfix/mailname string example.org" | sudo debconf-set-selections
+echo "postfix postfix/main_mailer_type select No configuration" | sudo debconf-set-selections
+cho "postfix postfix/mydomain string example.org" | sudo debconf-set-selections
 
 apt update
 apt install --yes sudo locales ca-certificates curl wget unzip less vim emacs tmux screen git git-lfs htop nvtop iputils-ping net-tools traceroute openssh-client build-essential cmake 
