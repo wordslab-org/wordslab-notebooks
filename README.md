@@ -71,7 +71,7 @@ Note: this procedure will download and unpack around 18 GB of software
 - on a fast computer with a 300 MBits/sec internet connection, this operation takes **8 minutes**
 - the disk size of the .\\wordslab-notebooks directory after install is **18.9 GB**
 
-You can take advantage of the next 8 minutes of installation time to read a description of all the actions executed on your computer: [installation script details](#installscript).
+You can take advantage of the next 8 minutes of installation time to read a description of all the actions executed on your computer: [installation script details](#windows-installation-script-details).
 
 WARNING: this local AI development environment is meant to be used **at home, on a computer which is not accessible from the internet**
 - ease of use was prioritized for a single user in a safe environment
@@ -142,7 +142,7 @@ See https://github.com/wordslab-org/wordslab-notebooks-tutorials
 create-workspace-project https://github.com/your-org/your-repo.git
 ```
 
-## Windows installation script details {#installscript}
+## Windows installation script details
 
 The installation script will execute the following steps in order:
 
