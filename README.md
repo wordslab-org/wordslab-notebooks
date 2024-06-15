@@ -1,6 +1,6 @@
 # wordslab-notebooks
 
-**wordslab-notebooks** is a **one click installer** which will set up a GPU-accelerated workspace on your local PC to develop and test AI applications.
+**wordslab-notebooks** is a one click installer to set up a **GPU-accelerated workspace on your local PC** to develop and test **AI applications**.
 
 What you need
 - a computer with a **x64 processor** (Intel or AMD) and at least 8 GB of RAM
@@ -69,9 +69,9 @@ install-wordslab-notebooks.bat
 
 Note: this procedure will download and unpack around 18 GB of software
 - on a fast computer with a 300 MBits/sec internet connection, this operation takes **8 minutes**
-- the disk size of the .\\wordslab-notebooks directory after install is **18.6 GB**
+- the disk size of the .\\wordslab-notebooks directory after install is **18.9 GB**
 
-You can take advantage of the next 8 minutes of installation time to read a description of all the actions executed on your computer below :-).
+You can take advantage of the next 8 minutes of installation time to read a description of all the actions executed on your computer: [installation script details](#installscript).
 
 WARNING: this local AI development environment is meant to be used **at home, on a computer which is not accessible from the internet**
 - ease of use was prioritized for a single user in a safe environment
@@ -80,6 +80,69 @@ WARNING: this local AI development environment is meant to be used **at home, on
 - anybody can start the virtual machine without any authentication
 - they have **root access** to the virtual machine and all its contents
 - the tools inside the virtual machine also run as root and have full access to all your data
+
+### 5. Start Jupyterlab and test your environment
+
+Each time you want to start your AI development environment after installation, you need to repeat the following steps:
+- press the [Win + x] keys to open the Quick link menu, then the [i] key to open a Terminal
+- navigate to the wordslab-notebooks directory, for example: *cd c:\\wordslab\\wordslab-notebooks*
+- then copy and paste the command below
+
+```
+start-wordslab-notebooks.bat
+```
+
+The script [start-wordslab-notebooks](https://github.com/wordslab-org/wordslab-notebooks/blob/main/start-wordslab-notebooks.sh) launches a Jupyterlab environment
+- on the port 8888 of your local machine (you can simply update this value in the script if you want to change the port number)
+- without authentication and without acces restrictions for other machines on your local network 
+
+**Leave the Terminal open** as long as you want to use Jupyterlab: you will see logs displayed on the screen as you work in Jupyterlab, this is normal, you can ignore them.
+
+**Open your browser** and navigate to the following URL: [http:127.0.0.1:8888](http:127.0.0.1:8888).
+
+You should see Jupyterlab with a file navigator on the left side of the screen.
+
+Double-click on the /wordslab-notebooks-tutorials directory, then double-click on the file 00_discover_noteboooks.ipynb
+- a notebook should be displayed in the center of the screen
+- Read its contents and click on the links to learn how to use Jupyterlab
+
+### 6. Stop Jupyterlab after your work session
+
+When your work session with Jupyterlab is finished
+- please **make sure that you have saved** all the opened files
+- click on the Terminal from which you launched Jupyterlab and which should still be open
+- press the following two keys to stop the server, then confirm by pressing the key [y]
+
+```
+[Ctrl + c]
+```
+
+All your work and the current configuration of your development environment will be saved until your next work session in the virtual machine disk file stored at the following location on your PC:
+
+> c:\\wordslab\\wordslab-notebooks\\wsl-vm\\ext4.vhdx
+
+You may want to **compress and backup this file regularly** (only when wordslab-notebooks is stopped) if the files in your workspace are important
+
+```
+wsl --terminate wordslab-notebooks
+powershell -command "Compress-Archive -Path 'c:\\wordslab\\wordslab-notebooks\\wsl-vm\\ext4.vhdx' -DestinationPath 'd:\\backup\\ext4-2024-06-15.vhdx.zip'"
+```
+
+### 7. Read the tutorials
+
+See https://github.com/wordslab-org/wordslab-notebooks-tutorials
+
+### 8. Initialize your first project
+
+1. Initialize a Github project.
+
+2. Open a Terminal then execute the following command:
+
+```
+create-workspace-project https://github.com/your-org/your-repo.git
+```
+
+## Windows installation script details {#installscript}
 
 The installation script will execute the following steps in order:
 
@@ -159,65 +222,5 @@ Installs two scripts to help you initialize or delete workspace projects inside 
 The usage of these scripts will be described below in more details when we explain the lifecycle of a workspace project.
 
 Creates a first workspace project in /workspace/wordslab-notebooks-tutorials with **the wordslab-notebooks tutorials** found at https://github.com/wordslab-org/wordslab-notebooks-tutorials.
-
-### 5. Start Jupyterlab and test your environment
-
-Each time you want to start your AI development environment after installation, you need to repeat the following steps:
-- press the [Win + x] keys to open the Quick link menu, then the [i] key to open a Terminal
-- navigate to the wordslab-notebooks directory, for example: *cd c:\\wordslab\\wordslab-notebooks*
-- then copy and paste the command below
-
-```
-start-wordslab-notebooks.bat
-```
-
-The script [start-wordslab-notebooks](https://github.com/wordslab-org/wordslab-notebooks/blob/main/start-wordslab-notebooks.sh) launches a Jupyterlab environment
-- on the port 8888 of your local machine (you can simply update this value in the script if you want to change the port number)
-- without authentication and without acces restrictions for other machines on your local network 
-
-**Leave the Terminal open** as long as you want to use Jupyterlab: you will see logs displayed on the screen as you work in Jupyterlab, this is normal, you can ignore them.
-
-**Open your browser** and navigate to the following URL: [http:127.0.0.1:8888](http:127.0.0.1:8888).
-
-You should see Jupyterlab with a file navigator on the left side of the screen.
-
-Double-click on the /wordslab-notebooks-tutorials directory, then double-click on the file 00_discover_noteboooks.ipynb
-- a notebook should be displayed in the center of the screen
-- Read its contents and click on the links to learn how to use Jupyterlab
-
-### 6. Stop Jupyterlab after your work session
-
-When your work session with Jupyterlab is finished
-- please **make sure that you have saved** all the opened files
-- click on the Terminal from which you launched Jupyterlab and which should still be open
-- press the following two keys to stop the server, then confirm by pressing the key [y]
-
-```
-[Ctrl + c]
-```
-
-All your work and the current configuration of your development environment will be saved until your next work session in the virtual machine disk file stored at the following location on your PC:
-
-> c:\\wordslab\\wordslab-notebooks\\wsl-vm\\xxx.vhdx
-
-You may want to **compress and backup this file regularly** (only when wordslab-notebooks is stopped) if the files in your workspace are important
-
-```
-powershell -command "Compress-Archive -Path 'c:\\wordslab\\wordslab-notebooks\\wsl-vm\\xxx.vhdx' -DestinationPath 'd:\\backup\\xxx-2024-06-15.vhdx'"
-```
-
-### 7. Read the tutorials
-
-See https://github.com/wordslab-org/wordslab-notebooks-tutorials
-
-### 8. Initialize your first project
-
-1. Initialize a Github project.
-
-2. Open a Terminal then execute the following command:
-
-```
-create-workspace-project https://github.com/your-org/your-repo.git
-```
 
 3. Navigate to the directory named 'your-repo', and open a notebook with the kernel named 'your-repo'.
