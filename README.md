@@ -1,6 +1,6 @@
 # wordslab-notebooks
 
-**wordslab-notebooks** is a one click installer to set up a **GPU-accelerated workspace on your local PC** to develop and test **AI applications**.
+**wordslab-notebooks** provides a one click installer to set up a **GPU-accelerated workspace on your local PC** to develop and test **AI applications**.
 
 What you need
 - a computer with a **x64 processor** (Intel or AMD) and at least 8 GB of RAM
@@ -144,19 +144,22 @@ For this, you need to configure the Windows firewall of the PC on which you just
 
 ### 9. Backup and restore your local environment
 
-Synchronizing your local workspace very often with Github and Huggingface repositories
+Synchronizing every few minutes your local workspace projects with cloud-based Github and Huggingface repositories should be the primary way to ensure that you don't loose too much work or data in the likely event that your unreliable home computer crashes or is infected by a virus.
 
-You may want to **compress and backup this file regularly** (only when wordslab-notebooks is stopped) if the files in your workspace are important.
+You may also want to **compress and backup the virtual machine disk regularly** (only after wordslab-notebooks is stopped) if the files in your workspace are important.
 
-First download and install 7zip file archiver if it is not yet available on your computer :
-- curl -L -o 7z-installer.exe https://www.7-zip.org/a/7z2406-x64.exe
-- 7z-installer.exe /S
-- del 7z-installer.exe
+First download and install 7zip file archiver if it is not yet available on your computer:
 
-Then, each time you want to backup your wordslab-notebooks environment, execute the commands below, after adjusting :
+```
+curl -L -o 7z-installer.exe https://www.7-zip.org/a/7z2406-x64.exe
+7z-installer.exe /S
+del 7z-installer.exe
+```
+
+Then, each time you want to backup your wordslab-notebooks environment, execute the commands below, after adjusting:
 - the source directory: replace c:\\wordslab with the parent directory you selected for installation
 - the target directory: replace d:\\backup with the location of your choice
-- the backup date (replace 2024-06-16 with the date of your choice):
+- the backup date: replace 2024-06-16 with the date of your choice
 
 ```
 wsl --shutdown
@@ -167,6 +170,17 @@ Notes
 - the compression of a 20 GB vhdx file takes approximately 5 minutes on a 12 cores / 24 threads computer
 - with a compression ratio around 50%: the backup files are approximately 10 GB in size
 - we generate 10 files of 1 GB instead of a single file of 10 GB as it may be easier to transfer the backup files to a cloud drive
+
+To **restore the virtual machine disk after an incident**, execute the following commands (after replacing your backup directory and date as before):
+
+```
+wsl --shutdown
+"%ProgramFiles%\\7-Zip\\7z" e d:\\backup\\wordslab-notebooks-2024-06-16.7z.001 -oc:\\wordslab\\wordslab-notebooks\\wsl-vm\\
+```
+
+Notes
+- this is much faster and should only take around 10 seconds on a fast computer
+- be careful not to overwrite a valid state of your wordslab-notebooks environment with an old backup
 
 ## User manual - AI projects lifecycle
 
