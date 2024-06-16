@@ -142,6 +142,8 @@ You may want to leave your 4 x RTX 4090 deep learning machine - which is very lo
 
 For this, you need to configure the Windows firewall of the PC on which you just installed wordslab-notebooks to allow incoming requests from your local network on the ports used by Jupterlab and other servers that you may launch from your notebooks.
 
+TODO: integrate the equivalent of: https://github.com/wordslab-org/wordslab/blob/main/wordslab.manager/scripts/os/Network/create-network-config.ps1
+
 ### 9. Backup and restore your local environment
 
 Synchronizing every few minutes your local workspace projects with cloud-based Github and Huggingface repositories should be the primary way to ensure that you don't loose too much work or data in the likely event that your unreliable home computer crashes or is infected by a virus.
