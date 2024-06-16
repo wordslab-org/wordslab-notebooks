@@ -71,6 +71,13 @@ Note: this procedure will download and unpack around 18 GB of software
 - on a fast computer with a 300 MBits/sec internet connection, this operation takes **8 minutes**
 - the disk size of the .\\wordslab-notebooks directory after install is **18.9 GB**
 
+Note: if the Windows Subsystem for Linux needs to be installed on your machine
+- you must have opened the Terminal with administrator privileges
+- the script will start the Windows Subsystem for Linux installation and exit, then **you will have to reboot** your machine to finish the installation
+- after reboot, you will need to reopen a Terminal (this time administrator privileges won't be necessary, so press [Win + x] then [i])
+- navigate to the wordslab-notebooks install directory (for example: *cd C:\\wordslab\\wordslab-notebooks*)
+- then execute *install-wordslab-notebooks.bat* **a second time**
+
 You can take advantage of the next 8 minutes of installation time to read a description of all the actions executed on your computer: [installation script details](#windows-installation-script-details).
 
 WARNING: this local AI development environment is meant to be used **at home, on a computer which is not accessible from the internet**
@@ -104,9 +111,17 @@ You should see Jupyterlab with a file navigator on the left side of the screen.
 
 Double-click on the /wordslab-notebooks-tutorials directory, then double-click on the file 00_discover_noteboooks.ipynb
 - a notebook should be displayed in the center of the screen
-- Read its contents and click on the links to learn how to use Jupyterlab
+- read its contents and click on the links to learn how to use Jupyterlab
 
-### 6. Stop Jupyterlab after your work session
+Double-click on the file 01_explore_hardware.ipynb
+- go to the top menu bar, click on Run, select Run All Cells
+- check if your hardware is correctly detected (CPU, GPU, RAM ...)
+
+Double-click on the 02_explore_software.ipynb
+- go to the top menu bar, click on Run, select Run All Cells
+- discover all the software available in your local virtual machine
+
+### 7. Stop Jupyterlab after your work session
 
 When your work session with Jupyterlab is finished
 - please **make sure that you have saved** all the opened files
@@ -121,18 +136,41 @@ All your work and the current configuration of your development environment will
 
 > c:\\wordslab\\wordslab-notebooks\\wsl-vm\\ext4.vhdx
 
-You may want to **compress and backup this file regularly** (only when wordslab-notebooks is stopped) if the files in your workspace are important
+### 8. Allow access to your workspace from your other computers
+
+You may want to leave your 4 x RTX 4090 deep learning machine - which is very loud and produces 2000 W of heat - in the basement, and access your wordslab-notebooks environment from your slim and light laptop in the comfort of your living room.
+
+For this, you need to configure the Windows firewall of the PC on which you just installed wordslab-notebooks to allow incoming requests from your local network on the ports used by Jupterlab and other servers that you may launch from your notebooks.
+
+### 9. Backup and restore your local environment
+
+Synchronizing your local workspace very often with Github and Huggingface repositories
+
+You may want to **compress and backup this file regularly** (only when wordslab-notebooks is stopped) if the files in your workspace are important.
+
+First download and install 7zip file archiver if it is not yet available on your computer :
+- curl -L -o 7z-installer.exe https://www.7-zip.org/a/7z2406-x64.exe
+- 7z-installer.exe /S
+- del 7z-installer.exe
+
+Then, each time you want to backup your wordslab-notebooks environment, execute the commands below, after adjusting :
+- the source directory: replace c:\\wordslab with the parent directory you selected for installation
+- the target directory: replace d:\\backup with the location of your choice
+- the backup date (replace 2024-06-16 with the date of your choice):
 
 ```
-wsl --terminate wordslab-notebooks
-powershell -command "Compress-Archive -Path 'c:\\wordslab\\wordslab-notebooks\\wsl-vm\\ext4.vhdx' -DestinationPath 'd:\\backup\\ext4-2024-06-15.vhdx.zip'"
+wsl --shutdown
+"%ProgramFiles%\\7-Zip\\7z" a -v1g "d:\\backups\\wordslab-notebooks-2024-06-16.7z" "c:\\wordslab\\wordslab-notebooks\\wsl-vm\\ext4.vhdx"
 ```
 
-### 7. Read the tutorials
+Notes
+- the compression of a 20 GB vhdx file takes approximately 5 minutes on a 12 cores / 24 threads computer
+- with a compression ratio around 50%: the backup files are approximately 10 GB in size
+- we generate 10 files of 1 GB instead of a single file of 10 GB as it may be easier to transfer the backup files to a cloud drive
 
-See https://github.com/wordslab-org/wordslab-notebooks-tutorials
+## User manual - AI projects lifecycle
 
-### 8. Initialize your first project
+### 1. Initialize your first project
 
 1. Initialize a Github project.
 
@@ -141,6 +179,10 @@ See https://github.com/wordslab-org/wordslab-notebooks-tutorials
 ```
 create-workspace-project https://github.com/your-org/your-repo.git
 ```
+
+### 2. Discover the Jupyerlab environment and read the tutorials
+
+See https://github.com/wordslab-org/wordslab-notebooks-tutorials
 
 ## Windows installation script details
 
