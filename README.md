@@ -142,12 +142,15 @@ You may want to leave your huge 4 x RTX 4090 deep learning machine in the baseme
 
 For this, you need to configure the deep learning machine on which you just installed wordslab-notebooks to allow incoming requests from your local network on the ports used by Jupterlab and other servers that you may launch from your notebooks.
 
-First make sure that only trusted members of your family can connect to your local network. You will need **administrator privileges** to allow remote accesses to your wordslab-notebooks virtual machine.
+First make sure that only trusted members of your family can connect to your local network. 
 
-Press the [Win + x] keys to open the Quick link menu, then the [a] key to open a Terminal as Administrator, and click Yes to allow the Terminal to make changes on your computer, then execute the command below:
-
+You will need **administrator privileges** to allow remote access to your wordslab-notebooks virtual machine
+- press the [Win + x] keys to open the Quick link menu, then the [a] key to open a Terminal as Administrator, and click Yes to allow the Terminal to make changes on your computer, then execute the command below:
+- navigate to the wordslab-notebooks directory, then to the install\\windows-linux subdirectory, for example: *cd c:\\wordslab\\wordslab-notebooks\\install\\windows-linux*
+- then copy and paste the command below
+  
 ```
-.\install \windows-linux\4_allow-remote-access-to-vm-ports.bat
+4_allow-remote-access-to-vm-ports.bat
 ```
 
 By default, this script will allow acces to the 4 default ports :
@@ -159,8 +162,14 @@ By default, this script will allow acces to the 4 default ports :
 If you need to open remote access to additional ports, you can pass them as arguments to the script (space separated list), for example:
 
 ```
-.\install \windows-linux\4_allow-remote-access-to-vm-ports.bat 8001 8002 8003
+4_allow-remote-access-to-vm-ports.bat 8001 8002 8003
 ```
+
+You will now be able to access your wordslab-notebooks instance from another machine on you local network using the URL displayed by the script, for example:
+
+> You can now access your wordslab-notebooks environment from a remote machine at this URL: https://192.168.1.24:8888
+
+Don't forget to start you wordslab-notebooks environment as explained in step 5 before testing the remote access.
 
 ### 9. [optional] Backup and restore your local environment
 
