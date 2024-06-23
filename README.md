@@ -167,7 +167,7 @@ If you need to open remote access to additional ports, you can pass them as argu
 
 You will now be able to access your wordslab-notebooks instance from another machine on you local network using the URL displayed by the script, for example:
 
-> You can now access your wordslab-notebooks environment from a remote machine at this URL: https://192.168.1.24:8888
+> You can now access your wordslab-notebooks environment from a remote machine at this URL: http://192.168.1.24:8888
 
 Don't forget to start you wordslab-notebooks environment as explained in step 5 before testing the remote access.
 
