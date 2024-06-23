@@ -4,6 +4,10 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
+# Get the IP address of the WSL virtual machine
+$vmip = wsl -d wordslab-notebooks -- hostname -I
+$vmip = $vmip.Trim()
+
 # Default ports : Jupyterlab, Gradio, fastapi & VLLM, argilla.io
 $defaultports = @(8888, 7860, 8000, 6900)
 
@@ -15,7 +19,7 @@ for ( $i = 0; $i -lt $args.count; $i++ )
 {
    $vmport = $args[$i]
    echo "- allow remote access to VM port $vmport"
-   netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=$vmport connectaddress=127.0.0.1 connectport=$vmport
+   netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=$vmport connectaddress=$vmip connectport=$vmport
    if ( $firewallports.Length -gt 0 ) {
       $firewallports = $firewallports + ","
    }
@@ -29,4 +33,4 @@ if ( $firewallports.Length -gt 0 )
 
 # Display remote URL
 $ipaddress = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike "169.254.*" -and $_.IPAddress -notlike "172.*" -and $_.IPAddress -notlike "127.*" })[0].IPAddress
-Write-Output "You can now access your wordslab-notebooks environment from a remote machine at this URL: https://${ipaddress}:8888"
+Write-Output "You can now access your wordslab-notebooks environment from a remote machine at this URL: http://${ipaddress}:8888"
