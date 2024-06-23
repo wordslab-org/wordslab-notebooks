@@ -5,10 +5,10 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 }
 
 # Default ports : Jupyterlab, Gradio, fastapi & VLLM, argilla.io
-defaultports = @(8888, 7860, 8000, 6900)
+$defaultports = @(8888, 7860, 8000, 6900)
 
 # Add default ports to the arguments list
-$args += $defaultValues
+$args += $defaultports
 
 $firewallports = ""
 for ( $i = 0; $i -lt $args.count; $i++ ) 
@@ -26,3 +26,7 @@ if ( $firewallports.Length -gt 0 )
    echo "- configure firewall to allow inbound traffic on ports $firewallports"
    netsh advfirewall firewall add rule name="wordslab-notabooks" protocol=TCP dir=in localport=$firewallports action=allow
 }
+
+# Display remote URL
+$ipaddress = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike "169.254.*" -and $_.IPAddress -notlike "172.*" -and $_.IPAddress -notlike "127.*" })[0].IPAddress
+Write-Output "You can now access your wordslab-notebooks environment from a remote machine at this URL: https://${ipaddress}:8888"
