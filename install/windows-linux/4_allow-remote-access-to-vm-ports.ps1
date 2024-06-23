@@ -4,10 +4,11 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-# Default ports : Jupyterlab, Gradio, fastapi & VLLM, argilla
-if ($args.count -eq 0) {
-    $args = @(8888, 7860, 8000, 6900)
-}
+# Default ports : Jupyterlab, Gradio, fastapi & VLLM, argilla.io
+defaultports = @(8888, 7860, 8000, 6900)
+
+# Add default ports to the arguments list
+$args += $defaultValues
 
 $firewallports = ""
 for ( $i = 0; $i -lt $args.count; $i++ ) 
