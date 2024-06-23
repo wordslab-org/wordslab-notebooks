@@ -136,15 +136,33 @@ All your work and the current configuration of your development environment will
 
 > c:\\wordslab\\wordslab-notebooks\\wsl-vm\\ext4.vhdx
 
-### 8. Allow access to your workspace from your other computers
+### 8. [optional] Allow access to your wordslab-notebooks workspace from your other computers
 
-You may want to leave your 4 x RTX 4090 deep learning machine - which is very loud and produces 2000 W of heat - in the basement, and access your wordslab-notebooks environment from your slim and light laptop in the comfort of your living room.
+You may want to leave your huge 4 x RTX 4090 deep learning machine in the basement, and access your wordslab-notebooks environment from a slim and light laptop in the comfort of your living room.
 
-For this, you need to configure the Windows firewall of the PC on which you just installed wordslab-notebooks to allow incoming requests from your local network on the ports used by Jupterlab and other servers that you may launch from your notebooks.
+For this, you need to configure the deep learning machine on which you just installed wordslab-notebooks to allow incoming requests from your local network on the ports used by Jupterlab and other servers that you may launch from your notebooks.
 
-TODO: integrate the equivalent of: https://github.com/wordslab-org/wordslab/blob/main/wordslab.manager/scripts/os/Network/create-network-config.ps1
+First make sure that only trusted members of your family can connect to your local network. You will need **administrator privileges** to allow remote accesses to your wordslab-notebooks virtual machine.
 
-### 9. Backup and restore your local environment
+Press the [Win + x] keys to open the Quick link menu, then the [a] key to open a Terminal as Administrator, and click Yes to allow the Terminal to make changes on your computer, then execute the command below:
+
+```
+.\install \windows-linux\4_allow-remote-access-to-vm-ports.bat
+```
+
+By default, this script will allow acces to the 4 default ports :
+- 8888 - Jupyterlab
+- 7960 - Gradio apps
+- 8000 - fastapi services
+- 6900 - argilla.io annotation tool
+
+If you need to open remote access to additional ports, you can pass them as arguments to the script (space separated list), for example:
+
+```
+.\install \windows-linux\4_allow-remote-access-to-vm-ports.bat 8001 8002 8003
+```
+
+### 9. [optional] Backup and restore your local environment
 
 Synchronizing every few minutes your local workspace projects with cloud-based Github and Huggingface repositories should be the primary way to ensure that you don't loose too much work or data in the likely event that your unreliable home computer crashes or is infected by a virus.
 
