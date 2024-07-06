@@ -253,6 +253,7 @@ Installs basic Linux packages and configures the virtual machine
 - **git git-lfs**
 - htop nvtop
 - build-essential cmake
+- ffmpeg
 - **docker-ce** docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 [linux/1_install-python-envmanager](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/linux/1_install-python-envmanager.sh)
