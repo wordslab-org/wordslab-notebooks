@@ -265,7 +265,7 @@ Installs a minimal Python environment manager
 Creates a new conda environment named **'wordslab-notebooks'**. 
 
 Installs the following Python packages and system librairies:
-- python 3.12.3
+- python 3.11.9
 - cuda 12.1.0
 - **pytorch 2.3.1**, torchvision 0.18.1, torchaudio 2.3.1
 - pandas 2.2.1, scikit-learn 1.4.2
