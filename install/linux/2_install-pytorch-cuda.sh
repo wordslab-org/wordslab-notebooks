@@ -1,6 +1,6 @@
 eval "$('/root/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 
-conda create -y --name wordslab-notebooks python==3.12.3 ninja=1.10.2
+conda create -y --name wordslab-notebooks python==3.11.9 ninja=1.10.2
 conda activate wordslab-notebooks
 
 conda install -y cuda -c nvidia/label/cuda-12.1.0
