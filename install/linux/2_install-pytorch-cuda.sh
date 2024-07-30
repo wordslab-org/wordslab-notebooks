@@ -3,9 +3,8 @@ eval "$('/root/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 conda create -y --name wordslab-notebooks python==3.11.9 ninja=1.10.2
 conda activate wordslab-notebooks
 
-conda install -y cuda -c nvidia/label/cuda-12.1.0
-conda install --force-reinstall -y libnvjitlink=12.1.105 libnvjitlink-dev=12.1.105 -c nvidia
-conda install -y pytorch=2.3.1 torchvision=0.18.1 torchaudio=2.3.1 pytorch-cuda=12.1 -c pytorch -c nvidia/label/cuda-12.1.0
+conda install -y cuda -c nvidia/label/cuda-12.4.0
+conda install -y pytorch=2.4.0 torchvision=0.19.0 torchaudio=2.4.0 pytorch-cuda=12.4 -c pytorch -c nvidia/label/cuda-12.4.0
 conda install -y pandas=2.2.1 scikit-learn=1.4.2
 
 mkdir -p /models
