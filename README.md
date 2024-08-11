@@ -121,7 +121,7 @@ Double-click on the 02_explore_software.ipynb
 - go to the top menu bar, click on Run, select Run All Cells
 - discover all the software available in your local virtual machine
 
-### 7. Stop Jupyterlab after your work session
+### 6. Stop Jupyterlab after your work session
 
 When your work session with Jupyterlab is finished
 - please **make sure that you have saved** all the opened files
@@ -136,7 +136,7 @@ All your work and the current configuration of your development environment will
 
 > c:\\wordslab\\wordslab-notebooks\\wsl-vm\\ext4.vhdx
 
-### 8. [optional] Allow access to your wordslab-notebooks workspace from your other computers
+### 7. [optional] Allow access to your wordslab-notebooks workspace from your other computers
 
 You may want to leave your huge 4 x RTX 4090 deep learning machine in the basement, and access your wordslab-notebooks environment from a slim and light laptop in the comfort of your living room.
 
@@ -173,7 +173,7 @@ You will now be able to access your wordslab-notebooks instance from another mac
 
 Don't forget to start you wordslab-notebooks environment as explained in step 5 before testing the remote access.
 
-### 9. [optional] Backup and restore your local environment
+### 8. [optional] Backup and restore your local environment
 
 Synchronizing every few minutes your local workspace projects with cloud-based Github and Huggingface repositories should be the primary way to ensure that you don't loose too much work or data in the likely event that your unreliable home computer crashes or is infected by a virus.
 
@@ -269,8 +269,8 @@ Creates a new conda environment named **'wordslab-notebooks'**.
 
 Installs the following Python packages and system librairies:
 - python 3.11.9
-- cuda 12.1.0
-- **pytorch 2.3.1**, torchvision 0.18.1, torchaudio 2.3.1
+- **cuda 12.4.0**
+- **pytorch 2.4.0**, torchvision 0.18.1, torchaudio 2.3.1
 - pandas 2.2.1, scikit-learn 1.4.2
 
 Creates a **/models directory** inside the virtual machine where all datasets, models code and weights will be downloaded.
