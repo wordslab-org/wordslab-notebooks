@@ -140,17 +140,19 @@ All your work and the current configuration of your development environment will
 
 You may want to leave your huge 4 x RTX 4090 deep learning machine in the basement, and access your wordslab-notebooks environment from a slim and light laptop in the comfort of your living room.
 
-For this, you need to configure the deep learning machine on which you just installed wordslab-notebooks to allow incoming requests from your local network on the ports used by Jupterlab and other servers that you may launch from your notebooks.
+For this, you need to configure the deep learning machine on which you just launched wordslab-notebooks to allow incoming requests from your local network on the ports used by Jupterlab and other servers that you may launch from your notebooks.
 
 First make sure that only trusted members of your family can connect to your local network. 
 
-You will need **administrator privileges** to allow remote access to your wordslab-notebooks virtual machine
+You will need to execute the script below **EACH TIME you start wordslab-notebooks** because Windows assigns a new network address to your wordslab-notebooks virtual machine each time you use start-wordslab-notebooks.bat :
+
+You need **administrator privileges** to allow remote access to your wordslab-notebooks virtual machine
 - press the [Win + x] keys to open the Quick link menu, then the [a] key to open a Terminal as Administrator, and click Yes to allow the Terminal to make changes on your computer, then execute the command below:
-- navigate to the wordslab-notebooks directory, then to the install\\windows-linux subdirectory, for example: *cd c:\\wordslab\\wordslab-notebooks\\install\\windows-linux*
+- navigate to the wordslab-notebooks directory
 - then copy and paste the command below
   
 ```
-4_allow-remote-access-to-vm-ports.bat
+allow-remote-access-to-wordslab-notebooks.bat
 ```
 
 By default, this script will allow acces to the 4 default ports :
@@ -162,7 +164,7 @@ By default, this script will allow acces to the 4 default ports :
 If you need to open remote access to additional ports, you can pass them as arguments to the script (space separated list), for example:
 
 ```
-4_allow-remote-access-to-vm-ports.bat 8001 8002 8003
+allow-remote-access-to-wordslab-notebooks.bat 8001 8002 8003
 ```
 
 You will now be able to access your wordslab-notebooks instance from another machine on you local network using the URL displayed by the script, for example:
