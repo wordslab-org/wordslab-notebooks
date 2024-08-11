@@ -9,7 +9,7 @@ $vmip = wsl -d wordslab-notebooks -- hostname -I
 $vmip = $vmip.Trim()
 
 # Default ports : Jupyterlab, Gradio, fastapi & fasthtml & VLLM, argilla.io
-$defaultports = @(8080, 7860, 8000, 6900)
+$defaultports = @(8888, 7860, 8000, 6900)
 
 # Add default ports to the arguments list
 $args += $defaultports
@@ -33,4 +33,4 @@ if ( $firewallports.Length -gt 0 )
 
 # Display remote URL
 $ipaddress = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike "169.254.*" -and $_.IPAddress -notlike "172.*" -and $_.IPAddress -notlike "127.*" })[0].IPAddress
-Write-Output "You can now access your wordslab-notebooks environment from a remote machine at this URL: http://${ipaddress}:8080"
+Write-Output "You can now access your wordslab-notebooks environment from a remote machine at this URL: http://${ipaddress}:8888"
