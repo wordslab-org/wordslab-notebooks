@@ -136,7 +136,7 @@ All your work and the current configuration of your development environment will
 
 > c:\\wordslab\\wordslab-notebooks\\wsl-vm\\ext4.vhdx
 
-### 7. [optional] Allow access to your wordslab-notebooks workspace from your other computers
+### 7. [optional] Allow access to your wordslab-notebooks workspace from other computers on your local network
 
 You may want to leave your huge 4 x RTX 4090 deep learning machine in the basement, and access your wordslab-notebooks environment from a slim and light laptop in the comfort of your living room.
 
@@ -144,7 +144,7 @@ For this, you need to configure the deep learning machine on which you just laun
 
 First make sure that only trusted members of your family can connect to your local network. 
 
-You will need to execute the script below **EACH TIME you start wordslab-notebooks** because Windows assigns a new network address to your wordslab-notebooks virtual machine each time you use start-wordslab-notebooks.bat :
+You will need to execute the script below **each TIME you start wordslab-notebooks** *(because Windows assigns a new network address to your wordslab-notebooks virtual machine each time you use start-wordslab-notebooks.bat)*, and **each time you want to open a new port** to remote access in your virtual machine.
 
 You need **administrator privileges** to allow remote access to your wordslab-notebooks virtual machine
 - press the [Win + x] keys to open the Quick link menu, then the [a] key to open a Terminal as Administrator, and click Yes to allow the Terminal to make changes on your computer, then execute the command below:
@@ -158,7 +158,7 @@ allow-remote-access-to-wordslab-notebooks.bat
 By default, this script will allow acces to the 4 default ports :
 - 8888 - Jupyterlab
 - 7960 - Gradio apps
-- 8000 - fastapi services
+- 8000 - fastapi, fasthml & VLLM services
 - 6900 - argilla.io annotation tool
 
 If you need to open remote access to additional ports, you can pass them as arguments to the script (space separated list), for example:
