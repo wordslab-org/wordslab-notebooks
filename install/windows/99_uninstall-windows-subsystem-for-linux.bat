@@ -6,4 +6,4 @@ if %errorLevel% GTR 0 (
     exit /B
 )
 
-PowerShell -ExecutionPolicy Bypass -File %~dp0install\windows\99_uninstall-windows-subsystem-for-linux.ps1 %*
+PowerShell -ExecutionPolicy Bypass -File %~dp099_uninstall-windows-subsystem-for-linux.ps1 %*
