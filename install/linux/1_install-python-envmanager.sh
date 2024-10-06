@@ -1,7 +1,7 @@
 cd ~
-curl -LO --no-progress-meter https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
 
-bash Miniconda3-*.sh -b
-~/miniconda3/bin/conda init bash
+bash Miniforge3-$(uname)-$(uname -m).sh -b
+~/miniforge3/bin/conda init bash
 
-rm Miniconda3-latest-Linux-x86_64.sh
+rm  Miniforge3-Linux-x86_64.sh
