@@ -8,8 +8,8 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 $vmip = wsl -d wordslab-notebooks -- hostname -I
 $vmip = $vmip.Trim()
 
-# Default ports : Jupyterlab, Gradio, fastapi & fasthtml & VLLM, argilla.io
-$defaultports = @(8888, 7860, 8000, 6900)
+# Default ports : Jupyterlab, Gradio, fastapi & fasthtml & VLLM, argilla.io, Open WebUI, VS Code server
+$defaultports = @(8888, 7860, 8000, 6900, 8080, 8081)
 
 # Add default ports to the arguments list
 $args += $defaultports
