@@ -1,5 +1,5 @@
 @echo off
-cd .\install\windows-linux
+cd .\install\windows
 
 call 1_install-or-update-windows-subsystem-for-linux.bat
 if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
