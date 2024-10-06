@@ -1,11 +1,11 @@
-eval "$('/root/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-conda activate wordslab-notebooks
+eval "$('/root/miniforge3/condabin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+conda activate pytorch-2.4
 
-conda install -y -c conda-forge jupyterlab=4.2.1
-conda install -y -c conda-forge jupyterlab_execute_time=3.1.2
-conda install -y -c rapidsai-nightly -c conda-forge jupyterlab-nvdashboard=0.11.00
-conda install -y -c conda-forge jupyterlab-git=0.50.0
-conda install -y -c conda-forge ipympl=0.9.4
+conda install -y jupyterlab=4.2.5
+conda install -y jupyterlab_execute_time=3.2.0
+conda install -y jupyterlab-nvdashboard=0.11.00
+conda install -y jupyterlab-git=0.50.1
+conda install -y ipympl=0.9.4
 
 mkdir -p /workspace
 
@@ -15,7 +15,7 @@ conda env config vars set JUPYTER_RUNTIME_DIR=/workspace/.jupyter/share/jupyter/
 conda env config vars set JUPYTERLAB_SETTINGS_DIR=/workspace/.jupyter/lab/user-settings
 conda env config vars set JUPYTERLAB_WORKSPACES_DIR=/workspace/.jupyter/lab/workspaces
 conda deactivate
-conda activate wordslab-notebooks
+conda activate pytorch-2.4
 
 cp ./create-workspace-project /usr/local/bin/create-workspace-project
 chmod u+x /usr/local/bin/create-workspace-project
