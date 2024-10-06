@@ -1,5 +1,4 @@
 @echo off
-echo %~f0
 net session >nul 2>&1
 if %errorLevel% GTR 0 (
     echo Requesting administrator privileges...
