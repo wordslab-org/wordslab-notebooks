@@ -31,19 +31,25 @@ If you choose the parent directory: *C:\\wordslab*
 
 All files (wordslab-notebooks software, your data and later downloads) will be stored inside the directory: *C:\\wordslab\\**wordslab-notebooks***
 
-Check that there is enough space on the disk: **20 GB minimum**, 50 GB recommended. If you plan to download 100 GB of librairies and data for your project, you will need 100 (project) + 20 (wordslab-notebooks) = 120 GB of disk space.
+Check that there is enough space on the disk: **25 GB minimum**, 50 GB recommended. If you plan to download 100 GB of librairies and data for your project, you will need 100 (project) + 25 (wordslab-notebooks) = 125 GB of disk space.
 
 Make sure that the directory you choose is not automatically mirrored in the cloud by a tool like OneDrive or DropBox. The wordslab-notebooks virtual machine disk is stored as a single file: it changes constantly and can get very large.
 
 ### 2. Open a Windows Terminal and navigate to the parent directory
-   
-If the Windows Subsystem for Linux is already installed on your machine: press the [Win + x] keys to open the Quick link menu, then the [i] key to open a Terminal without elevated privileges.
 
-If the Windows Subsystem for Linux is NOT yet installed on your machine, or if you don't know what that means: press the [Win + x] keys to open the Quick link menu, then the [a] key to open a Terminal as Administrator, and click Yes to allow the Terminal to make changes on your computer.
+Click on the Windows button in the taskbar.
+
+![Windows button](./docs/images/01_windows_button.jpg)
+
+Type "cmd" and then press Enter to open a Windows Terminal.
+
+![Windows menu](./docs/images/02_windows_menu.jpg)
 
 Create the parent directory if it doesn't already exist: *mkdir c:\\wordslab\\*
 
 Navigate to the parent directory: *cd c:\\wordslab\\*
+
+![mkdir command](./docs/images/03_mkdir_command.jpg)
 
 ### 3. Download wordslab-notebooks scripts
 
@@ -61,6 +67,12 @@ ren wordslab-notebooks-main wordslab-notebooks
 cd wordslab-notebooks
 ```
 
+![mkdir command](./docs/images/04_paste_download_commands.jpg)
+
+Windows will warn you that all the commands will be executed: that's ok, this is what you want to do, click "Paste anyway".
+
+![download ok](./docs/images/05_download_ok.jpg)
+
 ###  4. Install wordslab-notebooks virtual machine
 
 Copy and paste the command below in the same Terminal to install wordslabs-notebooks on your machine:
@@ -69,18 +81,35 @@ Copy and paste the command below in the same Terminal to install wordslabs-noteb
 install-wordslab-notebooks.bat
 ```
 
-Note: this procedure will download and unpack around 18 GB of software
-- on a fast computer with a 300 MBits/sec internet connection, this operation takes **8 minutes**
-- the disk size of the .\\wordslab-notebooks directory after install is **18.9 GB**
+![install command](./docs/images/06_install_command.jpg)
+
+Note: this procedure will download and unpack around 21 GB of software
+- on a fast computer with a 300 MBits/sec internet connection, this operation takes **9 minutes**
+- the disk size of the .\\wordslab-notebooks directory after install is **21.2 GB**
 
 Note: if the Windows Subsystem for Linux needs to be installed on your machine
-- you must have opened the Terminal with administrator privileges
+- you will have to click twice on the Yes button to authorize the script to make changes to your machine
+
+![wsl elevation dialog](./docs/images/07_wsl_elevation_dialog_1.jpg)
+
+![windows services elevation dialog](./docs/images/08_elevation_dialog_2.jpg)
+
 - the script will start the Windows Subsystem for Linux installation and exit, then **you will have to reboot** your machine to finish the installation
-- after reboot, you will need to reopen a Terminal (this time administrator privileges won't be necessary, so press [Win + x] then [i])
+- you can choose to reboot immediately by pressing Y, or to reboot later by pressing N
+
+![reboot message](./docs/images/09_reboot_message.jpg)
+
+- after reboot, you will need to reopen a Terminal
 - navigate to the wordslab-notebooks install directory (for example: *cd C:\\wordslab\\wordslab-notebooks*)
 - then execute *install-wordslab-notebooks.bat* **a second time**
 
-You can take advantage of the next 8 minutes of installation time to read a description of all the actions executed on your computer: [installation script details](#windows-installation-script-details).
+![install command after reboot](./docs/images/10_install_command_after_reboot.jpg)
+
+You can take advantage of the next 9 minutes of installation time to read a description of all the actions executed on your computer: [installation script details](#windows-installation-script-details).
+
+Here is what your terminal should look like at the end of the installation:
+
+![install ok](./docs/images/16_install_ok.jpg)
 
 WARNING: this local AI development environment is meant to be used **at home, on a computer which is not accessible from the internet**
 - ease of use was prioritized for a single user in a safe environment
