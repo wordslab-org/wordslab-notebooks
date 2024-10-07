@@ -381,3 +381,19 @@ Installs two scripts to help you initialize or delete workspace projects inside 
 The usage of these scripts will be described below in more details when we explain the lifecycle of a workspace project.
 
 Creates a first workspace project in /workspace/wordslab-notebooks-tutorials with **the wordslab-notebooks tutorials** found at https://github.com/wordslab-org/wordslab-notebooks-tutorials.
+
+### Uninstall wordslab-notebooks from your machine
+
+The two scripts below can be used to fully uninstall wordslab-notebooks from your machine.
+
+Navigate to the directory: *C:\wordslab\wordslab-notebooks\install\windows*.
+
+**WARNING**: all the code and data stored in your virtual machine will be **irremediably lost** !
+
+1. Delete the wordslab-notebooks virtual machine
+
+Execute the script: *98_delete-linux-virtual-machine.bat*
+
+2. Uninstall Windows Subsystem for Linux and Virtual Machine Platform from your Windows machine
+
+Execute the script: *99_uninstall-windows-subsystem-for-linux.bat*
