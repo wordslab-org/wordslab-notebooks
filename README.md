@@ -4,7 +4,7 @@
 
 What you need
 - a computer with a **x64 processor** (Intel or AMD) and at least 8 GB of RAM
-- a disk with at least 20 GB space free (50 GB recommended)
+- a disk with at least 25 GB space free (50 GB recommended)
 - a **Nvidia GPU** if you want to train and use powerful AI models (RTX 3060 or higher recommended)
 - Windows 10 or 11 (up to date with the latest updates) or Ubuntu Linux 22.04 or 24.04
 - Windows only: administrator privileges to install the Windows Subsystem for Linux on your machine if it is not already available
@@ -13,9 +13,11 @@ What you will get
 - a fully featured AI development environment based on **Jupyterlab notebooks** with popular tools and extensions
 - a consistent installation of all the GPU-accelerated Python libraries you need to start your projects right away (see list below)
 - scripts and tutorials to guide you through the whole development lifecycle (with Github and Huggingface)
-- all that contained in a single "wordslab-notebooks" directory on your machine
+- all that contained within a single "wordslab-notebooks" directory on your machine
 
-Don't be deceived by the apparent simplicity of this solution: simplicity is the main feature of the product! It is the result of **many iterations over 4 years** to converge to this lightweight and seamless experience. You will see over time that everything you try just works out of the box.
+Don't be deceived by the apparent simplicity of this solution: simplicity is the main feature of the product! 
+
+It is the result of **many iterations over 4 years** to converge to this lightweight and seamless experience. You will see over time that everything you try just works out of the box.
 
 ![wordslab-notebooks architecture](./docs/images/wordslab-notebooks-architecture.jpg)
 
@@ -24,6 +26,12 @@ WARNING: this local AI development environment is meant to be used **at home, on
 - **no access control or security measures** are implemented
 
 ## Windows installation instructions
+
+### 0. Update your system software to the latest version
+
+Go to Windows Settings -> Windows Update and make sure the latest version of Windows 10 or 11 is installed.
+
+If you have a Nvidia GPU: open GeForce Experience -> Drivers tab and make sure the latest version of the Nvidia device driver is installed.
 
 ### 1. Choose the parent directory where you want to install wordslab-notebooks
 
@@ -121,14 +129,18 @@ WARNING: this local AI development environment is meant to be used **at home, on
 
 ### 5. Start Jupyterlab and test your environment
 
-Each time you want to start your AI development environment after installation, you need to repeat the following steps:
-- press the [Win + x] keys to open the Quick link menu, then the [i] key to open a Terminal
-- navigate to the wordslab-notebooks directory, for example: *cd c:\\wordslab\\wordslab-notebooks*
-- then copy and paste the command below
+Each time you want to start your local AI development environment, you need to repeat the following steps:
+- open the Windows File Explorer
+- navigate to the wordslab-notebooks installation directory
+- then double-click on the script below
 
 ```
 start-wordslab-notebooks.bat
 ```
+
+![start script](./docs/images/17_start_script.jpg)
+
+You could also create a shortcut by right-clicking the script -> Other options -> Create shortcut, and then cut (Ctrl-X) & paste (Ctrl-C) this shortcut on your Windows Desktop.
 
 The script [start-wordslab-notebooks](https://github.com/wordslab-org/wordslab-notebooks/blob/main/start-wordslab-notebooks.sh) launches a Jupyterlab environment
 - on the port 8888 of your local machine (you can simply update this value in the script if you want to change the port number)
@@ -136,9 +148,15 @@ The script [start-wordslab-notebooks](https://github.com/wordslab-org/wordslab-n
 
 **Leave the Terminal open** as long as you want to use Jupyterlab: you will see logs displayed on the screen as you work in Jupyterlab, this is normal, you can ignore them.
 
+![start logs](./docs/images/18_start_logs.jpg)
+
 **Open your browser** and navigate to the following URL: [http:127.0.0.1:8888](http:127.0.0.1:8888).
 
+You can also Ctrl-click on the link which is displayed in the Terminal.
+
 You should see Jupyterlab with a file navigator on the left side of the screen.
+
+![jupyterlab screen](./docs/images/19_jupyterlab_screen.jpg)
 
 Double-click on the /wordslab-notebooks-tutorials directory, then double-click on the file 00_discover_noteboooks.ipynb
 - a notebook should be displayed in the center of the screen
@@ -163,46 +181,56 @@ When your work session with Jupyterlab is finished
 [Ctrl + c]
 ```
 
+![shutdown logs](./docs/images/23_shutdown_logs.jpg)
+
 All your work and the current configuration of your development environment will be saved until your next work session in the virtual machine disk file stored at the following location on your PC:
 
 > c:\\wordslab\\wordslab-notebooks\\wsl-vm\\ext4.vhdx
 
+![disk size after install](./docs/images/22_disk_size_after_install.jpg)
+
 ### 7. [optional] Allow access to your wordslab-notebooks workspace from other computers on your local network
 
-You may want to leave your huge 4 x RTX 4090 deep learning machine in the basement, and access your wordslab-notebooks environment from a slim and light laptop in the comfort of your living room.
+You may want to leave your huge deep learning machine in the basement, and access your wordslab-notebooks environment from a slim and light laptop in the comfort of your living room.
 
-For this, you need to configure the deep learning machine on which you just launched wordslab-notebooks to allow incoming requests from your local network on the ports used by Jupterlab and other servers that you may launch from your notebooks.
+For this, you need to configure the deep learning machine on which you just launched wordslab-notebooks to allow incoming remote requests from your local network.
 
 First make sure that only trusted members of your family can connect to your local network. 
 
-You will need to execute the script below **each TIME you start wordslab-notebooks** *(because Windows assigns a new network address to your wordslab-notebooks virtual machine each time you use start-wordslab-notebooks.bat)*, and **each time you want to open a new port** to remote access in your virtual machine.
+You will need to execute the script below **EACH TIME after you start wordslab-notebooks** *(because Windows assigns a new network address to your wordslab-notebooks virtual machine each time you use start-wordslab-notebooks.bat)*, and **each time you want to open a new port** on your virtual machine.
 
 You need **administrator privileges** to allow remote access to your wordslab-notebooks virtual machine
-- press the [Win + x] keys to open the Quick link menu, then the [a] key to open a Terminal as Administrator, and click Yes to allow the Terminal to make changes on your computer, then execute the command below:
-- navigate to the wordslab-notebooks directory
-- then copy and paste the command below
+- open the Windows File Explorer
+- navigate to the wordslab-notebooks installation directory
+- then double-click on the script below
   
 ```
-allow-remote-access-to-wordslab-notebooks.bat
+allow-remote-access.bat
 ```
 
-By default, this script will allow acces to the 4 default ports :
+![remote access script](./docs/images/20_remote_access_script.jpg)
+
+By default, this script will allow acces to the 6 default ports :
 - 8888 - Jupyterlab
 - 7960 - Gradio apps
 - 8000 - fastapi, fasthml & VLLM services
 - 6900 - argilla.io annotation tool
+- 8080 - Open WebUI chat user interface
+- 8081 - VS Code server
+
+![remote access logs](./docs/images/21_remote_access_logs.jpg)
 
 If you need to open remote access to additional ports, you can pass them as arguments to the script (space separated list), for example:
 
 ```
-allow-remote-access-to-wordslab-notebooks.bat 8001 8002 8003
+allow-remote-access.bat 8001 8002 8003
 ```
 
 You will now be able to access your wordslab-notebooks instance from another machine on you local network using the URL displayed by the script, for example:
 
 > You can now access your wordslab-notebooks environment from a remote machine at this URL: http://192.168.1.24:8888
 
-Don't forget to start you wordslab-notebooks environment as explained in step 5 before testing the remote access.
+Don't forget to start you wordslab-notebooks environment as explained in step 5 before allowing the remote access.
 
 ### 8. [optional] Backup and restore your local environment
 
