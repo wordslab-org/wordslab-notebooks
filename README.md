@@ -75,9 +75,9 @@ ren wordslab-notebooks-main wordslab-notebooks
 cd wordslab-notebooks
 ```
 
-![mkdir command](./docs/images/04_paste_download_commands.jpg)
-
 Windows will warn you that all the commands will be executed: that's ok, this is what you want to do, click "Paste anyway".
+
+![mkdir command](./docs/images/04_paste_download_commands.jpg)
 
 ![download ok](./docs/images/05_download_ok.jpg)
 
@@ -210,7 +210,7 @@ allow-remote-access.bat
 
 ![remote access script](./docs/images/20_remote_access_script.jpg)
 
-By default, this script will allow acces to the 6 default ports :
+By default, this script will allow access to the 6 default ports :
 - 8888 - Jupyterlab
 - 7960 - Gradio apps
 - 8000 - fastapi, fasthml & VLLM services
