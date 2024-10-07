@@ -284,7 +284,9 @@ Notes
 create-workspace-project https://github.com/your-org/your-repo.git
 ```
 
-### 2. Discover the Jupyerlab environment and read the tutorials
+3. Navigate to the directory named 'your-repo', and open a notebook with the kernel named 'your-repo'.
+
+### 2. Discover the Jupyterlab environment and read the tutorials
 
 See https://github.com/wordslab-org/wordslab-notebooks-tutorials
 
@@ -292,17 +294,19 @@ See https://github.com/wordslab-org/wordslab-notebooks-tutorials
 
 The installation script will execute the following steps in order:
 
-[windows-linux/1_install-or-update-windows-subsystem-for-linux](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/windows-linux/1_install-or-update-windows-subsystem-for-linux.ps1) 
+[windows/1_install-or-update-windows-subsystem-for-linux](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/windows/1_install-or-update-windows-subsystem-for-linux.ps1) 
 
 Checks if the Windows Subsystem for Linux is already installed on your machine:
 - if WSL is already installed: it will just try to update it to the latest version and move on
-- if WSL needs to be installed: the script will check that you opened the Terminal with administrator privileges, it will install WSL, then **you will have to reboot** your machine to finish the installation
-- after reboot, you will need to reopen a Terminal (this time administrator privileges won't be necessary, so press [Win + x] then [i]) and navigate to the wordslab-notebooks install directory (for example: *cd C:\\wordslab\\wordslab-notebooks*), then execute *install-wordslab-notebooks.bat* **a second time**
+- if WSL needs to be installed: it will install WSL, then **you will have to reboot** your machine to finish the installation
+- after reboot, you will need to reopen a Terminal and navigate to the wordslab-notebooks install directory (for example: *cd C:\\wordslab\\wordslab-notebooks*), then execute *install-wordslab-notebooks.bat* **a second time**
 
-[windows-linux/2_create-linux-virtual-machine](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/windows-linux/2_create-linux-virtual-machine.bat)
+[windows/2_create-linux-virtual-machine](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/windows/2_create-linux-virtual-machine.bat)
 
 Creates a Windows Subsystem for Linux virtual machine named **'wordslab-notebooks'** 
 - minimal image of the Ubuntu Linux 24.04 distribution
+
+![virtual machine install](./docs/images/11_virtual_machine_install.jpg)
 
 [linux/0_install-ubuntu-packages](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/linux/0_install-ubuntu-packages.sh)
 
@@ -317,20 +321,26 @@ Installs basic Linux packages and configures the virtual machine
 - ffmpeg
 - **docker-ce** docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
+![ubuntu packages install](./docs/images/12_ubuntu_packages_install.jpg)
+
 [linux/1_install-python-envmanager](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/linux/1_install-python-envmanager.sh)
 
 Installs a minimal Python environment manager
-- Miniconda 3
+- Miniforge 3
 
 [2_install-pytorch-cuda](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/linux/2_install-pytorch-cuda.sh)
 
-Creates a new conda environment named **'wordslab-notebooks'**. 
+Creates a new conda environment named **'pytorch-2.4'**. 
 
 Installs the following Python packages and system librairies:
-- python 3.11.9
+- python 3.12.7
 - **cuda 12.4.0**
-- **pytorch 2.4.0**, torchvision 0.18.1, torchaudio 2.3.1
-- pandas 2.2.1, scikit-learn 1.4.2
+- **pytorch 2.4.0**, torchvision 0.19.0, torchaudio 2.4.0
+- pandas 2.2.3, scikit-learn 1.5.2
+
+![nvidia cuda install](./docs/images/13_nvidia_cuda_install.jpg)
+
+![pytorch install](./docs/images/14_pytorch_install.jpg)
 
 Creates a **/models directory** inside the virtual machine where all datasets, models code and weights will be downloaded.
 
@@ -341,15 +351,17 @@ Sets the following environment variables to achieve this goal:
 - KERAS_HOME=/models/keras
 - TFHUB_CACHE_DIR=/models/tfhub_modules
 
-The 'wordslab-notebooks' conda environment is automatically activated when you log in to the virtual machine.
+The 'pytorch-2.4' conda environment is automatically activated when you log in to the virtual machine.
 
 [3_install_jupyterlab_workspace](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/linux/3_install_jupyterlab_workspace.sh)
 
 Installs the Jupyterlab notebooks environment with the following plugins
-- jupyterlab 4.2.1 - notebooks development environment
-- jupyterlab_execute_time 3.1.2 - execution time of each cell
+- jupyterlab 4.2.5 - notebooks development environment
+- jupyterlab_execute_time 3.2.0 - execution time of each cell
 - jupyterlab-nvdashboard 0.11.00 - graphs to monitor cpu, gpu and memory load
-- jupyterlab-git 0.50.0 - visual git UI to version your notebooks and files
+- jupyterlab-git 0.50.1 - visual git UI to version your notebooks and files
+
+![jupyterlab install](./docs/images/15_jupyterlab_install.jpg)
 
 Creates a **/workspace directory** inside the virtual machine where all Jupyterlab config, notebooks and project directories will be stored.
 
@@ -369,5 +381,3 @@ Installs two scripts to help you initialize or delete workspace projects inside 
 The usage of these scripts will be described below in more details when we explain the lifecycle of a workspace project.
 
 Creates a first workspace project in /workspace/wordslab-notebooks-tutorials with **the wordslab-notebooks tutorials** found at https://github.com/wordslab-org/wordslab-notebooks-tutorials.
-
-3. Navigate to the directory named 'your-repo', and open a notebook with the kernel named 'your-repo'.
