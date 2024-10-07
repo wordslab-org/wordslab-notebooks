@@ -2,7 +2,6 @@ eval "$('/root/miniforge3/condabin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 conda activate pytorch-2.4
 
 if ! pgrep -x "dockerd" > /dev/null; then
-    echo "Docker is not running. Starting Docker service..."
     service docker start
 fi
 
