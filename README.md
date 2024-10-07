@@ -1,4 +1,4 @@
-# wordslab-notebooks
+# wordslab-notebooks - "AI at home"
 
 **wordslab-notebooks** provides a one click installer to set up a **GPU-accelerated workspace on your local PC** to develop and test **AI applications**.
 
@@ -16,6 +16,8 @@ What you will get
 - all that contained in a single "wordslab-notebooks" directory on your machine
 
 Don't be deceived by the apparent simplicity of this solution: simplicity is the main feature of the product! It is the result of **many iterations over 4 years** to converge to this lightweight and seamless experience. You will see over time that everything you try just works out of the box.
+
+![wordslab-notebooks architecture](./docs/images/wordslab-notebooks-architecture.jpg)
 
 WARNING: this local AI development environment is meant to be used **at home, on a computer which is not accessible from the internet**
 - ease of use was prioritized for a single user in a safe environment
