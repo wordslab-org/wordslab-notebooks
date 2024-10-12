@@ -95,6 +95,10 @@ Note: this procedure will download and unpack around 21 GB of software
 - on a fast computer with a 300 MBits/sec internet connection, this operation takes **9 minutes**
 - the disk size of the .\\wordslab-notebooks directory after install is **21.2 GB**
 
+The script will install Nvidia CUDA on your machine : you need to accept the NVIDIA End User licence agreement.
+
+[License Agreement for NVIDIA Software Development Kits — EULA](https://docs.nvidia.com/cuda/eula/index.html)
+
 Note: if the Windows Subsystem for Linux needs to be installed on your machine
 - you will have to click twice on the Yes button to authorize the script to make changes to your machine
 
