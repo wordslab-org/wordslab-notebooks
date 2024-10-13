@@ -1,6 +1,6 @@
 # wordslab-notebooks - "your AI at home"
 
-**wordslab-notebooks** provides a one click installer to set up an easy-to-use **GPU-accelerated workspace** on your local PC or on a cloud hosted virtual machine to use and develop **local AI applications**.
+**wordslab-notebooks** provides a one click installer to set up a **GPU-accelerated workspace** on your local gaming PC or on a cloud hosted virtual machine to use and develop **local AI applications**.
 
 What you need
 - a computer with a **x64 processor** (Intel or AMD) and at least 16 GB of RAM
@@ -27,17 +27,21 @@ WARNING: this local AI development environment is meant to be used **for persona
 ## Documentation sections
 
 - [Windows installation instructions](#windows-installation-instructions) (use your gaming PC at home)
+  - [Start and stop Jupyterlab](5-start-jupyterlab-and-test-your-environment)
+  - [Allow access from other computers on your local network](#7-optional-allow-access-to-your-wordslab-notebooks-workspace-from-other-computers-on-your-local-network)
+  - [Backup and restore your local environment](#8-optional-backup-and-restore-your-local-environment)
 - [Linux installation instructions](#linux-installation-instructions) (rent a cheap GPU in the cloud)
-- [User manual - Start your first AI projects](#user-manual-start-your-first-ai-projects)
-  - [1. Learn to use the wordslab-notebooks Jupyterlab environment](https://github.com/wordslab-org/wordslab-notebooks-tutorials)
-  - [2. Explore local implementations of the most frequent AI applications](#2--explore-local-implementations-of-the-most-frequent-ai-applications)
+  - [Get access to a Linux Virtual machine](#get-access-to-a-linux-virtual-machine)
+- [User manual - Start your first AI projects](#user-manual---start-your-first-ai-projects)
+  - [1. Learn to use the wordslab-notebooks Jupyterlab environment](https://github.com/wordslab-org/wordslab-notebooks-tutorials?tab=readme-ov-file#wordslab-notebooks-tutorials)
+  - [2. Explore local implementations of the most frequent AI applications](#2-explore-local-implementations-of-the-most-frequent-ai-applications)
     - [wordslab-chat](https://github.com/wordslab-org/wordslab-chat) 
     - [wordslab-images](https://github.com/wordslab-org/wordslab-images)
     - [wordslab-voice](https://github.com/wordslab-org/wordslab-voice)
     - [wordslab-documents](https://github.com/wordslab-org/wordslab-documents)
     - [wordslab-code](https://github.com/wordslab-org/wordslab-code)
     - [wordslab-data](https://github.com/wordslab-org/wordslab-data)
-  - [3. Initialize your first project](#3--initialize-your-first-project)
+  - [3. Initialize your first project](#3-initialize-your-first-project)
 - [Windows installation script details](#windows-installation-script-details)
   - [Uninstall wordslab-notebooks](#uninstall-wordslab-notebooks-from-your-windows-machine)
 - [Linux installation script details](#linux-installation-script-details)
