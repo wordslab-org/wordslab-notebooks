@@ -1,33 +1,52 @@
-# wordslab-notebooks - "AI at home"
+# wordslab-notebooks - "your AI at home"
 
-**wordslab-notebooks** provides a one click installer to set up a **GPU-accelerated workspace on your local PC** to develop and test **AI applications**.
+**wordslab-notebooks** provides a one click installer to set up an easy-to-use **GPU-accelerated workspace** on your local PC or on a cloud hosted virtual machine to use and develop **local AI applications**.
 
 What you need
-- a computer with a **x64 processor** (Intel or AMD) and at least 8 GB of RAM
-- a disk with at least 25 GB space free (50 GB recommended)
-- a **Nvidia GPU** if you want to train and use powerful AI models (RTX 3060 or higher recommended)
-- Windows 10 or 11 (up to date with the latest updates) or Ubuntu Linux 22.04 or 24.04
-- Windows only: administrator privileges to install the Windows Subsystem for Linux on your machine if it is not already available
+- a computer with a **x64 processor** (Intel or AMD) and at least 16 GB of RAM
+- a SSD disk with at least 25 GB space free (100 GB recommended)
+- a **Nvidia GPU** - RTX 3060 or higher - with 8 GB of VRAM or more
+- If you own a **gaming PC at home**: Windows 10 or 11 (latest updates) - administrator privileges are necessary only if Windows Subsystem for Linux is not already installed on your machine or if you want to enable remote access
+- If you rent a **virtual machine in the cloud**: Ubuntu Linux 22.04 or 24.04 with root access
+- Note: Apple silicon, AMD GPU and Intel or Qualcomm NPU processors are not supported yet
 
 What you will get
 - a fully featured AI development environment based on **Jupyterlab notebooks** with popular tools and extensions
 - a consistent installation of all the GPU-accelerated Python libraries you need to start your projects right away (see list below)
 - scripts and tutorials to guide you through the whole development lifecycle (with Github and Huggingface)
-- all that contained within a single "wordslab-notebooks" directory on your machine
+- all that contained within a single "wordslab-notebooks" directory on your Windows machine
 
-Don't be deceived by the apparent simplicity of this solution: simplicity is the main feature of the product! 
+Don't be deceived by the apparent simplicity of this solution: **simplicity is the main feature of the product**. 
 
-It is the result of **many iterations over 4 years** to converge to this lightweight and seamless experience. You will see over time that everything you try just works out of the box.
+It is the result of many iterations over 4 years to converge to this lightweight and seamless experience. You will see over time that everything you try just works out of the box.
 
-![wordslab-notebooks architecture](./docs/images/wordslab-notebooks-architecture.jpg)
-
-WARNING: this local AI development environment is meant to be used **at home, on a computer which is not accessible from the internet**
+WARNING: this local AI development environment is meant to be used **for personal use only, on a computer which is not directly accessible from the internet**
 - ease of use was prioritized for a single user in a safe environment
 - **no access control or security measures** are implemented
 
+## Documentation sections
+
+- [Windows installation instructions](#windows-installation-instructions) (use your gaming PC at home)
+- [Linux installation instructions](#linux-installation-instructions) (rent a cheap GPU in the cloud)
+- [User manual - Start your first AI projects](#user-manual-start-your-first-ai-projects)
+  - [1. Learn to use the wordslab-notebooks Jupyterlab environment](https://github.com/wordslab-org/wordslab-notebooks-tutorials)
+  - [2. Explore local implementations of the most frequent AI applications](#2--explore-local-implementations-of-the-most-frequent-ai-applications)
+    - [wordslab-chat](https://github.com/wordslab-org/wordslab-chat) 
+    - [wordslab-images](https://github.com/wordslab-org/wordslab-images)
+    - [wordslab-voice](https://github.com/wordslab-org/wordslab-voice)
+    - [wordslab-documents](https://github.com/wordslab-org/wordslab-documents)
+    - [wordslab-code](https://github.com/wordslab-org/wordslab-code)
+    - [wordslab-data](https://github.com/wordslab-org/wordslab-data)
+  - [3. Initialize your first project](#3--initialize-your-first-project)
+- [Windows installation script details](#windows-installation-script-details)
+  - [Uninstall wordslab-notebooks](#uninstall-wordslab-notebooks-from-your-windows-machine)
+- [Linux installation script details](#linux-installation-script-details)
+
 ## Windows installation instructions
 
-### 0. Update your system software to the latest version
+![wordslab-notebooks architecture](./docs/images/wordslab-notebooks-architecture.jpg)
+
+### Update your system software to the latest version
 
 Go to Windows Settings -> Windows Update and make sure the latest version of Windows 10 or 11 is installed.
 
@@ -95,7 +114,7 @@ Note: this procedure will download and unpack around 21 GB of software
 - on a fast computer with a 300 MBits/sec internet connection, this operation takes **9 minutes**
 - the disk size of the .\\wordslab-notebooks directory after install is **21.2 GB**
 
-The script will install Nvidia CUDA on your machine : you need to accept the NVIDIA End User licence agreement.
+The script will install Nvidia CUDA software on your machine, you need to accept the NVIDIA End User licence agreement before using wordslab-notebooks:
 
 [License Agreement for NVIDIA Software Development Kits — EULA](https://docs.nvidia.com/cuda/eula/index.html)
 
@@ -276,9 +295,152 @@ Notes
 - this is much faster and should only take around 10 seconds on a fast computer
 - be careful not to overwrite a valid state of your wordslab-notebooks environment with an old backup
 
-## User manual - AI projects lifecycle
+## Linux installation instructions
 
-### 1. Initialize your first project
+### Get access to a Linux Virtual machine
+
+If you already own a Linux virtual machine with a Nvidia GPU:
+- make sure it runs Ubuntu 22.04 or 24.04 (other versions may also work but they are not tested)
+- **make sure that you can use your virtual machine as the root user** (wordslab-notebooks is optimlized for a single user test environment at home, it assumes you will work directly as the root user for simplicity)
+- log in as root and update your operating system before starting the installation procedure: apt update && apt upgrade
+
+If you don't, you will need to rent a virtual machine in the cloud: you can rent virtual machines running on consumer GPUs for as low as 0.15-0.20 $ per hour, which means that if you only use your virtual machine 4 hours per day for a personal project at home, your bill will be in the 25$-30$ range. This can be a really cost-effective solution compared to the option of buying a 1500$ gaming PC.
+
+The best options for renting GPUs in the cloud are changing every month, but the two options below have been around for quite some time and are recommended for their simplicity.
+
+#### vast.ai
+
+https://vast.ai
+
+#### jarvislabs.ai
+
+https://jarvislabs.ai/
+
+### 1. Download wordslab-notebooks install scripts
+
+```bash
+curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
+tar -x -f wordslab-notebooks.zip
+rm wordslab-notebooks.zip
+mv wordslab-notebooks-main wordslab-notebooks
+cd wordslab-notebooks
+```
+
+### 2. Install or update basic Linux packages and configure the virtual machine
+
+```bash
+bash ./install/linux/0_install-ubuntu-packages.sh
+```
+
+### 3. [optional] Install Pytorch and CUDA if they are not already available
+
+Most virtual machines with GPUs you can rent in the cloud are provided with Pytorch and CUDA already pre-installed: in this case you can skip this step.
+
+You can check if everything is installed and working as expected with the following command (you may need to activate a conda environment first depending on the way your virtual machine was set up):
+
+```bash
+python -c "import torch; print(f'PyTorch version: {torch.__version__}'); print(f'CUDA version: {torch.version.cuda}'); print(f'GPU model: {torch.cuda.get_device_name(0)}')"
+```
+
+> PyTorch version: 2.4.0
+> CUDA version: 12.4
+> GPU model: NVIDIA GeForce RTX 3070 Ti Laptop GPU
+
+If PyTorch is not found or if the installed version is too old, install the latest versions of Pytorch and CUDA in a new conda environement byt executing the following script:
+
+```bash
+bash ./install/linux/1_install-python-envmanager.sh
+bash ./install/linux/2_install-pytorch-cuda.sh
+```
+
+### 4. [optional] Install Jupyterlab if it is not already available
+
+Most virtual machines with GPUs you can rent in the cloud are provided with Jupyterlab already pre-installed: in this case you can skip this step.
+
+If you access your virtual machine through a Jupyterlab interface, you can move to next section.
+
+If you access your virtual machine through ssh, install Jupyterlab with the following command:
+
+```bash
+bash ./install/linux/3_install-jupyterlab-workspace.sh
+```
+
+### 5. Configure the Jupyterlab installation for wordslab-notebooks
+
+Coming soon.
+
+### 6. [optional] Start and stop Jupyterlab manually if it is not already provided
+
+Note: you may need to first update the script below to adjust the port number on which the Jupyterlab web server is started so that Jupyterlab is remotely accessible: check the documentation of your cloud provider.
+
+```bash
+bash ./start-wordslab-notebooks.sh
+```
+
+**Leave the Terminal open** as long as you want to use Jupyterlab: you will see logs displayed on the screen as you work in Jupyterlab, this is normal, you can ignore them.
+
+**Open your browser** and navigate to the URL corresponding to your cloud virtual machine: https://yourcloudvirtualmachine:8888.
+
+When your work session with Jupyterlab is finished
+- please **make sure that you have saved** all the opened files
+- click on the Terminal from which you launched Jupyterlab and which should still be open
+- press the following two keys to stop the server, then confirm by pressing the key [y]
+
+```
+[Ctrl + c]
+```
+
+Depending on the cloud service you use :
+- all your work and the current configuration of your development environment will be **saved** until your next work session in the virtual machine disk if you **pause** the virtual machine (and you will be billed for the storage cost)
+- - all your work and the current configuration of your development environment will be **lost** forever if you **delete** the virtual machine (and you will not be billed for the storage cost)
+ 
+In the second case, it is very important to make sure that you saved all your work and data in Github and Huggingface hub for example before you delete your virtual machine.
+  
+## User manual - Start your first AI projects
+
+### 1. Learn to use the wordslab-notebooks Jupyterlab environment
+
+https://github.com/wordslab-org/wordslab-notebooks-tutorials
+
+### 2. Explore local implementations of the most frequent AI applications
+
+#### wordslab-chat
+
+Local implementation of a fully featured ChatGPT like conversational assistant.
+
+https://github.com/wordslab-org/wordslab-chat
+
+#### wordslab-images
+
+Local implementation of state of the art image generation and processing techniques.
+
+https://github.com/wordslab-org/wordslab-images
+
+#### wordslab-voice
+
+Local implementation of state of the art voice transcription and generation techniques.
+
+https://github.com/wordslab-org/wordslab-voice
+
+#### wordslab-documents
+
+Local implementation of state of the art OCR and document processing techniques.
+
+https://github.com/wordslab-org/wordslab-documents
+
+#### wordslab-code
+
+Local implementation of an AI-assisted code development workflow.
+
+https://github.com/wordslab-org/wordslab-code
+
+#### wordslab-data
+
+Local implementation of machine learning and deep learning algorithms to work on structured data.
+
+https://github.com/wordslab-org/wordslab-data
+
+### 3. Initialize your first project
 
 1. Initialize a Github project.
 
@@ -289,10 +451,6 @@ create-workspace-project https://github.com/your-org/your-repo.git
 ```
 
 3. Navigate to the directory named 'your-repo', and open a notebook with the kernel named 'your-repo'.
-
-### 2. Discover the Jupyterlab environment and read the tutorials
-
-See https://github.com/wordslab-org/wordslab-notebooks-tutorials
 
 ## Windows installation script details
 
@@ -312,9 +470,27 @@ Creates a Windows Subsystem for Linux virtual machine named **'wordslab-notebook
 
 ![virtual machine install](./docs/images/11_virtual_machine_install.jpg)
 
+### Uninstall wordslab-notebooks from your Windows machine
+
+The two scripts below can be used to fully uninstall wordslab-notebooks from your machine.
+
+Navigate to the directory: *C:\wordslab\wordslab-notebooks\install\windows*.
+
+**WARNING**: all the code and data stored in your virtual machine will be **irremediably lost** !
+
+1. Delete the wordslab-notebooks virtual machine
+
+Execute the script: *98_delete-linux-virtual-machine.bat*
+
+2. Uninstall Windows Subsystem for Linux and Virtual Machine Platform from your Windows machine
+
+Execute the script: *99_uninstall-windows-subsystem-for-linux.bat*
+
+## Linux installation script details
+
 [linux/0_install-ubuntu-packages](https://github.com/wordslab-org/wordslab-notebooks/blob/main/install/linux/0_install-ubuntu-packages.sh)
 
-Installs basic Linux packages and configures the virtual machine
+Installs basic Linux packages and configures the Linux virtual machine
 - sudo locales ca-certificates
 - iputils-ping net-tools traceroute openssh-client
 - curl wget unzip
@@ -385,19 +561,3 @@ Installs two scripts to help you initialize or delete workspace projects inside 
 The usage of these scripts will be described below in more details when we explain the lifecycle of a workspace project.
 
 Creates a first workspace project in /workspace/wordslab-notebooks-tutorials with **the wordslab-notebooks tutorials** found at https://github.com/wordslab-org/wordslab-notebooks-tutorials.
-
-### Uninstall wordslab-notebooks from your machine
-
-The two scripts below can be used to fully uninstall wordslab-notebooks from your machine.
-
-Navigate to the directory: *C:\wordslab\wordslab-notebooks\install\windows*.
-
-**WARNING**: all the code and data stored in your virtual machine will be **irremediably lost** !
-
-1. Delete the wordslab-notebooks virtual machine
-
-Execute the script: *98_delete-linux-virtual-machine.bat*
-
-2. Uninstall Windows Subsystem for Linux and Virtual Machine Platform from your Windows machine
-
-Execute the script: *99_uninstall-windows-subsystem-for-linux.bat*
