@@ -24,10 +24,22 @@ WARNING: this local AI development environment is meant to be used **for persona
 - ease of use was prioritized for a single user in a safe environment
 - **no access control or security measures** are implemented
 
+> wordslab-notebooks screenshot
+
+![wordslab-notebooks screenshot](./docs/images/wordslab-notebooks-screenshot.jpg)
+
+> wordslab-chat screenshot
+
+![wordslab-chat screenshot](./docs/images/wordslab-chat-screenshot.jpg)
+
+> wordslab-images screenshot
+
+![wordslab-images screenshot](./docs/images/wordslab-images-screenshot.jpg)
+
 ## Documentation sections
 
 - [Windows installation instructions](#windows-installation-instructions) (use your gaming PC at home)
-  - [Start and stop Jupyterlab](5-start-jupyterlab-and-test-your-environment)
+  - [Start and stop Jupyterlab](#5-start-jupyterlab-and-test-your-environment)
   - [Allow access from other computers on your local network](#7-optional-allow-access-to-your-wordslab-notebooks-workspace-from-other-computers-on-your-local-network)
   - [Backup and restore your local environment](#8-optional-backup-and-restore-your-local-environment)
 - [Linux installation instructions](#linux-installation-instructions) (rent a cheap GPU in the cloud)
