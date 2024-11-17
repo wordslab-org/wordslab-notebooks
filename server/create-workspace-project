@@ -1,8 +1,8 @@
 if [ -z "$1" ]; then
     echo "Please provide at least one argument to create a workspace project directory and its associated virtual environment."
-    echo "New project in /workspace/myprojectdir : create-workspace-project myprojectdir"
-    echo "Github repo in /workspace/fastbook     : create-workspace-project https://github.com/fastai/fastbook.git"
-    echo "Github repo in /workspace/myprojectdir : create-workspace-project https://github.com/fastai/fastbook.git myprojectdir"
+    echo "New project in $WORKSPACE_DIR/myprojectdir : create-workspace-project myprojectdir"
+    echo "Github repo in $WORKSPACE_DIR/fastbook     : create-workspace-project https://github.com/fastai/fastbook.git"
+    echo "Github repo in $WORKSPACE_DIR/myprojectdir : create-workspace-project https://github.com/fastai/fastbook.git myprojectdir"
     exit 1
 fi
 if [[ $1 == *.git ]]; then
@@ -16,16 +16,16 @@ else
     git_url=""
     dir_name=$1
 fi
-if [ -d "/workspace/$dir_name" ]; then
-    echo "Directory /workspace/$dir_name already exists: please choose another project name"
+if [ -d "$WORKSPACE_DIR/$dir_name" ]; then
+    echo "Directory $WORKSPACE_DIR/$dir_name already exists: please choose another project name"
     exit 1
 fi
-echo "Creating project directory: /workspace/$dir_name"
-mkdir -p /workspace/$dir_name
-cd /workspace/$dir_name
+echo "Creating project directory: $WORKSPACE_DIR/$dir_name"
+mkdir -p $WORKSPACE_DIR/$dir_name
+cd $WORKSPACE_DIR/$dir_name
 if [ ! -z "$git_url" ]; then
     echo "Cloning git repository: $git_url"
-    git clone $git_url /workspace/$dir_name
+    git clone $git_url $WORKSPACE_DIR/$dir_name
 else
     git init 2> /dev/null
 fi
