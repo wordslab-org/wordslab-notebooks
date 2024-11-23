@@ -12,8 +12,6 @@ source ~/wordslab-notebooks-environment.sh
 ./3_1_configure-jupyterlab.sh
 source ~/wordslab-notebooks-environment.sh
 ./3_3_configure_jupyterlab_resources_monitoring.sh
-./3_4_install_vscode_server.sh
 
 echo 'source ~/wordslab-notebooks-environment.sh' >> ~/.bashrc
 echo 'cd $WORKSPACE_DIR' >> ~/.bashrc
-./4_start_on_jarvislabs_ai.sh
