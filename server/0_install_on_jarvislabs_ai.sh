@@ -1,11 +1,10 @@
-cpu=$1
-
 ./1_1_install-ubuntu-packages.sh
 ./1_3_configure_storage_and_ports.sh / /home
 source ~/wordslab-notebooks-environment.sh
 
 cp 2_1_activate-python-envmanager_on_jarvislab_ai.sh ~/.bashrc
-source~/.bashrc
+source ~/.bashrc
+conda config --append channels conda-forge
 ./2_3_install_datascience_libs.sh
 source ~/wordslab-notebooks-environment.sh
 ./2_4_setup_virtual_environments_scripts.sh
