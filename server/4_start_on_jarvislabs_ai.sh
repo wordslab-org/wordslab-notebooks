@@ -1,10 +1,10 @@
-eval "$('/root/miniforge3/condabin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-conda activate pytorch-2.4
+code-server --auth none --bind-addr 0.0.0.0 --port $VSCODE_PORT --user-data-dir $WORKSPACE_DIR/.code-server --extensions-dir $WORKSPACE_DIR/.code-server/extensions --config $WORKSPACE_DIR/.code-server/config.yaml $WORKSPACE_DIR &
+pid1=$!
 
-if ! pgrep -x "dockerd" > /dev/null; then
-    service docker start
-fi
-
-coder server &
-
-jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=8888 -IdentityProvider.token="" --no-browser -ServerApp.allow_root=True -ServerApp.allow_remote_access=True -ServerApp.root_dir="/workspace"
+# Define cleanup function to kill both commands
+cleanup() {
+  echo "Stopping commands..."
+  kill $pid1
+}
+# Trap SIGINT and call cleanup
+trap cleanup SIGINT
