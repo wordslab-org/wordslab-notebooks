@@ -1,5 +1,3 @@
-nbdev=2.3.31
-
 cpu=$1
 
 ./1_1_install-ubuntu-packages.sh
