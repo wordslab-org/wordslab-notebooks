@@ -1,8 +1,8 @@
-workspace_root=$1
-models_root=$2
+workspace_dir=$1
+models_dir=$2
 
-echo "export WORKSPACE_DIR=$1workspace" >> ~/wordslab-notebooks-environment.sh
-echo "export MODELS_DIR=$2models" >> ~/wordslab-notebooks-environment.sh
+echo "export WORKSPACE_DIR=$workspace_dir" >> ~/wordslab-notebooks-environment.sh
+echo "export MODELS_DIR=$models_dir" >> ~/wordslab-notebooks-environment.sh
 
 echo "export JUPYTERLAB_PORT=8888" >> ~/wordslab-notebooks-environment.sh
 echo "export GRADIO_PORT=7860" >> ~/wordslab-notebooks-environment.sh
