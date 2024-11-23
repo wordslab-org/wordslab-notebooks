@@ -5,7 +5,7 @@ cpu=$1
 if [ "$cpu" == "false" ]; then
     ./1_2_install_nvidia_container_runtime.sh
 fi
-./1_3_configure_storage_and_ports.sh / /
+./1_3_configure_storage_and_ports.sh /workspace /models
 source ~/wordslab-notebooks-environment.sh
 
 ./2_1_install-python-envmanager.sh
