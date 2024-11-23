@@ -1,5 +1,5 @@
 ./1_1_install-ubuntu-packages.sh
-./1_3_configure_storage_and_ports.sh / /home
+./1_3_configure_storage_and_ports.sh /home /home/models
 source ~/wordslab-notebooks-environment.sh
 
 cp 2_1_activate-python-envmanager_on_jarvislab_ai.sh ~/.bashrc
@@ -16,5 +16,4 @@ source ~/wordslab-notebooks-environment.sh
 
 echo 'source ~/wordslab-notebooks-environment.sh' >> ~/.bashrc
 echo 'cd $WORKSPACE_DIR' >> ~/.bashrc
-cp ./4_start_on_jarvislabs_ai.sh ~/start-wordslab-notebooks.sh
-chmod u+x ~/start-wordslab-notebooks.sh
+./4_start_on_jarvislabs_ai.sh
