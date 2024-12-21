@@ -1,3 +1,3 @@
-conda install -y jupyterlab=4.2.5
+pip install jupyterlab=4.3.4
 
 ./3_1_configure-jupyterlab.sh
