@@ -1,1 +1,1 @@
-conda install -y jupyterlab-git=0.50.1
+pip install jupyterlab-git=0.50.2
