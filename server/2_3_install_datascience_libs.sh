@@ -1,4 +1,4 @@
-conda install -y pandas=2.2.3 scikit-learn=1.5.2
+pip install pandas=2.2.3 scikit-learn=1.6.0
 
 mkdir -p $MODELS_DIR
 
