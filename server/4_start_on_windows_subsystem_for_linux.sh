@@ -8,12 +8,15 @@ pid1=$!
 jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYTERLAB_PORT -IdentityProvider.token="" --no-browser -ServerApp.allow_root=True -ServerApp.allow_remote_access=True -ServerApp.root_dir="$WORKSPACE_DIR" &
 pid2=$!
 
-# Define cleanup function to kill both commands
+OLLAMA_HOME=0.0.0.0  $WORKSPACE_DIR/ollama/bin/ollama serve &
+pid3=$!
+
+# Define cleanup function to kill all commands
 cleanup() {
   echo "Stopping commands..."
-  kill $pid1 $pid2
+  kill $pid1 $pid2 $pid3
 }
 # Trap SIGINT and call cleanup
 trap cleanup SIGINT
-# Wait for both processes to finish
-wait $pid1 $pid2
+# Wait for all processes to finish
+wait $pid1 $pid2 $pid3
