@@ -1,4 +1,4 @@
-pip install nbdev=2.3.34
+pip install nbdev==2.3.34
 
 mkdir -p $WORKSPACE_DIR
 
