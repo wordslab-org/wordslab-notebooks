@@ -25,7 +25,7 @@ source ~/wordslab-notebooks-environment.sh
 ./3_2_configure_jupyterlab_git_support.sh
 ./3_3_configure_jupyterlab_resources_monitoring.sh
 ./3_4_install_vscode_server.sh
-./3_5_install-ollama-openwebui.sh
+./3_5_install-ollama.sh
 ./3_6_install-open-webui.sh
 
 echo 'source ~/wordslab-notebooks-environment.sh' >> ~/.bashrc
