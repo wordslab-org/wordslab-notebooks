@@ -1,5 +1,5 @@
 eval "$('/root/miniforge3/condabin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-conda activate pytorch-2.4
+conda activate wordslab-2024-12
 
 if ! pgrep -x "dockerd" > /dev/null; then
     service docker start
