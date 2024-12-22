@@ -40,8 +40,10 @@ if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
 call 2_create-linux-virtual-machine.bat %name%
 call 3_install-linux-virtual-machine.bat %name% %cpu%
 
+cd .\host\windows
+
 if defined models (
-    call 4_create_linux_virtual_disk.bat "%models%"
+    call 4_create-linux-virtual-disk.bat "%models%"
 ) 
 
 cd .\
