@@ -1,3 +1,5 @@
+eval "$('/root/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+
 conda create -y --name open-webui-2024-12 python==3.11.11
 conda activate open-webui-2024-12
 
