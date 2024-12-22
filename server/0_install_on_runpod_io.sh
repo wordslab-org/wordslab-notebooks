@@ -1,5 +1,4 @@
 cpu=$1
-condaenv="pytorch-2.4"
 
 ./1_1_install-ubuntu-packages.sh
 ./1_2_install_docker.sh
@@ -9,9 +8,9 @@ fi
 ./1_3_configure_storage_and_ports.sh
 ./2_1_install-python-envmanager.sh
 if [ "$cpu_flag" == "true" ]; then
-    ./2_2_install-pytorch-cpu.sh $condaenv
+    ./2_2_install-pytorch-cpu.sh
 else
-    ./2_2_install-pytorch-cuda.sh $condaenv
+    ./2_2_install-pytorch-cuda.sh
 fi
 ./2_3_install_datascience_libs.sh
 ./2_4_setup_virtual_environments_scripts.sh
