@@ -1,4 +1,4 @@
-pip install pandas=2.2.3 scikit-learn=1.6.0
+pip install pandas==2.2.3 scikit-learn==1.6.0
 
 mkdir -p $MODELS_DIR
 
