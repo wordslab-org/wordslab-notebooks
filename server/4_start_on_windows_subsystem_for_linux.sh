@@ -11,7 +11,7 @@ pid2=$!
 OLLAMA_HOME=0.0.0.0  $WORKSPACE_DIR/ollama/bin/ollama serve &
 pid3=$!
 
-conda activate openwebui-2024-12
+conda activate open-webui-2024-12
 ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:8080 DATA_DIR=$WORKSPACE_DIR/open-webui FUNCTIONS_DIR=$WORKSPACE_DIR/open-webui/functions TOOLS_DIR=$WORKSPACE_DIR/open-webui/tools open-webui serve --host 0.0.0.0 --port 8080 &
 pid4=$!
 conda deactivate
