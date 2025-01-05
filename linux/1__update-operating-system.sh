@@ -20,7 +20,7 @@ fi
 
 # Don't execute this right now when installing for the first time
 # -> in this case, the shell is configured later at the end of the installation process
-if [ -f /.dockerenv ]; then
+if [ -f /.wordslab-$WORDSLAB_VERSION-installed ]; then
 
     # When a new shell is launched
     # - define environment variables for storage paths and ports

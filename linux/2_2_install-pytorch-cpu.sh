@@ -9,3 +9,6 @@ conda create -y --prefix $WORDSLAB_NOTEBOOKS_ENV python==3.12.8 ninja=1.12.1 ipy
 conda activate $WORDSLAB_NOTEBOOKS_ENV
 
 pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+
+# Register that the install is CPU only
+touch $WORDSLAB_NOTEBOOKS_ENV/.cpu-only

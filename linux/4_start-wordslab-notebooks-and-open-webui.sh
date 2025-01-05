@@ -29,6 +29,13 @@ pid3=$!
 
 # Start open-webui server
 conda activate $OPENWEBUI_ENV
+
+if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
+    export USE_CUDA_DOCKER="false"
+else
+    export USE_CUDA_DOCKER="true"
+fi
+
 ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools open-webui serve --host 0.0.0.0 --port OPENWEBUI_PORT &
 pid4=$!
 conda deactivate
