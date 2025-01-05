@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# 1. Check and extract script parameters
+if [ -z "$1" ]; then
+    echo "Please provide at least one argument to create a workspace project directory and its associated virtual environment."
+    echo "New project in $WORDSLAB_WORKSPACE/myprojectdir : create-workspace-project myprojectdir"
+    echo "Github repo in $WORDSLAB_WORKSPACE/fastbook     : create-workspace-project https://github.com/fastai/fastbook.git"
+    echo "Github repo in $WORDSLAB_WORKSPACE/myprojectdir : create-workspace-project https://github.com/fastai/fastbook.git myprojectdir"
+    exit 1
+fi
+if [[ $1 == *.git ]]; then
+    git_url=$1
+    if [ ! -z "$2" ]; then
+        dir_name=$2
+    else
+        dir_name=$(basename $1 .git)
+    fi
+else
+    git_url=""
+    dir_name=$1
+fi
+if [ -d "$WORDSLAB_WORKSPACE/$dir_name" ]; then
+    echo "Directory $WORDSLAB_WORKSPACE/$dir_name already exists: please choose another project name"
+    exit 1
+fi
+
+# 2. Create a project directory in the workspace
+echo "Creating project directory: $WORDSLAB_WORKSPACE/$dir_name"
+mkdir -p $WORDSLAB_WORKSPACE/$dir_name
+cd $WORDSLAB_WORKSPACE/$dir_name
+
+# 3. Extract a git repo in this directory or initialize en empty repo
+if [ ! -z "$git_url" ]; then
+    echo "Cloning git repository: $git_url"
+    git clone $git_url $WORDSLAB_WORKSPACE/$dir_name
+else
+    git init 2> /dev/null
+fi
+if ! grep -qxF ".venv" .gitignore; then
+    echo ".venv" >> .gitignore
+    git add .gitignore
+fi
+
+# 4. Create a dedicated Python virtual environment for the project
+echo "Creating a virtual environment and Jupyter kernel for project: $dir_name"
+python -m venv --system-site-packages --prompt $dir_name .venv
+source .venv/bin/activate
+
+# 5. Create a Jupyter kernel with the project name for this virtual environment
+python -m ipykernel install --user --name=$dir_name
+echo "Virtual environment is ready for project $dir_name"

@@ -32,7 +32,7 @@ shift
 goto parse_args
 :end_args
 
-cd .\host\windows
+cd .\windows
 
 call 1_install-or-update-windows-subsystem-for-linux.bat
 if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%

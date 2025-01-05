@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# 1. Check and extract script parameters
+if [ -z "$1" ]; then
+    echo "Please provide the name of the workspace project directory you want to delete."
+    echo "Delete project in $WORDSLAB_WORKSPACE/myprojectdir : delete-workspace-project myprojectdir"
+    exit 1
+else
+    dir_name=$1
+fi
+if [ ! -d "$WORDSLAB_WORKSPACE/$dir_name" ]; then
+    echo "Directory $WORDSLAB_WORKSPACE/$dir_name not found: please choose another project name"
+    exit 1
+fi
+
+# 2. Delete the Jupyter kernel dedicated to the project
+echo "Deleting the Jupyter kernel for project: $dir_name"
+jupyter kernelspec uninstall -y $dir_name
+
+# 3. Delete the project directory and virtual environment
+echo "Deleting the workspace project directory: $WORDSLAB_WORKSPACE/$dir_name"
+rm -rf $WORDSLAB_WORKSPACE/$dir_name

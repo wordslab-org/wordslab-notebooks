@@ -6,6 +6,6 @@ if %errorLevel% GTR 0 (
     exit /B
 )
 
-PowerShell -ExecutionPolicy Bypass -File %~dp0host\windows\5_allow-remote-access-to-vm-ports.ps1 %*
+PowerShell -ExecutionPolicy Bypass -File %~dp0windows\5_allow-remote-access-to-vm-ports.ps1 %*
 
 pause

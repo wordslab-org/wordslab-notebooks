@@ -1,4 +1,7 @@
+#!/bin/bash
 export DEBIAN_FRONTEND=noninteractive
+
+# 
 
 apt update
 apt install --yes sudo locales ca-certificates curl wget unzip less vim tmux screen git git-lfs htop nvtop iputils-ping net-tools traceroute openssh-client build-essential cmake ffmpeg
