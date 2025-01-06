@@ -8,7 +8,7 @@ cpu_only=$1
 
 # Install Docker only if we are not already inside a Docker container
 if [ ! -f /.dockerenv ]; then
-    ./1_2_install_docker.sh
+    ./1_2_install-docker.sh
 
     # Install the Nvidia container runtime 
     # in order to be able to access the GPU inside the Docker containers
