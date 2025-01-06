@@ -4,7 +4,7 @@
 cd linux
 
 # Set the initial environment variables
-source ./_wordslab-notebooks-env.bashrc.sh
+source ./_wordslab-notebooks-env.bashrc
 
 # Make sure all the necessary Ubtunu packages are installed
 ./1__update-operating-system.sh
