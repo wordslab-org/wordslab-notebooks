@@ -12,7 +12,7 @@ else
 fi
 
 # Activate this conda environment
-eval "$('$CONDA_DIR/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+source <("$CONDA_DIR/bin/conda" 'shell.bash' 'hook' 2> /dev/null)
 conda activate $WORDSLAB_NOTEBOOKS_ENV
 
 # Install basic datascience librairies
