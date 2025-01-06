@@ -3,7 +3,7 @@
 # Create a dedicated conda environment to install Open WebUI and its dependencies
 # The files are stored in an independent and persistent directory: $WORDSLAB_NOTEBOOKS_ENV (see _wordslab-notebooks-env.bashrc)
 
-eval "$('$CONDA_DIR/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+source <("$CONDA_DIR/bin/conda" 'shell.bash' 'hook' 2> /dev/null)
 
 conda create -y --prefix $OPENWEBUI_ENV python==3.12.8
 conda activate $OPENWEBUI_ENV
