@@ -5,9 +5,13 @@
 # Source _wordslab-notebooks.bashrc in ~/.bashrc
 # - set environment variables for storage and ports
 # - start a new shell in the right Python environment and the right directory
-SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
-echo 'source $SCRIPT_DIR/_wordslab-notebooks-env.bashrc' >> ~/.bashrc
-echo 'source $SCRIPT_DIR/_wordslab-notebooks-init.bashrc' >> ~/.bashrc
+
+cp ./_wordslab-notebooks-env.bashrc' ~
+cp ./_wordslab-notebooks-init.bashrc' ~
+
+echo '' >> ~/.bashrc
+echo 'source ~/_wordslab-notebooks-env.bashrc' >> ~/.bashrc
+echo 'source ~/_wordslab-notebooks-init.bashrc' >> ~/.bashrc
 
 # Add a flag file to avoid installing twice
 touch /.wordslab-$WORDSLAB_VERSION-installed
