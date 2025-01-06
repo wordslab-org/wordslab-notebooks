@@ -5,8 +5,6 @@
 
 curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
 
-mkdir -p $CONDA_DIR
-
 bash Miniforge3-Linux-x86_64.sh -b -p $CONDA_DIR
 
 rm  Miniforge3-Linux-x86_64.sh
