@@ -6,8 +6,9 @@
 # - set environment variables for storage and ports
 # - start a new shell in the right Python environment and the right directory
 
-cp ./_wordslab-notebooks-env.bashrc' ~
-cp ./_wordslab-notebooks-init.bashrc' ~
+cp ./_wordslab-notebooks-env.bashrc ~
+cp ./_wordslab-notebooks-init.bashrc ~
+cp ../start-wordslab-notebooks.sh ~
 
 echo '' >> ~/.bashrc
 echo 'source ~/_wordslab-notebooks-env.bashrc' >> ~/.bashrc
