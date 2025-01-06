@@ -7,4 +7,4 @@ curl -fsSL https://code-server.dev/install.sh | sh -s -- --prefix=$VSCODE_DIR
 mkdir $VSCODE_DATA
 
 # Install the Microsoft Python extension
-code-server --install-extension ms-python.python
+code-server --install-extension ms-python.python --extensions-dir $VSCODE_DATA/extensions
