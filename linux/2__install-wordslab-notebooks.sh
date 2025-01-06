@@ -17,7 +17,7 @@ conda activate $WORDSLAB_NOTEBOOKS_ENV
 
 # Install basic datascience librairies
 # Configure all popular deeplearning librairies to download their models and datasets under the $WORDSLAB_MODELS directory (see _wordslab-notebooks-env.bashrc) 
-./2_3_install_datascience_libs.sh
+./2_3_install-datascience-libs.sh
 
 # Install Jupyterlab and a few usefuls extensions
 # Configure Jupyterlab to store all its state under the $WORDSLAB_WORKSPACE directory (see _wordslab-notebooks-env.bashrc)
