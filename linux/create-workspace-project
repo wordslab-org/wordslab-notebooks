@@ -47,5 +47,5 @@ python -m venv --system-site-packages --prompt $dir_name .venv
 source .venv/bin/activate
 
 # 5. Create a Jupyter kernel with the project name for this virtual environment
-python -m ipykernel install --user --name=$dir_name
+python -m ipykernel install --prefix=$JUPYTER_DATA_DIR --name=$dir_name
 echo "Virtual environment is ready for project $dir_name"
