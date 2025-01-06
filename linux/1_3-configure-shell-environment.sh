@@ -8,7 +8,7 @@
 
 cp ./_wordslab-notebooks-env.bashrc ~
 cp ./_wordslab-notebooks-init.bashrc ~
-cp ../start-wordslab-notebooks.sh ~
+cp ./4_start-wordslab-notebooks-and-open-webui.sh ~/start-wordslab-notebooks.sh
 
 echo '' >> ~/.bashrc
 echo 'source ~/_wordslab-notebooks-env.bashrc' >> ~/.bashrc
