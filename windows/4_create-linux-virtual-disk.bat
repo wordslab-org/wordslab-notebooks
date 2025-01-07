@@ -5,7 +5,7 @@ curl -L -o alpine.tar https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/x86_6
 wsl --import wordslab-notebooks-models %~1\wordslab-notebooks-models alpine.tar
 del alpine.tar
 
-wsl -d wordslab-notebooks-models -- mkdir -p /models
+wsl -d wordslab-notebooks-models -- mkdir -p /home/models
 
 
 
