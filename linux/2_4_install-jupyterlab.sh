@@ -14,7 +14,7 @@ pip install jupyterlab-nvdashboard==0.11.00 pynvml==11.5.3
 pip install nbdev==2.3.34
 
 # Install AI extension for Jupyter notebooks
-pip install jupyter-ai==2.28.4 langchain-ollama langchain-openai
+pip install jupyter-ai==2.28.4 langchain-ollama==0.2.2 langchain-openai==0.2.14
 
 # Configure Jupyterlab to store all its state under the $WORDSLAB_WORKSPACE directory (see _wordslab-notebooks-env.bashrc)
 

@@ -21,6 +21,7 @@ fi
 export WORDSLAB_HOME="/home"
 
 # Install directories
+export WORDSLAB_NOTEBOOKS_SCRIPTS=$WORDSLAB_HOME/wordslab-notebooks
 export CONDA_DIR=$WORDSLAB_HOME/miniforge3
 export WORDSLAB_NOTEBOOKS_ENV=$WORDSLAB_HOME/wordslab-notebooks-$WORDSLAB_VERSION
 export VSCODE_DIR=$WORDSLAB_HOME/code-server
