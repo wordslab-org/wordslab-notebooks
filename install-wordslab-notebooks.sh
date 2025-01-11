@@ -1,8 +1,15 @@
 #!/bin/bash
 
-# Download wordslab-notebooks scripts in a persistent directory
+# The installation directory, workspace directory, and models download directory can optionnaly be personalized as follows:
+# WORDSLAB_HOME=/home WORDSLAB_WORKSPACE=/home/workspace WORDSLAB_MODELS=/home/models ./install-wordslab-notebooks.sh
 
-export $WORDSLAB_HOME=/home
+# Set WORDSLAB_HOME to its default value if necessary
+
+if [ -z "${WORDSLAB_HOME}" ]; then
+    export $WORDSLAB_HOME=/home
+fi
+
+# Download wordslab-notebooks scripts in a persistent directory
 
 mkdir -p $WORDSLAB_HOME
 cd $WORDSLAB_HOME
@@ -17,8 +24,21 @@ mv wordslab-notebooks-main wordslab-notebooks
 # Navigate to the linux directory where all the scripts live
 cd wordslab-notebooks/linux
 
+# Overwrite the default environment variables with the script envrionment
+BASHRC_FILE="./_wordslab-notebooks-env.bashrc"
+# Backup the .bashrc file
+cp "$BASHRC_FILE" "$BASHRC_FILE.bak"
+# Iterate over environment variables
+while IFS='=' read -r var value; do
+  # Check if the variable already exists in the .bashrc file
+  if grep -q "^${var}=" "$BASHRC_FILE"; then
+    # Replace the line if the variable exists
+    sed -i "s|^${var}=.*|${var}=${value}|" "$BASHRC_FILE"
+  fi
+done < <(env)
+
 # Set the initial environment variables
-source ./_wordslab-notebooks-env.bashrc
+source $BASHRC_FILE
 
 # Make sure all the necessary Ubtunu packages are installed
 ./1__update-operating-system.sh
