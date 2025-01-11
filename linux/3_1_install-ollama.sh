@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install Ollama in a persistent directory (see _wordslab-notebooks-env.bashrc.sh)
+# Install Ollama in a persistent directory (see _wordslab-notebooks-env.bashrc)
 mkdir $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama

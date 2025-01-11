@@ -18,10 +18,10 @@ fi
 
 # This must point to the mount path of a persistent volume inside the container
 # Right now, all supported platforms can use the same path, but this could be platform dependent
-export WORDSLAB_HOME="/home"
+export WORDSLAB_HOME=/home
 
 # Install directories
-export WORDSLAB_NOTEBOOKS_SCRIPTS=$WORDSLAB_HOME/wordslab-notebooks
+export WORDSLAB_SCRIPTS=$WORDSLAB_HOME/wordslab-notebooks
 export CONDA_DIR=$WORDSLAB_HOME/miniforge3
 export WORDSLAB_NOTEBOOKS_ENV=$WORDSLAB_HOME/wordslab-notebooks-$WORDSLAB_VERSION
 export VSCODE_DIR=$WORDSLAB_HOME/code-server

@@ -38,10 +38,11 @@ call 1_install-or-update-windows-subsystem-for-linux.bat
 if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
 
 call 2_create-linux-virtual-machine.bat %name%
-call 3_install-linux-virtual-machine.bat %name% %cpu%
 
 if defined models (
-    call 4_create-linux-virtual-disk.bat "%models%"
+    call 3_create-linux-models-disk.bat "%models%"
 ) 
+
+call 4_install-linux-virtual-machine.bat %name% %cpu%
 
 cd .\

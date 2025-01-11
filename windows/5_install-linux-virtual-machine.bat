@@ -1,4 +1,4 @@
-REM Usage : 2_create-linux-virtual-machine.bat <wsl distribution name>(required) <cpu only?>(required)
+REM Usage : 5_install-linux-virtual-machine <wsl distribution name>(required) <cpu only?>(required)
 
 rem Capture the current directory
 set "originalDir=%cd%"

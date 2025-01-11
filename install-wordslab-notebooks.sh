@@ -1,7 +1,21 @@
 #!/bin/bash
 
+# Download wordslab-notebooks scripts in a persistent directory
+
+export $WORDSLAB_HOME=/home
+
+mkdir -p $WORDSLAB_HOME
+cd $WORDSLAB_HOME
+
+apt update && apt install curl unzip
+
+curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
+unzip wordslab-notebooks.zip
+rm wordslab-notebooks.zip
+mv wordslab-notebooks-main wordslab-notebooks
+
 # Navigate to the linux directory where all the scripts live
-cd linux
+cd wordslab-notebooks/linux
 
 # Set the initial environment variables
 source ./_wordslab-notebooks-env.bashrc
@@ -23,8 +37,8 @@ echo '-------------------'
 echo 'END OF INSTALLATION'
 echo '-------------------'
 echo ''
-echo 'To start all servers:'
+echo 'To start wordslab-notebooks:'
 echo ''
 echo '> source ~/.bashrc'
-echo '> ~/start-wordslab-notebooks.sh'
+echo '> $WORDSLAB_SCRIPTS/start-wordslab-notebooks.sh'
 echo ''

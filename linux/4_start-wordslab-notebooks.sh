@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# If the container root file system was reset after we restart an instance
-# we need to reinstall the operating system packages and re configure the shell
-if [ ! -f "/.wordslab-$WORDSLAB_VERSION-installed" ]; then
-    # Install or update all the required Linux packages 
-    ./1__update-operating-system.sh
-fi
-
 # Start Docker only if we are not already inside a Docker container ...
 if [ ! -f /.dockerenv ]; then
     # ... and if the Docker daemon is not already running
@@ -20,7 +13,7 @@ code-server --auth none --bind-addr 0.0.0.0 --port $VSCODE_PORT --user-data-dir 
 pid1=$!
 
 # Start Jupyterlab server
-jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYTERLAB_PORT -IdentityProvider.token="" --no-browser -ServerApp.allow_root=True -ServerApp.allow_remote_access=True -ServerApp.root_dir="$WORDSLAB_WORKSPACE" &
+JUPYTER_ALLOW_INSECURE_WRITES=true jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYTERLAB_PORT -IdentityProvider.token="" --no-browser -ServerApp.allow_root=True -ServerApp.allow_remote_access=True -ServerApp.root_dir="$WORDSLAB_WORKSPACE" &
 pid2=$!
 
 # Start ollama server
