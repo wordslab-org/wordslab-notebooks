@@ -34,6 +34,7 @@ while IFS='=' read -r var value; do
   if grep -q "^${var}=" "$BASHRC_FILE"; then
     # Replace the line if the variable exists
     sed -i "s|^${var}=.*|${var}=${value}|" "$BASHRC_FILE"
+    echo 'saved ${var}=${value} in $BASHRC_FILE'
   fi
 done < <(env)
 
