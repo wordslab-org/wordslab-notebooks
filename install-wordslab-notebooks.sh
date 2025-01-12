@@ -14,7 +14,7 @@ fi
 mkdir -p $WORDSLAB_HOME
 cd $WORDSLAB_HOME
 
-apt update && apt install curl unzip
+apt update && apt install -y curl unzip
 
 curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
 unzip wordslab-notebooks.zip
