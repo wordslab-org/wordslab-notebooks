@@ -13,8 +13,8 @@ if "%~1"=="--name" (
 
 cd .\windows
 
-call 4_mount-linux-models-disk.bat
+call 4_mount-linux-virtual-disks.bat
 
-cd .\
+cd ..
 
 wsl -d %name% -- bash -i cd /home/wordslab-notebooks && ./start-wordslab-notebooks.sh
