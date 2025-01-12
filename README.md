@@ -13,7 +13,7 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=
 > Start
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call start-wordslab-notebooks.bat --name wordslab-notebooks2
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call start-wordslab-notebooks.bat
 ```
 
 ### On Linux
