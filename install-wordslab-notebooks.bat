@@ -66,7 +66,7 @@ call 2_create-linux-virtual-machine.bat %name%
 
 REM Check if the shared virtual disks where already initialized
 wsl -d wordslab-notebooks-workspace -- : >nul
-if %errorlevel% nequ 0 (
+if %errorlevel% neq 0 (
     call 3_create-linux-virtual-disks.bat
 )
 
