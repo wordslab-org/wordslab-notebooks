@@ -27,3 +27,13 @@ source ~/.bashrc
 
 # Start all the wordslab-notebooks servers
 ./4_start-wordslab-notebooks.sh
+
+echo ''
+echo '------------------'
+echo 'Open the DASHBOARD'
+echo '------------------'
+echo ''
+echo 'http://127.0.0.1:$DASHBOARD_PORT'
+echo ''
+echo '------------------'
+echo ''

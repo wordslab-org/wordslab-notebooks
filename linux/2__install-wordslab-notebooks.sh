@@ -2,18 +2,19 @@
 cpu_only=$1
 
 # Install an independant and persistent python environment manager
-./2_1_install-python-envmanager.sh
+# Create a conda environment for wordslab-notebooks
+./2_1_install-python-environment.sh
 
-# Create a, inedependent and persistent conda environment with the CPU or CUDA GPU version of Pytorch 
+# Activate this conda environment
+source <("$CONDA_DIR/bin/conda" 'shell.bash' 'hook' 2> /dev/null)
+conda activate $WORDSLAB_NOTEBOOKS_ENV
+
+# Install the CPU or CUDA GPU version of Pytorch 
 if [ "$cpu_only" == "true" ]; then
     ./2_2_install-pytorch-cpu.sh
 else
     ./2_2_install-pytorch-cuda.sh
 fi
-
-# Activate this conda environment
-source <("$CONDA_DIR/bin/conda" 'shell.bash' 'hook' 2> /dev/null)
-conda activate $WORDSLAB_NOTEBOOKS_ENV
 
 # Install basic datascience librairies
 # Configure all popular deeplearning librairies to download their models and datasets under the $WORDSLAB_MODELS directory (see _wordslab-notebooks-env.bashrc) 
@@ -24,7 +25,7 @@ conda activate $WORDSLAB_NOTEBOOKS_ENV
 ./2_4_install-jupyterlab.sh
 
 # Setup scripts to create one virtual python environment and one ipython kernel per project
-./2_5_setup-virtual-environments-scripts.sh
+./2_5_setup-workspace-projects.sh
 
 # Install Visual Studio Code server and Python extension
 ./2_6_install-vscode-server.sh

@@ -22,8 +22,8 @@ mkdir -p $WORDSLAB_WORKSPACE
 
 echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Jupyterlab notebooks data directories' >> ./_wordslab-notebooks-env.bashrc
-echo 'export JUPYTER_CONFIG_DIR=$WORDSLAB_WORKSPACE/.jupyter/etc/jupyter' >> ./_wordslab-notebooks-env.bashrc
-echo 'export JUPYTER_DATA_DIR=$WORDSLAB_WORKSPACE/.jupyter/share/jupyter' >> ./_wordslab-notebooks-env.bashrc
-echo 'export JUPYTER_RUNTIME_DIR=$WORDSLAB_WORKSPACE/.jupyter/share/jupyter/runtime' >> ./_wordslab-notebooks-env.bashrc
-echo 'export JUPYTERLAB_SETTINGS_DIR=$WORDSLAB_WORKSPACE/.jupyter/lab/user-settings' >> ./_wordslab-notebooks-env.bashrc
-echo 'export JUPYTERLAB_WORKSPACES_DIR=$WORDSLAB_WORKSPACE/.jupyter/lab/workspaces' >> ./_wordslab-notebooks-env.bashrc
+echo 'export JUPYTER_CONFIG_DIR=$JUPYTER_DATA/etc/jupyter' >> ./_wordslab-notebooks-env.bashrc
+echo 'export JUPYTER_DATA_DIR=$JUPYTER_DATA/share/jupyter' >> ./_wordslab-notebooks-env.bashrc
+echo 'export JUPYTER_RUNTIME_DIR=$JUPYTER_DATA/share/jupyter/runtime' >> ./_wordslab-notebooks-env.bashrc
+echo 'export JUPYTERLAB_SETTINGS_DIR=$JUPYTER_DATA/lab/user-settings' >> ./_wordslab-notebooks-env.bashrc
+echo 'export JUPYTERLAB_WORKSPACES_DIR=$JUPYTER_DATA/lab/workspaces' >> ./_wordslab-notebooks-env.bashrc

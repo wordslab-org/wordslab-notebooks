@@ -23,6 +23,7 @@ export WORDSLAB_HOME=/home
 # Install directories
 export WORDSLAB_SCRIPTS=$WORDSLAB_HOME/wordslab-notebooks
 export CONDA_DIR=$WORDSLAB_HOME/miniforge3
+
 export WORDSLAB_NOTEBOOKS_ENV=$WORDSLAB_HOME/wordslab-notebooks-$WORDSLAB_VERSION
 export VSCODE_DIR=$WORDSLAB_HOME/code-server
 export OPENWEBUI_ENV=$WORDSLAB_HOME/open-webui-$WORDSLAB_VERSION
@@ -32,16 +33,24 @@ export OLLAMA_DIR=$WORDSLAB_HOME/ollama
 export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace
 export WORDSLAB_MODELS=$WORDSLAB_HOME/models
 
-export VSCODE_DATA=$WORDSLAB_WORKSPACE/.code-server
-export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.open-webui
+export JUPYTER_DATA=$WORDSLAB_WORKSPACE/.jupyter
+export VSCODE_DATA=$WORDSLAB_WORKSPACE/.codeserver
+export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.openwebui
 
 # Open web server ports
-export OPENWEBUI_PORT=8880
+export DASHBOARD_PORT=8888
+
+export JUPYTERLAB_PORT=8880
 export VSCODE_PORT=8881
-export JUPYTERLAB_PORT=8888
+export OPENWEBUI_PORT=8882
+# Note: ollama is not exposed to the outside worlds, it must be used from inside the container
 
 # Reserved tools ports
-export ARGILLA_PORT=6900
-export GRADIO_PORT=7860
-export FASTAPI_PORT=8000
-export VLLM_PORT=8000
+export VLLM_PORT=8883
+export GRADIO_PORT=8884
+export ARGILLA_PORT=8085
+
+# Additional open ports for 3 user defined applications
+export USER_APP1_PORT=8086
+export USER_APP2_PORT=8087
+export USER_APP3_PORT=8089

@@ -33,12 +33,21 @@ ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$O
 pid4=$!
 conda deactivate
 
+# Start wordslab notebooks dashboard
+
+cd $WORDSLAB_SCRIPTS 
+./start-dashboard.sh &
+pid5=$!
+
+echo 
+
+
 # Define cleanup function to kill all commands
 cleanup() {
   echo "Stopping all servers..."
-  kill $pid1 $pid2 $pid3 $pid4
+  kill $pid1 $pid2 $pid3 $pid4 $pid5
 }
 # Trap SIGINT and call cleanup
 trap cleanup SIGINT
 # Wait for all processes to finish
-wait $pid1 $pid2 $pid3 $pid4
+wait $pid1 $pid2 $pid3 $pid4 $pid5
