@@ -6,7 +6,7 @@
 # Set WORDSLAB_HOME to its default value if necessary
 
 if [ -z "${WORDSLAB_HOME}" ]; then
-    export $WORDSLAB_HOME=/home
+    export WORDSLAB_HOME=/home
 fi
 
 # Download wordslab-notebooks scripts in a persistent directory
