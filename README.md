@@ -1,5 +1,37 @@
 # wordslab-notebooks - "your AI at home"
 
+## Get Started
+
+### On Windows
+
+> Install
+
+```shell
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models"  && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.bat | cmd
+```
+
+> Start
+
+```shell
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && start-wordslab-notebooks.bat --name wordslab-notebooks2
+```
+
+### On Linux
+
+> Install
+
+```bash
+apt update && apt  install curl && WORDSLAB_HOME=/home WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace WORDSLAB_MODELS=$WORDSLAB_HOME/models  curl -sSL  https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.sh  | bash
+```
+
+> Start
+
+```bash
+apt update && apt  install curl && WORDSLAB_HOME=/home  curl -sSL  https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/start-wordslab-notebooks.sh  | bash
+```
+
+## Introduction 
+
 **wordslab-notebooks** provides a one click installer to set up a **GPU-accelerated workspace** on your local gaming PC or on a cloud hosted virtual machine to use and develop **local AI applications**.
 
 What you need
