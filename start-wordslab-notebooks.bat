@@ -17,4 +17,4 @@ call 4_mount-linux-virtual-disks.bat
 
 cd ..
 
-wsl -d %name% -- bash -i cd /home/wordslab-notebooks && ./start-wordslab-notebooks.sh
+wsl -d %name% -- bash -i /home/wordslab-notebooks/start-wordslab-notebooks.sh
