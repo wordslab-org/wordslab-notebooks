@@ -22,7 +22,7 @@ rm wordslab-notebooks.zip
 mv wordslab-notebooks-main wordslab-notebooks
 
 # Navigate to the linux directory where all the scripts live
-cd wordslab-notebooks/linux
+cd ./linux
 
 # Overwrite the default environment variables with the script envrionment
 BASHRC_FILE="./_wordslab-notebooks-env.bashrc"
