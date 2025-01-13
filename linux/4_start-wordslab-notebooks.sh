@@ -9,11 +9,12 @@ if [ ! -f /.dockerenv ]; then
 fi
 
 # Start Visual Studio Code server
-code-server --auth none --bind-addr 0.0.0.0 --port $VSCODE_PORT --user-data-dir $VSCODE_DATA --extensions-dir $VSCODE_DATA/extensions --config $VSCODE_DATA/config.yaml $WORDSLAB_WORKSPACE &
+$VSCODE_DIR/code-server --auth none --bind-addr 0.0.0.0 --port $VSCODE_PORT --user-data-dir $VSCODE_DATA --extensions-dir $VSCODE_DATA/extensions --config $VSCODE_DATA/config.yaml $WORDSLAB_WORKSPACE &
 pid1=$!
 
 # Start Jupyterlab server
-JUPYTER_ALLOW_INSECURE_WRITES=true jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYTERLAB_PORT -IdentityProvider.token="" --no-browser -ServerApp.allow_root=True -ServerApp.allow_remote_access=True -ServerApp.root_dir="$WORDSLAB_WORKSPACE" &
+export JUPYTER_ALLOW_INSECURE_WRITES=true
+jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYTERLAB_PORT -IdentityProvider.token="" --no-browser -ServerApp.allow_root=True -ServerApp.allow_remote_access=True -ServerApp.root_dir="$WORDSLAB_WORKSPACE" &
 pid2=$!
 
 # Start ollama server
@@ -21,6 +22,7 @@ OLLAMA_HOME=0.0.0.0  ollama serve &
 pid3=$!
 
 # Start open-webui server
+source <("$CONDA_DIR/bin/conda" 'shell.bash' 'hook' 2> /dev/null)
 conda activate $OPENWEBUI_ENV
 
 if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
@@ -35,11 +37,9 @@ conda deactivate
 
 # Start wordslab notebooks dashboard
 
-cd $WORDSLAB_SCRIPTS 
+cd $WORDSLAB_SCRIPTS/dashboard
 ./start-dashboard.sh &
 pid5=$!
-
-echo 
 
 
 # Define cleanup function to kill all commands
