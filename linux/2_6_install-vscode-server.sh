@@ -7,7 +7,7 @@ curl -fsSL https://code-server.dev/install.sh | sh -s --  --method standalone --
 mkdir $VSCODE_DATA
 
 # Install the Microsoft Python extension
-code-server --install-extension ms-python.python@2024.22.1 --extensions-dir $VSCODE_DATA/extensions
+$VSCODE_DIR/bin/code-server --install-extension ms-python.python@2024.22.1 --extensions-dir $VSCODE_DATA/extensions
 
 # Install the Continue AI code assistant
-code-server --install-extension Continue.continue@0.9.250 --extensions-dir $VSCODE_DATA/extensions
+$VSCODE_DIR/bin/code-server --install-extension Continue.continue@0.9.250 --extensions-dir $VSCODE_DATA/extensions
