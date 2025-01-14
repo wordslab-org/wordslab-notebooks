@@ -41,6 +41,15 @@ cd $WORDSLAB_SCRIPTS/dashboard
 ./start-dashboard.sh &
 pid5=$!
 
+echo ''
+echo '------------------'
+echo 'Open the DASHBOARD'
+echo '------------------'
+echo ''
+echo http://127.0.0.1:$DASHBOARD_PORT
+echo ''
+echo '------------------'
+echo ''
 
 # Define cleanup function to kill all commands
 cleanup() {
