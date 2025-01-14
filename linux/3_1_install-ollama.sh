@@ -9,7 +9,13 @@ tar -C $OLLAMA_DIR -xzf ollama-linux-amd64.tgz
 rm ollama-linux-amd64.tgz
 
 # Add ollama to the path so that anyone can control it on the machine
-
 echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Add tools the PATH' >> ./_wordslab-notebooks-env.bashrc
 echo 'export PATH="$OLLAMA_DIR/bin:$PATH"' >> ./_wordslab-notebooks-env.bashrc
+
+# Download small llama model for local inference
+if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
+    $OLLAMA_DIR/bin/ollama pull llama3.2:1b
+else
+    $OLLAMA_DIR/bin/ollama pull llama3.2:3b
+fi
