@@ -4,7 +4,7 @@
 
 cp ./create-workspace-project $WORDSLAB_NOTEBOOKS_ENV/bin/create-workspace-project
 chmod u+x $WORDSLAB_NOTEBOOKS_ENV/bin/create-workspace-project
-cp ./delete-workspace-project $WORDSLAB_NOTEBOOKS_ENV/bin/activate-workspace-project
+cp ./activate-workspace-project $WORDSLAB_NOTEBOOKS_ENV/bin/activate-workspace-project
 chmod u+x $WORDSLAB_NOTEBOOKS_ENV/bin/activate-workspace-project
 cp ./delete-workspace-project $WORDSLAB_NOTEBOOKS_ENV/bin/delete-workspace-project
 chmod u+x $WORDSLAB_NOTEBOOKS_ENV/bin/delete-workspace-project
