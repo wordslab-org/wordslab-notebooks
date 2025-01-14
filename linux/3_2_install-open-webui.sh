@@ -17,3 +17,7 @@ conda deactivate
 mkdir $OPENWEBUI_DATA
 mkdir $OPENWEBUI_DATA/functions
 mkdir $OPENWEBUI_DATA/tools
+
+# Initialize the Open WebUI installation
+
+DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools python -c "import open_webui.main"
