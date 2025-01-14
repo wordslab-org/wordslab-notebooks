@@ -14,8 +14,13 @@ echo '# Add tools the PATH' >> ./_wordslab-notebooks-env.bashrc
 echo 'export PATH="$OLLAMA_DIR/bin:$PATH"' >> ./_wordslab-notebooks-env.bashrc
 
 # Download small llama model for local inference
+OLLAMA_HOME=0.0.0.0  $OLLAMA_DIR/bin/ollama serve &
+pid=$!
+
 if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
     $OLLAMA_DIR/bin/ollama pull llama3.2:1b
 else
     $OLLAMA_DIR/bin/ollama pull llama3.2:3b
 fi
+
+kill $pid
