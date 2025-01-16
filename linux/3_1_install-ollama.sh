@@ -17,6 +17,11 @@ echo 'export PATH="$OLLAMA_DIR/bin:$PATH"' >> ./_wordslab-notebooks-env.bashrc
 OLLAMA_HOME=0.0.0.0  $OLLAMA_DIR/bin/ollama serve &
 pid=$!
 
+# Wait for the server to be ready
+while ! curl -s http://localhost:11434 > /dev/null; do
+    sleep 1
+done
+
 if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
     $OLLAMA_DIR/bin/ollama pull llama3.2:1b
 else
