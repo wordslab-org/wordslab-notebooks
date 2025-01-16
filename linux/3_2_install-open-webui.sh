@@ -17,7 +17,9 @@ conda activate $OPENWEBUI_ENV
 pip install open-webui==0.5.4
 
 # Initialize the Open WebUI installation
+# Need to set HF_HOME before downloading the embedding & reranking models
 
+source ./_wordslab-notebooks-env.bashrc
 DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools python -c "import open_webui.main"
 
 conda deactivate
