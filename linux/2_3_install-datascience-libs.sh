@@ -13,7 +13,6 @@ mkdir -p $WORDSLAB_MODELS
 echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Models and datasets download directories' >> ./_wordslab-notebooks-env.bashrc
 echo 'export HF_HOME=$WORDSLAB_MODELS/huggingface' >> ./_wordslab-notebooks-env.bashrc
-echo 'export HF_HOME=$WORDSLAB_MODELS/huggingface' >> ./_wordslab-notebooks-env.bashrc
 echo 'export FASTAI_HOME=$WORDSLAB_MODELS/fastai' >> ./_wordslab-notebooks-env.bashrc
 echo 'export TORCH_HOME=$WORDSLAB_MODELS/torch' >> ./_wordslab-notebooks-env.bashrc
 echo 'export KERAS_HOME=$WORDSLAB_MODELS/keras' >> ./_wordslab-notebooks-env.bashrc
