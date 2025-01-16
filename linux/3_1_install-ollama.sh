@@ -13,6 +13,9 @@ echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Add tools the PATH' >> ./_wordslab-notebooks-env.bashrc
 echo 'export PATH="$OLLAMA_DIR/bin:$PATH"' >> ./_wordslab-notebooks-env.bashrc
 
+# Need to set OLLAMA_HOME before downloading the language model
+source ./_wordslab-notebooks-env.bashrc
+
 # Download small llama model for local inference
 OLLAMA_HOME=0.0.0.0  $OLLAMA_DIR/bin/ollama serve &
 pid=$!
