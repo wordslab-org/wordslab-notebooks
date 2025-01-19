@@ -31,9 +31,9 @@ cp "$BASHRC_FILE" "$BASHRC_FILE.bak"
 # Iterate over environment variables
 while IFS='=' read -r var value; do
   # Check if the variable already exists in the .bashrc file
-  if grep -q "^$export {var}=" "$BASHRC_FILE"; then
+  if grep -q "^export ${var}=" "$BASHRC_FILE"; then
     # Replace the line if the variable exists
-    sed -i "s|^$export {var}=.*|export ${var}=${value}|" "$BASHRC_FILE"
+    sed -i "s|^export ${var}=.*|export ${var}=${value}|" "$BASHRC_FILE"
     echo "saved ${var}=${value} in $BASHRC_FILE"
   fi
 done < <(env)
