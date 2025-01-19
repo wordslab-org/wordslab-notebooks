@@ -9,16 +9,15 @@ if [ -z "${WORDSLAB_HOME}" ]; then
     export $WORDSLAB_HOME=/home
 fi
 
+# Navigate to the linux directory where all the scripts live
+cd $WORDSLAB_HOME/wordslab-notebooks/linux
+
+# Set the initial environment variables
+source ./_wordslab-notebooks-env.bashrc
+
 # If the container root file system was reset after we restart an instance
 # we need to reinstall the operating system packages and re configure the shell
 if [ ! -f "/.wordslab-$WORDSLAB_VERSION-installed" ]; then
-    # Navigate to the linux directory where all the scripts live
-    cd $WORDSLAB_HOME/wordslab-notebooks/linux
-
-    # Set the initial environment variables
-    source ./_wordslab-notebooks-env.bashrc
-
-    # Install or update all the required Linux packages 
     ./1__update-operating-system.sh
 fi
 
