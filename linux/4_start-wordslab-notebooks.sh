@@ -14,7 +14,7 @@ pid1=$!
 
 # Start Jupyterlab server
 export JUPYTER_ALLOW_INSECURE_WRITES=true
-jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYTERLAB_PORT -IdentityProvider.token="" --no-browser -ServerApp.allow_root=True -ServerApp.allow_remote_access=True -ServerApp.root_dir="$WORDSLAB_WORKSPACE" &
+jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYTERLAB_PORT -IdentityProvider.token="" --no-browser -ServerApp.allow_root=True -ServerApp.allow_remote_access=True -ServerApp.allow_origin='*' -ServerApp.root_dir="$WORDSLAB_WORKSPACE" &
 pid2=$!
 
 # Start ollama server
