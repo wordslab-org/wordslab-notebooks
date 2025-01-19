@@ -51,7 +51,7 @@ source $BASHRC_FILE
 ./3__install-open-webui.sh
 
 # Update ~/.bashrc to start new shells in the right environment and directory
-./1_3-configure-shell-environment.sh
+./1_3_configure-shell-environment.sh
 
 echo ''
 echo '-------------------'
