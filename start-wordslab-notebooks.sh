@@ -23,7 +23,7 @@ fi
 
 # Initialize the Python environment 
 # (this will also change directory to $WORDSLAB_WORKSPACE)
-source ~/.bashrc
+source ./_wordslab-notebooks-init.bashrc
 
 # Navigate (again) to the linux directory where all the scripts live
 cd $WORDSLAB_HOME/wordslab-notebooks/linux
