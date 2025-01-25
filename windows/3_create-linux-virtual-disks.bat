@@ -3,9 +3,10 @@ REM Mandatory environment variables :
 REM - %WORDSLAB_WINDOWS_WORKSPACE% : directory to store the virtual disk for the wordslab workspace
 REM - %WORDSLAB_WINDOWS_MODELS% : directory to store the virtual disk for the wordslab models
 
-mkdir %~1\wordslab-notebooks-models
 curl -L -o alpine.tar https://dl-cdn.alpinelinux.org/alpine/v3.21/releases/x86_64/alpine-minirootfs-3.21.0-x86_64.tar.gz
+mkdir %WORDSLAB_WINDOWS_WORKSPACE%
 wsl --import wordslab-notebooks-workspace %WORDSLAB_WINDOWS_WORKSPACE% alpine.tar
+mkdir %WORDSLAB_WINDOWS_MODELS%
 wsl --import wordslab-notebooks-models %WORDSLAB_WINDOWS_MODELS% alpine.tar
 del alpine.tar
 
