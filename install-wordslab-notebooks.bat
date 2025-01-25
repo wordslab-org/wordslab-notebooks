@@ -55,6 +55,13 @@ tar -x -f wordslab-notebooks.zip
 del wordslab-notebooks.zip
 ren wordslab-notebooks-main wordslab-notebooks
 
+REM Set up startup script with the right path
+(
+    echo set "WORDSLAB_WINDOWS_HOME=%WORDSLAB_WINDOWS_HOME%"
+    echo call cd "%%WORDSLAB_WINDOWS_HOME%%\wordslab-notebooks"
+    echo call start-wordslab-notebooks.bat
+) > start-wordslab-notebooks.bat
+
 REM Execute Windows installation scripts
 
 cd .\wordslab-notebooks\windows
