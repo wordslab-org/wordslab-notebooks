@@ -13,6 +13,6 @@ del alpine.tar
 wsl -d wordslab-notebooks-workspace -- mkdir -p /home/workspace
 wsl -d wordslab-notebooks-models -- mkdir -p /home/models
 
-wsl -d wordslab-notebooks-workspace -- echo %WORDSLAB_WINDOWS_WORKSPACE% > /home/workspace/.WORDSLAB_WINDOWS_WORKSPACE
-wsl -d wordslab-notebooks-models -- echo %WORDSLAB_WINDOWS_MODELS% > /home/models/.WORDSLAB_WINDOWS_MODELS
+wsl -d wordslab-notebooks-workspace -- sh -c "echo '%WORDSLAB_WINDOWS_WORKSPACE%' > /home/workspace/.WORDSLAB_WINDOWS_WORKSPACE"
+wsl -d wordslab-notebooks-models -- sh -c "echo '%WORDSLAB_WINDOWS_MODELS%' > /home/models/.WORDSLAB_WINDOWS_MODELS"
 
