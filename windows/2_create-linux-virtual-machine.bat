@@ -6,3 +6,7 @@ mkdir %WORDSLAB_WINDOWS_HOME%\virtual-machines\%1
 curl -L -o ubuntu-noble.tar https://partner-images.canonical.com/oci/noble/current/ubuntu-noble-oci-amd64-root.tar.gz
 wsl --import %1 %WORDSLAB_WINDOWS_HOME%\virtual-machines\%1 ubuntu-noble.tar
 del ubuntu-noble.tar
+
+wsl -d %1 -- echo %WORDSLAB_WINDOWS_HOME% > /home/.WORDSLAB_WINDOWS_HOME
+wsl -d %1 -- echo %WORDSLAB_WINDOWS_WORKSPACE% > /home/.WORDSLAB_WINDOWS_WORKSPACE
+wsl -d %1 -- echo %WORDSLAB_WINDOWS_MODELS% > /home/.WORDSLAB_WINDOWS_MODELS
