@@ -6,7 +6,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 
 # Get the IP address of the WSL virtual machine
 $vmip = wsl -d wordslab-notebooks -- hostname -I
-$vmip = $vmip.Trim()
+$vmip = $vmip -split " " | Select-Object -First 1
 
 # Default ports : Jupyterlab, Gradio, fastapi & fasthtml & VLLM, argilla.io, Open WebUI, VS Code server, user apps
 $defaultports = @(8880, 8881, 8882, 8883, 8884, 8885, 8886, 8887, 8888)
