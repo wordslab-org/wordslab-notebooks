@@ -1,7 +1,7 @@
 # Source this file in ~/.bashrc to configure the machine shell
 
 # This version is updated on each release
-export WORDSLAB_VERSION="2025-01"
+export WORDSLAB_VERSION="2025-03"
 
 # Detect the execution environment
 if grep -qi microsoft /proc/version; then
