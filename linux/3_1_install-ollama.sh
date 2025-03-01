@@ -33,7 +33,7 @@ if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
 else
     OLLAMA_MODEL="phi4-mini"
 fi
-echo 'export OLLAMA_MODEL=$OLLAMA_MODEL' >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_MODEL=$OLLAMA_MODEL" >> ./_wordslab-notebooks-env.bashrc
 
 # Download the default local LLM
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_MODEL
