@@ -43,7 +43,7 @@ export DASHBOARD_PORT=8888
 export JUPYTERLAB_PORT=8880
 export VSCODE_PORT=8881
 export OPENWEBUI_PORT=8882
-# Note: ollama is not exposed to the outside worlds, it must be used from inside the container
+# Note: ollama is not exposed to the outside world, it must be used from inside the container
 
 # Reserved tools ports
 export VLLM_PORT=8883

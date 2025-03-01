@@ -4,7 +4,7 @@
 mkdir $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.5.5 -o ollama-linux-amd64.tgz
+curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.5.13 -o ollama-linux-amd64.tgz
 tar -C $OLLAMA_DIR -xzf ollama-linux-amd64.tgz
 rm ollama-linux-amd64.tgz
 
@@ -25,10 +25,16 @@ while ! curl -s http://localhost:11434 > /dev/null; do
     sleep 1
 done
 
+
+echo '' >> ./_wordslab-notebooks-env.bashrc
+echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
+
 if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
-    $OLLAMA_DIR/bin/ollama pull llama3.2:1b
+    OLLAMA_MODEL="llama3.2:1b"
 else
-    $OLLAMA_DIR/bin/ollama pull llama3.2:3b
+    OLLAMA_MODEL="phi4-mini"
 fi
+
+$OLLAMA_DIR/bin/ollama pull $OLLAMA_MODEL
 
 kill $pid

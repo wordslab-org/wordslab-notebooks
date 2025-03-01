@@ -1,20 +1,20 @@
 #!/bin/bash
 
 # Install Jupyterlab and its dependencies
-pip install jupyterlab==4.3.4 ipympl==0.9.5
+pip install jupyterlab==4.3.5 ipympl==0.9.6
 
 # Jupyterlab UI extension for git source code versioning
-pip install jupyterlab-git==0.50.2
+pip install jupyterlab-git==0.51.0
 
 # Jupyterlab UI extensions for performance and compute resources monitoring
 pip install jupyterlab_execute_time==3.2.0
-pip install jupyterlab-nvdashboard==0.11.00 pynvml==11.5.3
+pip install jupyterlab-nvdashboard==0.12.0 pynvml==11.5.3
 
 # Install nbdev to enable the development of Python packages and documentation from Jupyter notebooks
 pip install nbdev==2.3.34
 
 # Install AI extension for Jupyter notebooks
-pip install jupyter-ai==2.28.4 langchain-ollama==0.1.3 langchain-openai==0.1.24
+pip install jupyter-ai==2.28.4 langchain-ollama==0.2.3 langchain-openai==0.3.7
 
 # Configure Jupyterlab to store all its state under the $WORDSLAB_WORKSPACE directory (see _wordslab-notebooks-env.bashrc)
 

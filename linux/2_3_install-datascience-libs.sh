@@ -3,7 +3,7 @@
 # Only install very basic datascience librairies in the conda environment: pandas and scikit-learn
 # All other librairies will be installed project by project in isolated virtual environments (see create-workspace-project)
 
-pip install pandas==2.2.3 scikit-learn==1.6.0 fastai==2.7.18
+pip install pandas==2.2.3 scikit-learn==1.6.1 fastai==2.7.18
 
 # The most important responsability of this script:
 # Configure all popular deeplearning librairies to download models and datasets under the $WORDSLAB_MODEL directory (see _wordslab-notebooks-env.bashrc) 
