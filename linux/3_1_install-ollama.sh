@@ -25,17 +25,26 @@ while ! curl -s http://localhost:11434 > /dev/null; do
     sleep 1
 done
 
-# Choose a default local LLM for this machine
+# Choose a default local LLMs for this machine
+if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
+    OLLAMA_CHAT_MODEL="llama3.2:1b"
+    OLLAMA_CODE_MODEL="qwen2.5-coder:0.5b-base"
+else
+    OLLAMA_CHAT_MODEL="phi4-mini"
+    OLLAMA_CODE_MODEL="qwen2.5-coder:1.5b-base"
+fi
+OLLAMA_EMBED_MODEL="nomic-embed-text"
+
+# Save the LLM names as env variables 
 echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
-if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
-    OLLAMA_MODEL="llama3.2:1b"
-else
-    OLLAMA_MODEL="phi4-mini"
-fi
-echo "export OLLAMA_MODEL=$OLLAMA_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 
-# Download the default local LLM
-$OLLAMA_DIR/bin/ollama pull $OLLAMA_MODEL
+# Download the default local LLMs
+$OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL
+$OLLAMA_DIR/bin/ollama pull $OLLAMA_CODE_MODEL
+$OLLAMA_DIR/bin/ollama pull $OLLAMA_EMBED_MODEL
 
 kill $pid
