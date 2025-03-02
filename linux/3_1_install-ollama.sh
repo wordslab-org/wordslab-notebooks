@@ -47,6 +47,21 @@ $OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CODE_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_EMBED_MODEL
 
+# Configure models for Jupyter AI extension
+JAI_CONFIG_FILE="$JUPYTER_DATA/share/jupyter/jupyter_ai/config.json"
+mkdir -p "$(dirname "$JAI_CONFIG_FILE")"
+cat > "$JAI_CONFIG_FILE" <<EOF
+{
+    "model_provider_id": "ollama:$OLLAMA_CHAT_MODEL",
+    "embeddings_provider_id": "ollama:$OLLAMA_EMBED_MODEL",
+    "send_with_shift_enter": false,
+    "fields": {},
+    "api_keys": {},
+    "completions_model_provider_id": "ollama:$OLLAMA_CODE_MODEL",
+    "completions_fields": {}
+}
+EOF
+
 # Configure models for VsCode extension Continue.dev
 sed -i "/\"models\": \[\],/c\
 \"models\": [\
