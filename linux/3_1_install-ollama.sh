@@ -47,4 +47,23 @@ $OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CODE_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_EMBED_MODEL
 
+# Configure models for VsCode extension Continue.dev
+sed -i "/\"models\": \[\],/c\
+\"models\": [\
+    {\
+      \"title\": \"$OLLAMA_CHAT_MODEL\",\
+      \"provider\": \"ollama\",\
+      \"model\": \"$OLLAMA_CHAT_MODEL\"\
+    }\
+  ],\
+  \"tabAutocompleteModel\": {\
+    \"title\": \"$OLLAMA_CODE_MODEL\",\
+    \"provider\": \"ollama\",\
+    \"model\": \"$OLLAMA_CODE_MODEL\"\
+  },\
+  \"embeddingsProvider\": {\
+    \"provider\": \"ollama\",\
+    \"model\": \"$OLLAMA_EMBED_MODEL\"\
+  }," $VSCODE_DATA/.continue/config.json
+
 kill $pid
