@@ -9,7 +9,7 @@ if [ ! -f /.dockerenv ]; then
 fi
 
 # Start Visual Studio Code server
-$VSCODE_DIR/bin/code-server --auth none --bind-addr 0.0.0.0 --port $VSCODE_PORT --user-data-dir $VSCODE_DATA --extensions-dir $VSCODE_DATA/extensions --config $VSCODE_DATA/config.yaml --disable-workspace-trust $WORDSLAB_WORKSPACE &
+CONTINUE_GLOBAL_DIR=$VSCODE_DATA/.continue $VSCODE_DIR/bin/code-server --auth none --bind-addr 0.0.0.0 --port $VSCODE_PORT --user-data-dir $VSCODE_DATA --extensions-dir $VSCODE_DATA/extensions --config $VSCODE_DATA/config.yaml --disable-workspace-trust $WORDSLAB_WORKSPACE &
 pid1=$!
 
 # Start Jupyterlab server
