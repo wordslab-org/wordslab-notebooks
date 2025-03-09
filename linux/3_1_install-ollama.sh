@@ -47,8 +47,12 @@ $OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CODE_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_EMBED_MODEL
 
+# Stop ollama
+kill $pid
+
 # Configure models for Jupyter AI extension
-JAI_CONFIG_FILE="$JUPYTER_DATA/share/jupyter/jupyter_ai/config.json"
+
+JAI_CONFIG_FILE="$JUPYTER_DATA_DIR/jupyter_ai/config.json"
 mkdir -p "$(dirname "$JAI_CONFIG_FILE")"
 cat > "$JAI_CONFIG_FILE" <<EOF
 {
@@ -62,23 +66,107 @@ cat > "$JAI_CONFIG_FILE" <<EOF
 }
 EOF
 
-# Configure models for VsCode extension Continue.dev
-sed -i "/\"models\": \[\],/c\
-\"models\": [\
-    {\
-      \"title\": \"$OLLAMA_CHAT_MODEL\",\
-      \"provider\": \"ollama\",\
-      \"model\": \"$OLLAMA_CHAT_MODEL\"\
-    }\
-  ],\
-  \"tabAutocompleteModel\": {\
-    \"title\": \"$OLLAMA_CODE_MODEL\",\
-    \"provider\": \"ollama\",\
-    \"model\": \"$OLLAMA_CODE_MODEL\"\
-  },\
-  \"embeddingsProvider\": {\
-    \"provider\": \"ollama\",\
-    \"model\": \"$OLLAMA_EMBED_MODEL\"\
-  }," $VSCODE_DATA/.continue/config.json
+JIC_CONFIG_FILE="$JUPYTERLAB_SETTINGS_DIR/@jupyterlab/completer-extension/inline-completer.jupyterlab-settings"
+mkdir -p "$(dirname "$JIC_CONFIG_FILE")"
+cat > "$JIC_CONFIG_FILE" <<EOF
+{
+    "providers": {
+        "@jupyterlab/inline-completer:history": {
+            "enabled": false,
+            "timeout": 5000,
+            "debouncerDelay": 0,
+            "maxSuggestions": 100
+        },
+        "@jupyterlab/jupyter-ai": {
+            "enabled": true,
+            "timeout": 5000,
+            "debouncerDelay": 250,
+            "triggerKind": "any",
+            "maxPrefix": 10000,
+            "maxSuffix": 10000,
+            "disabledLanguages": [
+                "ipythongfm"
+            ],
+            "streaming": "manual"
+        }
+    },
+    "showWidget": "onHover",
+    "showShortcuts": true,
+    "suppressIfTabCompleterActive": true,
+    "streamingAnimation": "uncover",
+    "minLines": 0,
+    "maxLines": 0,
+    "reserveSpaceForLongest": false,
+    "editorResizeDelay": 1000
+}
+EOF
 
-kill $pid
+# Configure models for VsCode extension Continue.dev
+
+CONT_CONFIG_FILE="$JUPYTERLAB_SETTINGS_DIR
+mkdir -p "$(dirname "$CONT_CONFIG_FILE")"
+cat > "$CONT_CONFIG_FILE" <<EOF
+{
+  "models": [
+    {
+      "title": "$OLLAMA_CHAT_MODEL",
+      "provider": "ollama",
+      "model": "$OLLAMA_CHAT_MODEL"
+    }
+  ],
+  "contextProviders": [
+    {
+      "name": "code",
+      "params": {}
+    },
+    {
+      "name": "docs",
+      "params": {}
+    },
+    {
+      "name": "diff",
+      "params": {}
+    },
+    {
+      "name": "terminal",
+      "params": {}
+    },
+    {
+      "name": "problems",
+      "params": {}
+    },
+    {
+      "name": "folder",
+      "params": {}
+    },
+    {
+      "name": "codebase",
+      "params": {}
+    }
+  ],
+  "slashCommands": [
+    {
+      "name": "share",
+      "description": "Export the current chat session to markdown"
+    },
+    {
+      "name": "cmd",
+      "description": "Generate a shell command"
+    },
+    {
+      "name": "commit",
+      "description": "Generate a git commit message"
+    }
+  ],
+  "data": [],
+  "tabAutocompleteModel": {
+    "title": "$OLLAMA_CODE_MODEL",
+    "provider": "ollama",
+    "model": "$OLLAMA_CODE_MODEL"
+  },
+  "embeddingsProvider": {
+    "provider": "ollama",
+    "model": "$OLLAMA_EMBED_MODEL"
+  }
+}
+EOF
