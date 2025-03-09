@@ -103,7 +103,7 @@ EOF
 
 # Configure models for VsCode extension Continue.dev
 
-CONT_CONFIG_FILE="$JUPYTERLAB_SETTINGS_DIR
+CONT_CONFIG_FILE="$VSCODE_DATA/.continue/config.json"
 mkdir -p "$(dirname "$CONT_CONFIG_FILE")"
 cat > "$CONT_CONFIG_FILE" <<EOF
 {
