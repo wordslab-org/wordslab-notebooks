@@ -30,10 +30,10 @@ if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
     OLLAMA_CHAT_MODEL="llama3.2:1b"
     OLLAMA_CODE_MODEL="qwen2.5-coder:0.5b-base"
 else
-    OLLAMA_CHAT_MODEL="phi4-mini"
+    OLLAMA_CHAT_MODEL="phi4-mini:latest"
     OLLAMA_CODE_MODEL="qwen2.5-coder:1.5b-base"
 fi
-OLLAMA_EMBED_MODEL="nomic-embed-text"
+OLLAMA_EMBED_MODEL="nomic-embed-text:latest"
 
 # Save the LLM names as env variables 
 echo '' >> ./_wordslab-notebooks-env.bashrc
