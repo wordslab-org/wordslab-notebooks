@@ -37,7 +37,7 @@ export JUPYTER_DATA=$WORDSLAB_WORKSPACE/.jupyter
 export VSCODE_DATA=$WORDSLAB_WORKSPACE/.codeserver
 export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.openwebui
 
-# Open web server ports
+# Open ports for wordslab-notebooks built-in applications
 export DASHBOARD_PORT=8888
 
 export JUPYTERLAB_PORT=8880
@@ -45,12 +45,9 @@ export VSCODE_PORT=8881
 export OPENWEBUI_PORT=8882
 # Note: ollama is not exposed to the outside world, it must be used from inside the container
 
-# Reserved tools ports
-export VLLM_PORT=8883
-export GRADIO_PORT=8884
-export ARGILLA_PORT=8085
-
-# Additional open ports for 3 user defined applications
-export USER_APP1_PORT=8086
-export USER_APP2_PORT=8087
-export USER_APP3_PORT=8089
+# Additional open ports for 5 user defined applications
+export USER_APP1_PORT=8883
+export USER_APP2_PORT=8884
+export USER_APP3_PORT=8885
+export USER_APP4_PORT=8886
+export USER_APP5_PORT=8887
