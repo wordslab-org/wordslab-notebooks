@@ -5,6 +5,10 @@ if not exist %secretsDir% (
     mkdir %secretsDir%
 )
 
+if not exists prepare-client-machine.bat (
+   curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.bat
+)
+
 set "tarFile=%secretsDir%\wordslab-client-secrets.tar"
 if exist "%tarFile%" (
     echo Reusing client secrets from another client machine in wordslab-client-secrets.tar
