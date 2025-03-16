@@ -16,6 +16,12 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=
 set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call start-wordslab-notebooks.bat
 ```
 
+> Prepare client machine
+
+```shell
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat" && call "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat"
+```
+
 ### On Linux
 
 > Install
@@ -28,6 +34,12 @@ apt update && apt install -y curl && export WORDSLAB_HOME=/home && export WORDSL
 
 ```bash
 apt update && apt install -y curl && export WORDSLAB_HOME=/home && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/start-wordslab-notebooks.sh | bash
+```
+
+> Prepare client machine
+
+```shell
+export WORDSLAB_SCRIPTS=/home/wordslab-notebooks && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.sh -o \$WORDSLAB_SCRIPTS/prepare-client-machine.sh && $WORDSLAB_SCRIPTS/prepare-client-machine.sh
 ```
 
 ## Introduction 
