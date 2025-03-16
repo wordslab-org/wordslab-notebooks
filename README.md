@@ -19,7 +19,7 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\word
 > Prepare client machine
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat" && call "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call mkdir %WORDSLAB_WINDOWS_HOME%\wordslab-notebooks && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat" && call "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat"
 ```
 
 ### On Linux
