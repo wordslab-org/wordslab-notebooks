@@ -7,4 +7,4 @@ curl -L -o ubuntu-noble.tar https://partner-images.canonical.com/oci/noble/curre
 wsl --import %1 %WORDSLAB_WINDOWS_HOME%\virtual-machines\%1 ubuntu-noble.tar
 del ubuntu-noble.tar
 
-wsl -d %1 -- sh -c "echo '%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-notebooks' > /home/.WORDSLAB_WINDOWS_HOME"
+wsl -d %1 -- sh -c "echo '%WORDSLAB_WINDOWS_HOME%\\\\virtual-machines\wordslab-notebooks' > /home/.WORDSLAB_WINDOWS_HOME"
