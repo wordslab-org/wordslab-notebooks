@@ -1,6 +1,6 @@
 @echo off
 set "tarfile="
-for %%f in ("..\secrets\*.tar") do (
+for %%f in ("..\secrets\wordslab-server-*.tar") do (
     set "tarfile=%%~nxf"
 )
 
