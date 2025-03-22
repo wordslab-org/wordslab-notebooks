@@ -16,11 +16,75 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=
 set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call start-wordslab-notebooks.bat
 ```
 
-> Prepare client machine
+> Configure wordslab-notebooks for remote access (when the client machine is distinct from the server machine):
+
+1. Prepare client machine
+
+On the client machine, if wordslab-notebooks is not installed:
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call mkdir %WORDSLAB_WINDOWS_HOME%\wordslab-notebooks && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat" && call "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call mkdir %WORDSLAB_WINDOWS_HOME%\wordslab-notebooks && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-server-secrets.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-server-secrets.bat" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-server-machine.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-server-machine.bat" && call "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat"
 ```
+
+On the client machine, if wordslab-notebooks is already installed :
+
+```shell
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call prepare-client-machine.bat
+```
+
+2. Generate secrets for the server machine
+
+On the server machine, get the server machine IP address or DNS name:
+
+```shell
+# Windows
+ipconfig
+
+# Linux
+ifconfig
+```
+
+On the client machine, generate a tar file containing secrets for a specific server machine:
+
+```shell
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call prepare-server-secrets.bat
+```
+
+This script will generate the file: %WORDSLAB_WINDOWS_HOME%\secrets\wordslab-server-192.168.1.28-secrets.tar
+
+IMPORTANT: you will need to regenerate this secrets file each time the server IP address or DNS name changes.
+
+3. Transfer the secrets tar file to the server machine:
+
+On a Windows server machine: 
+- copy the tar file in the %WORDSLAB_WINDOWS_HOME%\secrets directory
+
+On a Linux server machine: 
+- copy the tar file in the $WORDSLAB_WORKSPACE/.secrets directory
+- cd $WORDSLAB_WORKSPACE/.secrets directory
+- tar -xvf [tar file]
+
+4. Prepare the server machine
+
+On a Windows server machine: 
+
+```shell
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call prepare-server-machine.bat
+```
+
+On a Linux server machine: nothing to do, the machine is ready.
+
+5. Start the server machine
+
+The startup script will automatically detect the secrets you installed on the server machine:
+- the web applications will be exposed with the https protocol
+- a password will be required for Jupyterlab and VsCode
+
+6. [Optional] Install other client machines
+
+Transfer the file %WORDSLAB_WINDOWS_HOME%\secrets\wordslab-client-secrets.tar from the first Windows client machine to the directory %WORDSLAB_WINDOWS_HOME%\secrets on the second Windows client machine.
+
+On the second Windows client machine, execute the command from: 1. Prepare client machine.
 
 ### On Linux
 
@@ -34,12 +98,6 @@ apt update && apt install -y curl && export WORDSLAB_HOME=/home && export WORDSL
 
 ```bash
 apt update && apt install -y curl && export WORDSLAB_HOME=/home && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/start-wordslab-notebooks.sh | bash
-```
-
-> Prepare client machine
-
-```shell
-export WORDSLAB_SCRIPTS=/home/wordslab-notebooks && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.sh -o \$WORDSLAB_SCRIPTS/prepare-client-machine.sh && $WORDSLAB_SCRIPTS/prepare-client-machine.sh
 ```
 
 ## Introduction 
