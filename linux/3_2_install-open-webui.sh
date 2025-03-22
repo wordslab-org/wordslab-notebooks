@@ -11,7 +11,7 @@ mkdir $OPENWEBUI_DATA/tools
 
 source <("$CONDA_DIR/bin/conda" 'shell.bash' 'hook' 2> /dev/null)
 
-conda create -y --prefix $OPENWEBUI_ENV python==3.12.8
+conda create -y --prefix $OPENWEBUI_ENV python==3.12.9
 conda activate $OPENWEBUI_ENV
 
 pip install open-webui==0.5.20
