@@ -16,6 +16,11 @@ conda activate $OPENWEBUI_ENV
 
 pip install open-webui==0.5.20
 
+# Patch Open WebUI to enable HTTPS secure access
+OPENWEBUI_SERVER_FILE="$OPENWEBUI_ENV/lib/python3.12/site-packages/open_webui/__init__.py"
+sed -i 's/port: int = 8080,/port: int = 8080, ssl_keyfile: str = None, ssl_certfile: str = None,/g' "$OPENWEBUI_SERVER_FILE"
+sed -i 's/port=port,/port=port, ssl_keyfile=ssl_keyfile, ssl_certfile=ssl_certfile,/g' "$OPENWEBUI_SERVER_FILE"
+
 # Initialize the Open WebUI installation
 
 # Need to set HF_HOME before downloading the embedding & reranking models
