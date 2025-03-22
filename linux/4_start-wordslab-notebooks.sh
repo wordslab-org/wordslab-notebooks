@@ -14,7 +14,6 @@ CERTIFICATE_KEY_FILE="$WORDSLAB_WORKSPACE/.secrets/certificate-key.pem"
 PASSWORD_FILE="$WORDSLAB_WORKSPACE/.secrets/password"
 
 # Specific parameters to start with HTTPS and passwords
-VSCODE_SECURE_ENV=""
 VSCODE_SECURE_PARAMS="--auth none"
 JUPYTERLAB_SECURE_PARAMS="-IdentityProvider.token=''"
 OPENWEBUI_SECURE_PARAMS=""
@@ -29,8 +28,10 @@ if [ -f "$CERTIFICATE_FILE" ]; then
     if [ -s "$PASSWORD_FILE" ]; then
         # Read the content of the password file and trim whitespace
         WORDSLAB_PASSWORD=$(tr -d ' \t\n\r' < "$PASSWORD_FILE")
+
+        # Password environment variable for VsCode
+        export PASSWORD="$WORDSLAB_PASSWORD"
         
-        VSCODE_SECURE_ENV="PASSWORD='$WORDSLAB_PASSWORD'"
         JUPYTERLAB_SECURE_PARAMS="$JUPYTERLAB_SECURE_PARAMS -IdentityProvider.token='$WORDSLAB_PASSWORD'"        
     else
         JUPYTERLAB_SECURE_PARAMS="$JUPYTERLAB_SECURE_PARAMS -IdentityProvider.token=''"        
@@ -38,7 +39,7 @@ if [ -f "$CERTIFICATE_FILE" ]; then
 fi
 
 # Start Visual Studio Code server
-$VSCODE_SECURE_ENV CONTINUE_GLOBAL_DIR=$VSCODE_DATA/.continue $VSCODE_DIR/bin/code-server --bind-addr 0.0.0.0 --port $VSCODE_PORT $VSCODE_SECURE_PARAMS --user-data-dir $VSCODE_DATA --extensions-dir $VSCODE_DATA/extensions --config $VSCODE_DATA/config.yaml --disable-workspace-trust $WORDSLAB_WORKSPACE &
+CONTINUE_GLOBAL_DIR=$VSCODE_DATA/.continue $VSCODE_DIR/bin/code-server --bind-addr 0.0.0.0 --port $VSCODE_PORT $VSCODE_SECURE_PARAMS --user-data-dir $VSCODE_DATA --extensions-dir $VSCODE_DATA/extensions --config $VSCODE_DATA/config.yaml --disable-workspace-trust $WORDSLAB_WORKSPACE &
 pid1=$!
 
 # Start Jupyterlab server
