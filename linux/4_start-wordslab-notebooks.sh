@@ -71,6 +71,8 @@ cd $WORDSLAB_SCRIPTS/dashboard
 ./start-dashboard.sh &
 pid5=$!
 
+sleep 5
+
 echo ''
 echo '------------------'
 echo 'Open the DASHBOARD'
