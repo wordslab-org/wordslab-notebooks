@@ -47,6 +47,7 @@ if [ -f "$CERTIFICATE_FILE" ]; then
         
         JUPYTERLAB_SECURE_PARAMS="$JUPYTERLAB_SECURE_PARAMS -IdentityProvider.token='$WORDSLAB_PASSWORD'"        
     else
+        VSCODE_SECURE_PARAMS="$VSCODE_SECURE_PARAMS --auth none"
         JUPYTERLAB_SECURE_PARAMS="$JUPYTERLAB_SECURE_PARAMS -IdentityProvider.token=''"        
     fi
 fi
