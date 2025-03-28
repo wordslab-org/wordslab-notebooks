@@ -23,6 +23,11 @@ pip install --upgrade pip
 # Install uv package manager, which is growing in popularity and is required to install Aider
 pip install uv  
 
+# Install Jarvislabs.ai client library if necessary
+if [ "$WORDSLAB_PLATFORM" = "Jarvislabs.ai" ]; then
+   pip install git+https://github.com/jarvislabsai/jlclient.git
+fi
+
 # Install wordslab notebooks dashboard
 
 cd $WORDSLAB_SCRIPTS/dashboard
