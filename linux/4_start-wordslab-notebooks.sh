@@ -8,6 +8,19 @@ if [ ! -f /.dockerenv ]; then
     fi
 fi
 
+# Export wordslab applications URLs as environment variables
+# Example:
+#  export JUPYTERLAB_URL=https://192.168.1.28:8880
+#  export VSCODE_URL=https://192.168.1.28:8881
+#  export OPENWEBUI_URL=https://192.168.1.28:8882
+#  export USER_APP1_URL=https://192.168.1.28:8883
+#  export USER_APP2_URL=https://192.168.1.28:8884
+#  export USER_APP3_URL=https://192.168.1.28:8885
+#  export USER_APP4_URL=https://192.168.1.28:8886
+#  export USER_APP5_URL=https://192.168.1.28:8887
+#  export DASHBOARD_URL=https://192.168.1.28:8888
+eval $(python3 4_export-wordslab-urls.py)
+
 # Define the paths to the secrets files
 CERTIFICATE_FILE="$WORDSLAB_WORKSPACE/.secrets/certificate.pem"
 CERTIFICATE_KEY_FILE="$WORDSLAB_WORKSPACE/.secrets/certificate-key.pem"
