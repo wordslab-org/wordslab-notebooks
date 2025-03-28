@@ -68,4 +68,6 @@ print(f"export USER_APP2_URL={endpoints[4]}")
 print(f"export USER_APP3_URL={endpoints[5]}")
 print(f"export USER_APP4_URL={endpoints[6]}")
 print(f"export USER_APP5_URL={endpoints[7]}")
-print(f"export DASHBOARD_URL={endpoints[8]}")
+
+# For now, the dashboard URL is http only
+print(f"export DASHBOARD_URL={endpoints[8].replace("https:","http:")}")
