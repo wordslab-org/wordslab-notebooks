@@ -91,7 +91,7 @@ echo '------------------'
 echo 'Open the DASHBOARD'
 echo '------------------'
 echo ''
-echo http://127.0.0.1:$DASHBOARD_PORT
+echo $DASHBOARD_URL
 echo ''
 echo '------------------'
 echo ''
