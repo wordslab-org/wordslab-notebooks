@@ -1,6 +1,35 @@
 @echo off
 
-set secretsDir=%~dp0\..\secrets
+REM This script can be called in two contexte
+REM - on a machine where the scripts are already installed: the sibling file prepare-server-secrets.bat already exists
+REM - or directly from a github URL, on a machine where nothing is installed yet: in this case we need to download the scripts first
+
+if not exist prepare-server-secrets.bat  (
+
+    REM Mandatory environment variable    
+    if not defined WORDSLAB_WINDOWS_HOME (
+        set "WORDSLAB_WINDOWS_HOME=C:\wordslab"
+    )
+    
+    mkdir %WORDSLAB_WINDOWS_HOME%
+    cd %WORDSLAB_WINDOWS_HOME%
+    
+    REM Download and unzip the installation scripts
+    curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
+    tar -x -f wordslab-notebooks.zip
+    del wordslab-notebooks.zip
+    ren wordslab-notebooks-main wordslab-notebooks
+
+    set scriptsDir=%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks
+    cd %scriptsDir%
+
+) else (
+
+    set scriptsDir=%~dp0
+
+)
+
+set secretsDir=%scriptsDir%\..\secrets
 if not exist %secretsDir% (
     mkdir %secretsDir%
 )
@@ -9,10 +38,6 @@ REM Normalize secrets directory
 pushd %secretsDir%
 set secretsDir=%CD%
 popd
-
-if not exist prepare-server-secrets.bat (
-   curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-server-secrets.bat -o %~dp0\prepare-server-secrets.bat
-)
 
 set "tarFile=%secretsDir%\wordslab-client-secrets.tar"
 if not exist "%secretsDir%\rootCA.pem" (
@@ -28,15 +53,15 @@ if not exist %ssh_key% (
     ssh-keygen -t ed25519 -f %ssh_key% -N "" -q
 )
 
-if not exist %~dp0\mkcert.exe (
+if not exist %scriptsDir%\mkcert.exe (
     echo Downloading mkcert
-    curl -sSL https://dl.filippo.io/mkcert/latest?for=windows/amd64 -o %~dp0\mkcert.exe
+    curl -sSL https://dl.filippo.io/mkcert/latest?for=windows/amd64 -o %scriptsDir%\mkcert.exe
 
-    if exist %~dp0\mkcert.exe (
+    if exist%scriptsDir%\mkcert.exe (
         REM Set secrets directory for mkcert
         set CAROOT=%secretsDir%
         echo Installing mkcert local certificate authority
-        %~dp0\mkcert.exe -install
+        %scriptsDir%\mkcert.exe -install
     ) else (
         echo Failed to download mkcert
         exit /b 1
@@ -59,4 +84,4 @@ echo To generate secrets for a server machine, you can now execute the following
 echo ^> prepare-server-secrets.bat
 echo.
 
-cd %~dp0
+cd %scriptsDir%
