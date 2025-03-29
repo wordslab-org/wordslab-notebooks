@@ -1,6 +1,6 @@
 @echo off
 
-REM This script can be called in two contexte
+REM This script can be called in two contexts
 REM - on a machine where the scripts are already installed: the sibling file prepare-server-secrets.bat already exists
 REM - or directly from a github URL, on a machine where nothing is installed yet: in this case we need to download the scripts first
 
