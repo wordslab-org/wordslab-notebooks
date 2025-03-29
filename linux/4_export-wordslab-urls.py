@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import socket
 
 # Get wordslab container ports
 jupyterlab_port = os.getenv("JUPYTERLAB_PORT")
@@ -70,4 +71,4 @@ print(f"export USER_APP4_URL={endpoints[6]}")
 print(f"export USER_APP5_URL={endpoints[7]}")
 
 # For now, the dashboard URL is http only
-print(f"export DASHBOARD_URL={endpoints[8].replace("https:","http:")}")
+print(f"export DASHBOARD_URL={endpoints[8].replace('https:','http:')}")
