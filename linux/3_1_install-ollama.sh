@@ -25,12 +25,43 @@ while ! curl -s http://localhost:11434 > /dev/null; do
     sleep 1
 done
 
+
+
 # Choose a default local LLMs for this machine
+
+
+# Check the VRAM size and execute commands accordingly
+if [ "$vram_gib" -ge 24 ]; then
+    echo "VRAM is 24 GiB or more"
+    # Execute command for VRAM >= 24 GiB
+    # command_for_vram_gte_24
+elif [ "$vram_gib" -ge 16 ]; then
+    echo "VRAM is 16 GiB or more but less than 24 GiB"
+    # Execute command for VRAM >= 16 GiB
+    # command_for_vram_gte_16
+elif [ "$vram_gib" -ge 8 ]; then
+    echo "VRAM is 8 GiB or more but less than 16 GiB"
+    # Execute command for VRAM >= 8 GiB
+    # command_for_vram_gte_8
+else
+    echo "VRAM is less than 8 GiB"
+    # Execute command for VRAM < 8 GiB
+    # command_for_vram_lt_8
+fi
+
 if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
     OLLAMA_CHAT_MODEL="llama3.2:1b"
     OLLAMA_CODE_MODEL="qwen2.5-coder:0.5b-base"
 else
-    OLLAMA_CHAT_MODEL="phi4-mini:latest"
+    # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
+    vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
+    if [ "$vram_gib" -ge 24 ]; then        
+        OLLAMA_CHAT_MODEL="gemma3:27b"
+    elif [ "$vram_gib" -ge 16 ]; then
+        OLLAMA_CHAT_MODEL="gemma3:12b"
+    else
+        OLLAMA_CHAT_MODEL="gemma3:4b"
+    fi
     OLLAMA_CODE_MODEL="qwen2.5-coder:1.5b-base"
 fi
 OLLAMA_EMBED_MODEL="nomic-embed-text:latest"
