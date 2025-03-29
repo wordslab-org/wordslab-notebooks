@@ -27,3 +27,6 @@ echo 'export JUPYTER_DATA_DIR=$JUPYTER_DATA/share/jupyter' >> ./_wordslab-notebo
 echo 'export JUPYTER_RUNTIME_DIR=$JUPYTER_DATA/share/jupyter/runtime' >> ./_wordslab-notebooks-env.bashrc
 echo 'export JUPYTERLAB_SETTINGS_DIR=$JUPYTER_DATA/lab/user-settings' >> ./_wordslab-notebooks-env.bashrc
 echo 'export JUPYTERLAB_WORKSPACES_DIR=$JUPYTER_DATA/lab/workspaces' >> ./_wordslab-notebooks-env.bashrc
+
+# Also prepare a persistent directory to store the secrets used by all wordslab applications
+mkdir -p $WORDSLAB_WORKSPACE/.secrets
