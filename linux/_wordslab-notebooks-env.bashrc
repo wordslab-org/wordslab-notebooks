@@ -8,9 +8,9 @@ if grep -qi microsoft /proc/version; then
     export WORDSLAB_PLATFORM="WindowsSubsystemForLinux"
 elif [ -n "$MACHINE_ID" ] && [ -n "$MACHINE_NAME" ]; then
     export WORDSLAB_PLATFORM="Jarvislabs.ai"
-elif [ -n "$RUNPOD_POD_ID" ] && [ -n "$RUNPOD_POD_HOSTNAME" ]; then
+elif [ -n "$RUNPOD_POD_ID" ]; then
     export WORDSLAB_PLATFORM="Runpod.io"
-elif [ -n "$CONTAINER_ID" ] && [ -n "$VAST_CONTAINER_LABEL" ]; then
+elif [ -n "$VAST_TCP_PORT_22" ]; then
     export WORDSLAB_PLATFORM="Vast.ai"
 else
     export WORDSLAB_PLATFORM="UnknownLinux"
