@@ -37,13 +37,16 @@ REM For filenames, replace '*' with 'any'
 set "FILENAME_ADDRESS=!CERTIFICATE_ADDRESS:*=any!"
 
 # REM Prepare secrets if they don't already exist
-
-prepare-server-secrets.bat "%CERTIFICATE_ADDRESS%"
-scp -P %port% -i C:\wordslab\secrets\ssh-key C:\wordslab\secrets\wordslab-server-%FILENAME_ADDRESS%-secrets.tar root@%address%:/workspace/workspace/.secrets/wordslab-server-secrets.tar
+if not exist %~dp0\..\secrets\wordslab-server-%FILENAME_ADDRESS%-secrets.tar (
+    prepare-server-secrets.bat "%CERTIFICATE_ADDRESS%"
+    scp -P %port% -i C:\wordslab\secrets\ssh-key %~dp0\..\secrets\wordslab-server-%FILENAME_ADDRESS%-secrets.tar root@%address%:/workspace/workspace/.secrets/wordslab-server-secrets.tar
+)
 
 # REM Send secrets to the server 
-cd $WORDSLAB_WORKSPACE/.secrets
-tar -xvf wordslab-server-secrets.tar
+ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%~dp0\..\secrets\ssh-key" << EOF
+    cd $WORDSLAB_WORKSPACE/.secrets
+    tar -xvf wordslab-server-secrets.tar
+EOF
 
 REM Start on local Windows machine
 :windows_mode
