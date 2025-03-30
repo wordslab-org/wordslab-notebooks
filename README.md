@@ -23,7 +23,7 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\word
 On the client machine, if wordslab-notebooks is not installed:
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call mkdir %WORDSLAB_WINDOWS_HOME%\wordslab-notebooks && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-server-secrets.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-server-secrets.bat" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-server-machine.bat -o "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-server-machine.bat" && call "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks\prepare-client-machine.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab-client" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.bat -o "%temp%\prepare-client-machine.bat" && call "%temp%\prepare-client-machine.bat"
 ```
 
 On the client machine, if wordslab-notebooks is already installed :
