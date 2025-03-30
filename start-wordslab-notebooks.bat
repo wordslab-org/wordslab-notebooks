@@ -1,9 +1,52 @@
 @echo off
 setlocal ENABLEDELAYEDEXPANSION
 
-REM Usage : start-wordslab-notebooks.bat --name <wsl distribution name>(optional)
+REM Usage 1 - Start on local Widows machine
+REM start-wordslab-notebooks.bat --name <wsl distribution name>(optional)
 REM Default parameter values
 set "name=wordslab-notebooks"
+
+REM Route to local windows mode
+if "%~1"=="" goto windows_mode
+if "%~1"=="--" goto windows_mode
+
+REM Usage 2 - Start on remote Linux machine
+REM start-wordslab-notebooks.bat <server address> <server ssh port>(optional)
+REM Default parameter values
+set "port=22"
+
+REM Start on remote Linux machine
+
+REM Parse command-line arguments
+set address=%~1
+if not "%~2"=="" set port=%~2
+
+REM First detect the remote platform
+for /f "delims=" %%i in ('ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%ssh_key%" "grep -qi microsoft /proc/version && echo WindowsSubsystemForLinux || ([ -n \"$MACHINE_ID\" ] && [ -n \"$MACHINE_NAME\" ] && echo Jarvislabs.ai) || ([ -n \"$RUNPOD_POD_ID\" ] && echo Runpod.io) || ([ -n \"$VAST_TCP_PORT_22\" ] && echo Vast.ai) || echo UnknownLinux"') do set "WORDSLAB_PLATFORM=%%i"
+echo The remote platform is: %WORDSLAB_PLATFORM%
+
+REM Set CERTIFICATE_ADDRESS based on WORDSLAB_PLATFORM
+if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
+    set "CERTIFICATE_ADDRESS=*.notebooks.jarvislabs.net"
+) else if "%WORDSLAB_PLATFORM%"=="Runpod.io" (
+    set "CERTIFICATE_ADDRESS=*.proxy.runpod.net"
+) else (
+    set "CERTIFICATE_ADDRESS=%address%"
+)
+REM For filenames, replace '*' with 'any'
+set "FILENAME_ADDRESS=!CERTIFICATE_ADDRESS:*=any!"
+
+# REM Prepare secrets if they don't already exist
+
+prepare-server-secrets.bat "%CERTIFICATE_ADDRESS%"
+scp -P %port% -i C:\wordslab\secrets\ssh-key C:\wordslab\secrets\wordslab-server-%FILENAME_ADDRESS%-secrets.tar root@%address%:/workspace/workspace/.secrets/wordslab-server-secrets.tar
+
+# REM Send secrets to the server 
+cd $WORDSLAB_WORKSPACE/.secrets
+tar -xvf wordslab-server-secrets.tar
+
+REM Start on local Windows machine
+:windows_mode
 
 REM Parse command-line arguments
 if "%~1"=="" goto end_args
