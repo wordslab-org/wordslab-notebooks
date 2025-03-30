@@ -7,30 +7,15 @@ REM Default parameter values
 set "name=wordslab-notebooks"
 set "cpu=true"
 
-REM Usage 2 - Install on remote Linux machine
-REM install-wordslab-notebooks.bat <server address> <server ssh port>(optional)
-REM Default parameter values
-set "port=22"
-
-REM Mandatory environment variables
-REM WORDSLAB_WINDOWS_HOME: installation script and wordslab-notebooks virtual machine
-if not defined WORDSLAB_WINDOWS_HOME (
-    set "WORDSLAB_WINDOWS_HOME=C:\wordslab"
-)
-
-mkdir %WORDSLAB_WINDOWS_HOME%
-cd %WORDSLAB_WINDOWS_HOME%
-
-REM Download and unzip the installation scripts
-curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
-tar -x -f wordslab-notebooks.zip
-del wordslab-notebooks.zip
-ren wordslab-notebooks-main wordslab-notebooks
-
 REM Route to local windows mode
 if "%~1"=="" goto windows_mode
 if "%~1"=="--" goto windows_mode
 if "%~2"=="--" goto windows_mode
+
+REM Usage 2 - Install on remote Linux machine
+REM install-wordslab-notebooks.bat <server address> <server ssh port>(optional)
+REM Default parameter values
+set "port=22"
 
 REM Install on remote Linux machine
 
@@ -39,13 +24,13 @@ set address=%~1
 if not "%~2"=="" set port=%~2
 
 REM Check if the SSH key exists
-if not exist "%WORDSLAB_WINDOWS_HOME%\secrets\ssh-key" (
+if not exist "%~dp0\..\secrets\ssh-key" (
     echo Please execute prepare-client-machine.bat first and register the public SSH key with the cloud provider.
     exit /b 1
 )
 
 REM Execute the following commands through a secure SSH connection to the remote Linux server
-ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%WORDSLAB_WINDOWS_HOME%\secrets\ssh-key" << EOF
+ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%~dp0\..\secrets\ssh-key" << EOF
     apt update && apt install -y curl
     export WORDSLAB_HOME=/workspace
     export WORDSLAB_WORKSPACE=\$WORDSLAB_HOME/workspace
@@ -60,6 +45,10 @@ REM Install on local Windows machine
 :windows_mode
 
 REM Mandatory environment variables
+REM WORDSLAB_WINDOWS_HOME: installation script and wordslab-notebooks virtual machine
+if not defined WORDSLAB_WINDOWS_HOME (
+    set "WORDSLAB_WINDOWS_HOME=C:\wordslab"
+)
 REM WORDSLAB_WINDOWS_WORKSPACE: wordslab-notebooks-workspace virtual disk
 if not defined WORDSLAB_WINDOWS_WORKSPACE (
     set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"
@@ -68,6 +57,15 @@ REM WORDSLAB_WINDOWS_MODELS: wordslab-notebooks-workspace virtual disk
 if not defined WORDSLAB_WINDOWS_MODELS (
     set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" 
 )
+
+if not exist "%WORDSLAB_WINDOWS_HOME%" mkdir %WORDSLAB_WINDOWS_HOME%
+cd %WORDSLAB_WINDOWS_HOME%
+
+REM Download and unzip the installation scripts
+curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
+tar -x -f wordslab-notebooks.zip
+del wordslab-notebooks.zip
+ren wordslab-notebooks-main wordslab-notebooks
 
 REM Check if nvidia-smi exists and check if there is at least one GPU
 where nvidia-smi >nul 2>&1
