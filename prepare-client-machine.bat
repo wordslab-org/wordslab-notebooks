@@ -9,7 +9,7 @@ if not exist prepare-server-secrets.bat  (
     REM Mandatory environment variable
     REM WORDSLAB_WINDOWS_HOME: installation scripts and client/server secrets
     if not defined WORDSLAB_WINDOWS_HOME (
-        set "WORDSLAB_WINDOWS_HOME=C:\wordslab"
+        set "WORDSLAB_WINDOWS_HOME=C:\wordslab-client"
     )
     
     mkdir %WORDSLAB_WINDOWS_HOME%
