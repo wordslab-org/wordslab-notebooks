@@ -17,7 +17,8 @@ else
 fi
 
 # This must point to the mount path of a persistent volume inside the container
-# Right now, all supported platforms can use the same path, but this could be platform dependent
+# This is the default value, but it can be platform dependent
+# It will be overwritten by user defined environment variables in install-wordslab-notebooks.sh
 export WORDSLAB_HOME=/home
 
 # Install directories
