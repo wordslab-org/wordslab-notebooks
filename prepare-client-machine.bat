@@ -6,7 +6,8 @@ REM - or directly from a github URL, on a machine where nothing is installed yet
 
 if not exist prepare-server-secrets.bat  (
 
-    REM Mandatory environment variable    
+    REM Mandatory environment variable
+    REM WORDSLAB_WINDOWS_HOME: installation scripts and client/server secrets
     if not defined WORDSLAB_WINDOWS_HOME (
         set "WORDSLAB_WINDOWS_HOME=C:\wordslab"
     )
@@ -80,8 +81,11 @@ echo Client machine is ready: secrets stored in %tarFile%
 echo.
 echo If you plan to use other client machines to access the same remote wordslab-notebooks servers, you need to transfer the client secrets to the other machines: please refer to the documentation at https://github.com/wordslab-org/wordslab-notebooks/.
 echo.
-echo To generate secrets for a server machine, you can now execute the following command:
+echo To generate secrets for a local server machine, you can now execute the following command:
 echo ^> prepare-server-secrets.bat
+echo.
+echo To install wordslab-notebooks on a remote Linux server machine, you can now execute the following command:
+echo ^> install-wordslab-notebooks.bat <linux server SSH address> <linux server SSH port>(optional: default=22)
 echo.
 
 cd %scriptsDir%
