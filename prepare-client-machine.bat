@@ -58,7 +58,7 @@ if not exist %scriptsDir%\mkcert.exe (
     echo Downloading mkcert
     curl -sSL https://dl.filippo.io/mkcert/latest?for=windows/amd64 -o %scriptsDir%\mkcert.exe
 
-    if exist%scriptsDir%\mkcert.exe (
+    if exist %scriptsDir%\mkcert.exe (
         REM Set secrets directory for mkcert
         set CAROOT=%secretsDir%
         echo Installing mkcert local certificate authority
