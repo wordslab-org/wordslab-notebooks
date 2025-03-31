@@ -79,18 +79,23 @@ if not exist "%tarFile%" (
 
 echo Client machine is ready: secrets stored in %tarFile%
 echo.
-echo You can now register your public SSH key with a cloud provider:
+echo To install wordslab-notebooks on a cloud server machine, you can now execute the following steps:
+echo .
+echo 1. Register your public SSH key with a cloud provider
 echo --- COPY THE LINE BELOW ---
 type "%ssh_key%.pub"
 echo --- COPY THE LINE ABOVE ---
 echo.
-echo If you plan to use other client machines to access the same remote wordslab-notebooks servers, you need to transfer the client secrets to the other machines: please refer to the documentation at https://github.com/wordslab-org/wordslab-notebooks/.
+echo 2. Select, configure and start a cloud machine, then display the SSH command to access the machine
 echo.
-echo To generate secrets for a local server machine, you can now execute the following command:
+echo 3. Execute the following script on your client machine to install wordlsab-notebooks on the cloud machine
+echo ^> install-wordslab-notebooks.bat [linux server SSH address] [linux server SSH port](optional: default=22)
+echo.
+echo To generate secrets for a local server machine, execute the following command:
 echo ^> prepare-server-secrets.bat
 echo.
-echo To install wordslab-notebooks on a cloud server machine, you can now execute the following command:
-echo ^> install-wordslab-notebooks.bat [linux server SSH address] [linux server SSH port](optional: default=22)
+echo Note: if you plan to use other client machines, you need to transfer %tarFile% to theses machines.
+echo Please refer to the documentation at https://github.com/wordslab-org/wordslab-notebooks/.
 echo.
 
 cd /d "%scriptsDir%"
