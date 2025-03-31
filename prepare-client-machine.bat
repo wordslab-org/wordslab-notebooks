@@ -79,6 +79,11 @@ if not exist "%tarFile%" (
 
 echo Client machine is ready: secrets stored in %tarFile%
 echo.
+echo You can now register your public SSH key with a cloud provider:
+echo --- COPY THE LINE BELOW ---
+type "%ssh_key%.pub"
+echo --- COPY THE LINE ABOVE ---
+echo.
 echo If you plan to use other client machines to access the same remote wordslab-notebooks servers, you need to transfer the client secrets to the other machines: please refer to the documentation at https://github.com/wordslab-org/wordslab-notebooks/.
 echo.
 echo To generate secrets for a local server machine, you can now execute the following command:
