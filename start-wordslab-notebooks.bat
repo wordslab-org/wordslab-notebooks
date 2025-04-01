@@ -22,31 +22,57 @@ set address=%~1
 if not "%~2"=="" set port=%~2
 
 REM First detect the remote platform
-for /f "delims=" %%i in ('ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%ssh_key%" "grep -qi microsoft /proc/version && echo WindowsSubsystemForLinux || ([ -n \"$MACHINE_ID\" ] && [ -n \"$MACHINE_NAME\" ] && echo Jarvislabs.ai) || ([ -n \"$RUNPOD_POD_ID\" ] && echo Runpod.io) || ([ -n \"$VAST_TCP_PORT_22\" ] && echo Vast.ai) || echo UnknownLinux"') do set "WORDSLAB_PLATFORM=%%i"
+for /f "delims=" %%i in ('ssh -p %port% -o "StrictHostKeyChecking=no" root@%address% -i "%ssh_key%" "grep -qi microsoft /proc/version && echo WindowsSubsystemForLinux || ([ -n \"$MACHINE_ID\" ] && [ -n \"$MACHINE_NAME\" ] && echo Jarvislabs.ai) || ([ -n \"$RUNPOD_POD_ID\" ] && echo Runpod.io) || ([ -n \"$VAST_TCP_PORT_22\" ] && echo Vast.ai) || echo UnknownLinux"') do set "WORDSLAB_PLATFORM=%%i"
 echo The remote platform is: %WORDSLAB_PLATFORM%
+
+REM Set WORDSLAB_HOME based on WORDSLAB_PLATFORM
+if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
+    set "WORDSLAB_HOME=/home/jl_fs"
+) else if "%WORDSLAB_PLATFORM%"=="Runpod.io" (
+    set "WORDSLAB_HOME=/workspace"
+) else if "%WORDSLAB_PLATFORM%"=="Vast.ai" (
+    set "WORDSLAB_HOME=/workspace"
+) else (
+    set "WORDSLAB_HOME=/home"
+)
 
 REM Set CERTIFICATE_ADDRESS based on WORDSLAB_PLATFORM
 if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
     set "CERTIFICATE_ADDRESS=*.notebooks.jarvislabs.net"
+    set "FILENAME_ADDRESS=jarvislabs.net"
 ) else if "%WORDSLAB_PLATFORM%"=="Runpod.io" (
     set "CERTIFICATE_ADDRESS=*.proxy.runpod.net"
+    set "FILENAME_ADDRESS=runpod.net"
 ) else (
     set "CERTIFICATE_ADDRESS=%address%"
-)
-REM For filenames, replace '*' with 'any'
-set "FILENAME_ADDRESS=!CERTIFICATE_ADDRESS:*=any!"
-
-# REM Prepare secrets if they don't already exist
-if not exist %~dp0\..\secrets\wordslab-server-%FILENAME_ADDRESS%-secrets.tar (
-    prepare-server-secrets.bat "%CERTIFICATE_ADDRESS%"
-    scp -P %port% -i C:\wordslab\secrets\ssh-key %~dp0\..\secrets\wordslab-server-%FILENAME_ADDRESS%-secrets.tar root@%address%:/workspace/workspace/.secrets/wordslab-server-secrets.tar
+    set "FILENAME_ADDRESS=%address%"
 )
 
-# REM Send secrets to the server 
-ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%~dp0\..\secrets\ssh-key" << EOF
-    cd $WORDSLAB_WORKSPACE/.secrets
-    tar -xvf wordslab-server-secrets.tar
-EOF
+REM Normalize secrets directory
+set secretsDir=%~dp0\..\secrets
+pushd %secretsDir%
+set secretsDir=%CD%
+popd
+
+REM Prepare and transfer server secrets if they don't already exist
+
+ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "test -f %WORDSLAB_HOME%/workspace/.secrets/certificate.pem && echo true || echo false" | findstr /C:"true" /C:"false" > test-certificate.txt
+set /p certificate-exists=<test-certificate.txt
+if "%certificate-exists%"=="false"  (
+
+    if not exist %secretsDir%\wordslab-server-%FILENAME_ADDRESS%-secrets.tar (
+
+        prepare-server-secrets.bat "%CERTIFICATE_ADDRESS%"
+    )
+    scp -P %port% -i %secretsDir%\ssh-key %secretsDir%\wordslab-server-%FILENAME_ADDRESS%-secrets.tar root@%address%:%WORDSLAB_HOME%/workspace/.secrets/wordslab-server-secrets.tar
+    ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "cd %WORDSLAB_HOME%/workspace/.secrets && tar -xvf wordslab-server-secrets.tar"
+)
+del test-certificate.txt
+
+REM Execute startup script on the remote Linux machine
+ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "export WORDSLAB_HOME=%WORDSLAB_HOME% && cd %WORDSLAB_HOME%/wordslab-notebooks && ./start-wordslab-notebooks.sh"
+
+exit /b 0
 
 REM Start on local Windows machine
 :windows_mode
