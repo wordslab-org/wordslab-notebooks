@@ -30,7 +30,7 @@ if not exist "%~dp0\..\secrets\ssh-key" (
 )
 
 REM First detect the remote platform
-for /f "delims=" %%i in ('ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%ssh_key%" "grep -qi microsoft /proc/version && echo WindowsSubsystemForLinux || ([ -n \"$MACHINE_ID\" ] && [ -n \"$MACHINE_NAME\" ] && echo Jarvislabs.ai) || ([ -n \"$RUNPOD_POD_ID\" ] && echo Runpod.io) || ([ -n \"$VAST_TCP_PORT_22\" ] && echo Vast.ai) || echo UnknownLinux"') do set "WORDSLAB_PLATFORM=%%i"
+for /f "delims=" %%i in ('ssh -p %port% -o "StrictHostKeyChecking=no" root@%address% -i "%ssh_key%" "grep -qi microsoft /proc/version && echo WindowsSubsystemForLinux || ([ -n \"$MACHINE_ID\" ] && [ -n \"$MACHINE_NAME\" ] && echo Jarvislabs.ai) || ([ -n \"$RUNPOD_POD_ID\" ] && echo Runpod.io) || ([ -n \"$VAST_TCP_PORT_22\" ] && echo Vast.ai) || echo UnknownLinux"') do set "WORDSLAB_PLATFORM=%%i"
 echo The remote platform is: %WORDSLAB_PLATFORM%
 
 REM Set WORDSLAB_HOME based on WORDSLAB_PLATFORM
@@ -45,13 +45,7 @@ if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
 )
 
 REM Execute the install script through a secure SSH connection to the remote Linux server
-ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%~dp0\..\secrets\ssh-key" << EOF
-    apt update && apt install -y curl
-    export WORDSLAB_HOME=%WORDSLAB_HOME%
-    export WORDSLAB_WORKSPACE=\$WORDSLAB_HOME/workspace
-    export WORDSLAB_MODELS=\$WORDSLAB_HOME/models
-    curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.sh | bash
-EOF
+ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%~dp0\..\secrets\ssh-key" "apt update && apt install -y curl && export WORDSLAB_HOME=%WORDSLAB_HOME% && export WORDSLAB_WORKSPACE=\$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=\$WORDSLAB_HOME/models && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.sh | bash"
 
 exit /b 0
 
