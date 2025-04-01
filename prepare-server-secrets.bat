@@ -49,5 +49,8 @@ del %secretsDir%\password
 echo. 
 echo The secrets for the remote wordslab-notebooks server are stored in %secretsDir%\wordslab-server-%machine%-secrets.tar
 echo.
-echo Now you need to transfer these secrets to the server machine: please refer to the documentation at https://github.com/wordslab-org/wordslab-notebooks/.
-echo.
+
+if "%~1"=="" (
+    echo Now you need to transfer these secrets to the server machine: please refer to the documentation at https://github.com/wordslab-org/wordslab-notebooks/.
+    echo.
+)
