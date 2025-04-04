@@ -55,15 +55,15 @@ set secretsDir=%CD%
 popd
 
 REM Prepare and transfer server secrets if they don't already exist
-
 ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "test -f %WORDSLAB_HOME%/workspace/.secrets/certificate.pem && echo true || echo false" | findstr /C:"true" /C:"false" > test-certificate.txt
+
 set /p certificate-exists=<test-certificate.txt
 if "%certificate-exists%"=="false"  (
 
     if not exist %secretsDir%\wordslab-server-%FILENAME_ADDRESS%-secrets.tar (
-
-        prepare-server-secrets.bat "%CERTIFICATE_ADDRESS%"
+        call prepare-server-secrets.bat "%CERTIFICATE_ADDRESS%"
     )
+
     scp -P %port% -i %secretsDir%\ssh-key %secretsDir%\wordslab-server-%FILENAME_ADDRESS%-secrets.tar root@%address%:%WORDSLAB_HOME%/workspace/.secrets/wordslab-server-secrets.tar
     ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "cd %WORDSLAB_HOME%/workspace/.secrets && tar -xvf wordslab-server-secrets.tar"
 )
