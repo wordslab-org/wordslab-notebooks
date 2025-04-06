@@ -13,7 +13,7 @@ fi
 cd $WORDSLAB_HOME/wordslab-notebooks/linux
 
 # Make sure the environment variables are initialized on Runpod
-if [ -f /etc/rp_environment ]; then
+if [ -f /etc/rp_environment ] && [ -z "$RUNPOD_POD_ID" ]; then
     sed -i 's/^\(\[ -z "\$PS1" \] && return\)/# \1/' ~/.bashrc
     source ~/.bashrc
 fi
