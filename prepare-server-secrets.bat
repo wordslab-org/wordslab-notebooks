@@ -20,13 +20,21 @@ set CAROOT=%secretsDir%
 
 REM Check if the machine parameter is passed to the script, or get the input from the user
 if "%~1"=="" (
-    set /p machine=Please enter the IP address or DNS name of the remote machine on which you want to install wordslab-notebooks:
+    set /p machine=Please enter the IP address or DNS subdomain of the remote machine on which you want to install wordslab-notebooks:
 ) else (
     set machine=%~1
 )
 
+REM Check if the machine is an IP address or a DNS subdomain
+echo %machine% | findstr /R "[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*" >nul
+if %errorlevel%==0 (
+    set "address=%machine%"
+) else (
+    set "address=*.%machine%"
+)
+
 REM Generate the SSL certificate for the server machine
-%~dp0\mkcert.exe -cert-file %secretsDir%\certificate.pem -key-file %secretsDir%\certificate-key.pem %machine% localhost 127.0.0.1 ::1
+%~dp0\mkcert.exe -cert-file %secretsDir%\certificate.pem -key-file %secretsDir%\certificate-key.pem %address% localhost 127.0.0.1 ::1
 
 set password=
 set /p "password=Please enter a password for accessing this remote machine (or leave empty for no password):" 
