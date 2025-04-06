@@ -38,14 +38,11 @@ if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
 
 REM Set CERTIFICATE_ADDRESS based on WORDSLAB_PLATFORM
 if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
-    set "CERTIFICATE_ADDRESS=*.notebooks.jarvislabs.net"
-    set "FILENAME_ADDRESS=jarvislabs.net"
+    set "CERTIFICATE_ADDRESS=notebooks.jarvislabs.net"
 ) else if "%WORDSLAB_PLATFORM%"=="Runpod.io" (
-    set "CERTIFICATE_ADDRESS=*.proxy.runpod.net"
-    set "FILENAME_ADDRESS=runpod.net"
+    set "CERTIFICATE_ADDRESS=proxy.runpod.net"
 ) else (
     set "CERTIFICATE_ADDRESS=%address%"
-    set "FILENAME_ADDRESS=%address%"
 )
 
 REM Normalize secrets directory
@@ -60,11 +57,11 @@ ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-ke
 set /p certificate-exists=<test-certificate.txt
 if "%certificate-exists%"=="false"  (
 
-    if not exist %secretsDir%\wordslab-server-%FILENAME_ADDRESS%-secrets.tar (
+    if not exist %secretsDir%\wordslab-server-%CERTIFICATE_ADDRESS%-secrets.tar (
         call prepare-server-secrets.bat "%CERTIFICATE_ADDRESS%"
     )
 
-    scp -P %port% -i %secretsDir%\ssh-key %secretsDir%\wordslab-server-%FILENAME_ADDRESS%-secrets.tar root@%address%:%WORDSLAB_HOME%/workspace/.secrets/wordslab-server-secrets.tar
+    scp -P %port% -i %secretsDir%\ssh-key %secretsDir%\wordslab-server-%CERTIFICATE_ADDRESS%-secrets.tar root@%address%:%WORDSLAB_HOME%/workspace/.secrets/wordslab-server-secrets.tar
     ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "cd %WORDSLAB_HOME%/workspace/.secrets && tar -xvf wordslab-server-secrets.tar"
 )
 del test-certificate.txt
