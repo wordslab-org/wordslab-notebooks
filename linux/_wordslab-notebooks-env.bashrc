@@ -1,7 +1,12 @@
 # Source this file in ~/.bashrc to configure the machine shell
 
 # This version is updated on each release
-export WORDSLAB_VERSION="2025-03"
+export WORDSLAB_VERSION="2025-04"
+
+# Make sure the environment variables are initialized on Runpod
+if [ -f /etc/rp_environment ]; then
+    source /etc/rp_environment
+fi
 
 # Detect the execution environment
 if grep -qi microsoft /proc/version; then
