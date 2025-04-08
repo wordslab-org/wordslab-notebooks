@@ -32,10 +32,8 @@ if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
 else
     # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
-    if [ "$vram_gib" -ge 31 ]; then        
+    if [ "$vram_gib" -ge 23 ]; then        
         OLLAMA_CHAT_MODEL="gemma3:27b"
-    elif [ "$vram_gib" -ge 23 ]; then        
-        OLLAMA_CHAT_MODEL="mistral-small3.1"
     elif [ "$vram_gib" -ge 15 ]; then
         OLLAMA_CHAT_MODEL="gemma3:12b"
     else
