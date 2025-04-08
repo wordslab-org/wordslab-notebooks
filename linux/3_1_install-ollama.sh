@@ -4,7 +4,7 @@
 mkdir $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.6.3 -o ollama-linux-amd64.tgz
+curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.6.5 -o ollama-linux-amd64.tgz
 tar -C $OLLAMA_DIR -xzf ollama-linux-amd64.tgz
 rm ollama-linux-amd64.tgz
 
@@ -27,13 +27,15 @@ done
 
 # Choose a default local LLMs for this machine
 if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
-    OLLAMA_CHAT_MODEL="llama3.2:1b"
+    OLLAMA_CHAT_MODEL="gemma3:1b"
     OLLAMA_CODE_MODEL="qwen2.5-coder:0.5b-base"
 else
     # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
-    if [ "$vram_gib" -ge 23 ]; then        
+    if [ "$vram_gib" -ge 31 ]; then        
         OLLAMA_CHAT_MODEL="gemma3:27b"
+    elif [ "$vram_gib" -ge 23 ]; then        
+        OLLAMA_CHAT_MODEL="mistral-small3.1"
     elif [ "$vram_gib" -ge 15 ]; then
         OLLAMA_CHAT_MODEL="gemma3:12b"
     else
