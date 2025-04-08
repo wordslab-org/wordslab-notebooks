@@ -37,10 +37,12 @@ if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
 )
 
 REM Set CERTIFICATE_ADDRESS based on WORDSLAB_PLATFORM
+REM - Runpod and Jarvislabs implement https with a proxy
+REM - no need to generate https secrets in this case
 if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
-    set "CERTIFICATE_ADDRESS=notebooks.jarvislabs.net"
+    goto startup_script
 ) else if "%WORDSLAB_PLATFORM%"=="Runpod.io" (
-    set "CERTIFICATE_ADDRESS=proxy.runpod.net"
+    goto startup_script
 ) else (
     set "CERTIFICATE_ADDRESS=%address%"
 )
@@ -67,6 +69,7 @@ if "%certificate-exists%"=="false"  (
 del test-certificate.txt
 
 REM Execute startup script on the remote Linux machine
+:startup_script
 ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "export WORDSLAB_HOME=%WORDSLAB_HOME% && cd %WORDSLAB_HOME%/wordslab-notebooks && ./start-wordslab-notebooks.sh"
 
 exit /b 0
