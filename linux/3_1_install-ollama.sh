@@ -27,17 +27,17 @@ done
 
 # Choose a default local LLMs for this machine
 if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
-    OLLAMA_CHAT_MODEL="gemma3:1b-it-qat"
+    OLLAMA_CHAT_MODEL="gemma3:1b"
     OLLAMA_CODE_MODEL="qwen2.5-coder:0.5b-base"
 else
     # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
     if [ "$vram_gib" -ge 23 ]; then        
-        OLLAMA_CHAT_MODEL="gemma3:27b-it-qat"
+        OLLAMA_CHAT_MODEL="gemma3:27b"
     elif [ "$vram_gib" -ge 15 ]; then
-        OLLAMA_CHAT_MODEL="gemma3:12b-it-qat"
+        OLLAMA_CHAT_MODEL="gemma3:12b"
     else
-        OLLAMA_CHAT_MODEL="gemma3:4b-it-qat"
+        OLLAMA_CHAT_MODEL="gemma3:4b"
     fi
     OLLAMA_CODE_MODEL="qwen2.5-coder:1.5b-base"
 fi
