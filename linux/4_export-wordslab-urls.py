@@ -34,7 +34,7 @@ if platform=="WindowsSubsystemForLinux":
 elif platform=="Jarvislabs.ai":
     from jlclient import jarvisclient
     from jlclient.jarvisclient import *
-    jarvislabs_api_token_file = workspace_path / ".secrets/jarvislabs-api-token"
+    jarvislabs_api_token_file = workspace_path / ".secrets/jarvislabs-api-key"
     jarvislabs_api_token = jarvislabs_api_token_file.read_text().strip()
     jarvisclient.token = jarvislabs_api_token
     machine_id = os.getenv("MACHINE_ID")   
