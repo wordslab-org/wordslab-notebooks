@@ -23,14 +23,20 @@ REM Parse command-line arguments
 set address=%~1
 if not "%~2"=="" set port=%~2
 
+REM Normalize secrets directory
+set secretsDir=%~dp0\..\secrets
+pushd %secretsDir%
+set secretsDir=%CD%
+popd
+
 REM Check if the SSH key exists
-if not exist "%~dp0\..\secrets\ssh-key" (
+if not exist "%secretsDir%\ssh-key" (
     echo Please execute prepare-client-machine.bat first and register the public SSH key with the cloud provider.
     exit /b 1
 )
 
 REM First detect the remote platform
-for /f "delims=" %%i in ('ssh -p %port% -o "StrictHostKeyChecking=no" root@%address% -i "%~dp0\..\secrets\ssh-key" "[ -f /etc/environment ] && source /etc/environment; [ -f /etc/rp_environment ] && source /etc/rp_environment; grep -qi microsoft /proc/version && echo WindowsSubsystemForLinux || ([ -n \"$MACHINE_ID\" ] && [ -n \"$MACHINE_NAME\" ] && echo Jarvislabs.ai) || ([ -n \"$RUNPOD_POD_ID\" ] && echo Runpod.io) || ([ -n \"$VAST_TCP_PORT_22\" ] && echo Vast.ai) || echo UnknownLinux"') do set "WORDSLAB_PLATFORM=%%i"
+for /f "delims=" %%i in ('ssh -p %port% -o "StrictHostKeyChecking=no" root@%address% -i "%secretsDir%\ssh-key" "[ -f /etc/environment ] && source /etc/environment; [ -f /etc/rp_environment ] && source /etc/rp_environment; grep -qi microsoft /proc/version && echo WindowsSubsystemForLinux || ([ -n \"$MACHINE_ID\" ] && [ -n \"$MACHINE_NAME\" ] && echo Jarvislabs.ai) || ([ -n \"$RUNPOD_POD_ID\" ] && echo Runpod.io) || ([ -n \"$VAST_TCP_PORT_22\" ] && echo Vast.ai) || echo UnknownLinux"') do set "WORDSLAB_PLATFORM=%%i"
 echo The remote platform is: %WORDSLAB_PLATFORM%
 
 REM Set WORDSLAB_HOME based on WORDSLAB_PLATFORM
@@ -44,8 +50,17 @@ if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
     set "WORDSLAB_HOME=/home"
 )
 
+REM On Jarvislabs, we need to copy the API key to get the dahsboard URL
+if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
+    if not exist "%secretsDir%\jarvislabs-api-key" (
+        echo To install on Jarvislabs, please first go to https://jarvislabs.ai/settings/api-keys, generate an API key, then save this key in a file named %secretsDir%\jarvislabs-api-key
+        exit /b 1
+    )
+    scp -P %port% -i %secretsDir%\ssh-key %secretsDir%\jarvislabs-api-key root@%address%:%WORDSLAB_HOME%/workspace/.secrets/jarvislabs-api-key
+)
+
 REM Execute the install script through a secure SSH connection to the remote Linux server
-ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%~dp0\..\secrets\ssh-key" "apt update && apt install -y curl && export WORDSLAB_HOME=%WORDSLAB_HOME% && export WORDSLAB_WORKSPACE=\$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=\$WORDSLAB_HOME/models && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.sh | bash"
+ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "apt update && apt install -y curl && export WORDSLAB_HOME=%WORDSLAB_HOME% && export WORDSLAB_WORKSPACE=\$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=\$WORDSLAB_HOME/models && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.sh | bash"
 
 exit /b 0
 
