@@ -39,7 +39,7 @@ elif platform=="Jarvislabs.ai":
     jarvisclient.token = jarvislabs_api_token
     machine_id = os.getenv("MACHINE_ID")   
     instance = User.get_instance(machine_id)
-    endpoints = instance.endpoints
+    endpoints = instance.endpoints[1:]
 
 elif platform=="Runpod.io": 
     pod_id = os.getenv("RUNPOD_POD_ID") 
