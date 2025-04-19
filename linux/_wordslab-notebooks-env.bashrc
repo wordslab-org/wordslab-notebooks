@@ -24,7 +24,6 @@ export WORDSLAB_HOME=/home
 # Install directories
 export WORDSLAB_SCRIPTS=$WORDSLAB_HOME/wordslab-notebooks
 export CONDA_DIR=$WORDSLAB_HOME/miniforge3
-export UV_CACHE_DIR=$WORDSLAB_WORKSPACE/.python
 
 export WORDSLAB_NOTEBOOKS_ENV=$WORDSLAB_HOME/wordslab-notebooks-$WORDSLAB_VERSION
 export VSCODE_DIR=$WORDSLAB_HOME/code-server
@@ -35,6 +34,7 @@ export OLLAMA_DIR=$WORDSLAB_HOME/ollama
 export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace
 export WORDSLAB_MODELS=$WORDSLAB_HOME/models
 
+export UV_CACHE_DIR=$WORDSLAB_WORKSPACE/.python
 export JUPYTER_DATA=$WORDSLAB_WORKSPACE/.jupyter
 export VSCODE_DATA=$WORDSLAB_WORKSPACE/.codeserver
 export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.openwebui
