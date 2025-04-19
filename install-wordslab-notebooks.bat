@@ -56,6 +56,7 @@ if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
         echo To install on Jarvislabs, please first go to https://jarvislabs.ai/settings/api-keys, generate an API key, then save this key in a file named %secretsDir%\jarvislabs-api-key
         exit /b 1
     )
+    ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "mkdir -p %WORDSLAB_HOME%/workspace/.secrets"
     scp -P %port% -i %secretsDir%\ssh-key %secretsDir%\jarvislabs-api-key root@%address%:%WORDSLAB_HOME%/workspace/.secrets/jarvislabs-api-key
 )
 
