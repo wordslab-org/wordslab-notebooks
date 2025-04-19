@@ -21,8 +21,14 @@ REM Parse command-line arguments
 set address=%~1
 if not "%~2"=="" set port=%~2
 
+REM Normalize secrets directory
+set secretsDir=%~dp0\..\secrets
+pushd %secretsDir%
+set secretsDir=%CD%
+popd
+
 REM First detect the remote platform
-for /f "delims=" %%i in ('ssh -p %port% -o "StrictHostKeyChecking=no" root@%address% -i "%ssh_key%" "[ -f /etc/rp_environment ] && source /etc/rp_environment; grep -qi microsoft /proc/version && echo WindowsSubsystemForLinux || ([ -n \"$MACHINE_ID\" ] && [ -n \"$MACHINE_NAME\" ] && echo Jarvislabs.ai) || ([ -n \"$RUNPOD_POD_ID\" ] && echo Runpod.io) || ([ -n \"$VAST_TCP_PORT_22\" ] && echo Vast.ai) || echo UnknownLinux"') do set "WORDSLAB_PLATFORM=%%i"
+for /f "delims=" %%i in ('ssh -p %port% -o "StrictHostKeyChecking=no" root@%address% -i "%secretsDir%\ssh-key" "[ -f /etc/environment ] && source /etc/environment; [ -f /etc/rp_environment ] && source /etc/rp_environment; grep -qi microsoft /proc/version && echo WindowsSubsystemForLinux || ([ -n \"$MACHINE_ID\" ] && [ -n \"$MACHINE_NAME\" ] && echo Jarvislabs.ai) || ([ -n \"$RUNPOD_POD_ID\" ] && echo Runpod.io) || ([ -n \"$VAST_TCP_PORT_22\" ] && echo Vast.ai) || echo UnknownLinux"') do set "WORDSLAB_PLATFORM=%%i"
 echo The remote platform is: %WORDSLAB_PLATFORM%
 
 REM Set WORDSLAB_HOME based on WORDSLAB_PLATFORM
@@ -46,12 +52,6 @@ if "%WORDSLAB_PLATFORM%"=="Jarvislabs.ai" (
 ) else (
     set "CERTIFICATE_ADDRESS=%address%"
 )
-
-REM Normalize secrets directory
-set secretsDir=%~dp0\..\secrets
-pushd %secretsDir%
-set secretsDir=%CD%
-popd
 
 REM Prepare and transfer server secrets if they don't already exist
 ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "test -f %WORDSLAB_HOME%/workspace/.secrets/certificate.pem && echo true || echo false" | findstr /C:"true" /C:"false" > test-certificate.txt
