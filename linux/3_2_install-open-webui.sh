@@ -11,10 +11,10 @@ mkdir $OPENWEBUI_DATA/tools
 
 source <("$CONDA_DIR/bin/conda" 'shell.bash' 'hook' 2> /dev/null)
 
-conda create -y --prefix $OPENWEBUI_ENV python==3.12.9
+conda create -y --prefix $OPENWEBUI_ENV python==3.12.10
 conda activate $OPENWEBUI_ENV
 
-pip install open-webui==0.6.2
+pip install open-webui==0.6.5
 
 # Patch Open WebUI to enable HTTPS secure access
 OPENWEBUI_SERVER_FILE="$OPENWEBUI_ENV/lib/python3.12/site-packages/open_webui/__init__.py"
