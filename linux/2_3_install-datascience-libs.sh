@@ -4,8 +4,8 @@
 # All other librairies will be installed project by project in isolated virtual environments (see create-workspace-project)
 
 pip install pandas==2.2.3 scikit-learn==1.6.1 
-# Temporary: fastai 2.7.19 is not compatible with Pytorch 2.6 => waiting for fastai 2.8.1
-pip install git+https://github.com/fastai/fastai.git
+# fastai 2.8.1 is the first version compatible with Pytorch 2.6
+pip install fastai==2.8.1
 
 # The most important responsability of this script:
 # Configure all popular deeplearning librairies to download models and datasets under the $WORDSLAB_MODEL directory (see _wordslab-notebooks-env.bashrc) 
