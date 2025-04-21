@@ -1,8 +1,39 @@
-# wordslab-notebooks - "your AI at home"
+# wordslab-notebooks - Learn and build with AI at home
 
-## Get Started
+## Overview
 
-### On Windows
+![wordslab-notebooks main applications](./docs/images/architecture-overview-main-apps.jpg)
+
+![wordslab-notebooks installation options](./docs/images/architecture-installation-options.jpg)
+
+![wordslab-notebooks architecture overview](./docs/images/architecture-overview.jpg)
+
+Don't be deceived by the apparent simplicity of this solution: **simplicity is the main feature of the product**. 
+
+This lightweight and seamless experience is the result of **many iterations over 4 years**. 
+
+You will see over time that **everything you try just works out of the box**.
+
+WARNING: this local AI development environment is meant to be used **for personal use only, on a computer which is not directly accessible from the internet**
+- ease of use was prioritized for a single user in a safe environment
+- **no access control or security measures** are implemented
+
+## Installation
+
+### Option 1 - Local gamer PC 
+
+![wordslab-notebooks installation config 1](./docs/images/architecture-config1-one-machine.jpg)
+
+Hardware requirements
+- a computer with a **x64 processor** (Intel or AMD) and at least 16 GB of RAM
+- a SSD disk with at least 50 GB free (100 GB recommended)
+- a **Nvidia GPU** - RTX 3060 or higher - with 8 GB of VRAM or more
+- Windows 10 or 11 (with the latest updates) - please note that administrator privileges are necessary only if Windows Subsystem for Linux is not already installed on your machine or if you want to enable remote access
+- Ubuntu Linux 22.04 or 24.04 - with root access
+
+Note: Apple silicon, AMD GPU and Intel or Qualcomm NPU processors are not supported yet
+
+#### Windows commands
 
 > Install
 
@@ -16,7 +47,41 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=
 set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call start-wordslab-notebooks.bat
 ```
 
-> Configure wordslab-notebooks for remote access (when the client machine is distinct from the server machine):
+#### Linux commands
+
+> Install
+
+```bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.sh | bash
+```
+
+> Start
+
+```bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/start-wordslab-notebooks.sh | bash
+```
+
+### Option 2 - Local laptop + Local gamer PC
+
+![wordslab-notebooks installation config 2 install](./docs/images/architecture-config2-local-client-server-install.jpg)
+
+![wordslab-notebooks installation config 3 start](./docs/images/architecture-config2-local-client-server-start.jpg)
+
+First, **install the server machine** using the commands above in option 1.
+
+On the server machine, get the server machine IP address or DNS name with one of the commands below:
+
+```shell
+# Windows
+ipconfig
+
+# Linux
+ifconfig
+```
+
+Then:
+
+#### Windows client machine commands
 
 1. Prepare client machine
 
@@ -34,16 +99,6 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\word
 
 2. Generate secrets for the server machine
 
-On the server machine, get the server machine IP address or DNS name:
-
-```shell
-# Windows
-ipconfig
-
-# Linux
-ifconfig
-```
-
 On the client machine, generate a tar file containing secrets for a specific server machine:
 
 ```shell
@@ -53,6 +108,8 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\word
 This script will generate the file: %WORDSLAB_WINDOWS_HOME%\secrets\wordslab-server-192.168.1.28-secrets.tar
 
 IMPORTANT: you will need to regenerate this secrets file each time the server IP address or DNS name changes.
+
+#### Server machine commands
 
 3. Transfer the secrets tar file to the server machine:
 
@@ -76,69 +133,49 @@ On a Linux server machine: nothing to do, the machine is ready.
 
 5. Start the server machine
 
+Use the start command above in option 1.
+
 The startup script will automatically detect the secrets you installed on the server machine:
 - the web applications will be exposed with the https protocol
 - a password will be required for Jupyterlab and VsCode
 
-6. [Optional] Install other client machines
+#### Optional - Other client machines
+
+[Optional] Install other client machines.
 
 Transfer the file %WORDSLAB_WINDOWS_HOME%\secrets\wordslab-client-secrets.tar from the first Windows client machine to the directory %WORDSLAB_WINDOWS_HOME%\secrets on the second Windows client machine.
 
 On the second Windows client machine, execute the command from: 1. Prepare client machine.
 
-### On Linux
+### Option 3 - Local laptop + Cloud GPU server
 
-> Install
+![wordslab-notebooks installation config 3 subscribe](./docs/images/architecture-config3-cloud-client-server-install.jpg)
 
-```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.sh | bash
-```
+![wordslab-notebooks installation config 3 rent](./docs/images/architecture-config3-cloud-client-server-start.jpg)
 
-> Start
+#### Subscribe to a cloud service
 
-```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/start-wordslab-notebooks.sh | bash
-```
+Three options are officially supported and documented, but many others may work well.
 
-## Introduction 
+https://www.runpod.io/
 
-**wordslab-notebooks** provides a one click installer to set up a **GPU-accelerated workspace** on your local gaming PC or on a cloud hosted virtual machine to use and develop **local AI applications**.
+https://cloud.vast.ai/
 
-What you need
-- a computer with a **x64 processor** (Intel or AMD) and at least 16 GB of RAM
-- a SSD disk with at least 25 GB space free (100 GB recommended)
-- a **Nvidia GPU** - RTX 3060 or higher - with 8 GB of VRAM or more
-- If you own a **gaming PC at home**: Windows 10 or 11 (latest updates) - administrator privileges are necessary only if Windows Subsystem for Linux is not already installed on your machine or if you want to enable remote access
-- If you rent a **virtual machine in the cloud**: Ubuntu Linux 22.04 or 24.04 with root access
-- Note: Apple silicon, AMD GPU and Intel or Qualcomm NPU processors are not supported yet
+https://jarvislabs.ai/
 
-What you will get
-- a fully featured AI development environment based on **Jupyterlab notebooks** with popular tools and extensions
-- a consistent installation of all the GPU-accelerated Python libraries you need to start your projects right away (see list below)
-- scripts and tutorials to guide you through the whole development lifecycle (with Github and Huggingface)
-- all that contained within a single "wordslab-notebooks" directory on your Windows machine
+#### Rent a cloud machine
 
-Don't be deceived by the apparent simplicity of this solution: **simplicity is the main feature of the product**. 
+See the specific instructions for each provider.
 
-It is the result of many iterations over 4 years to converge to this lightweight and seamless experience. You will see over time that everything you try just works out of the box.
+#### Install wordlabs-notebboks on the cloud machine
 
-WARNING: this local AI development environment is meant to be used **for personal use only, on a computer which is not directly accessible from the internet**
-- ease of use was prioritized for a single user in a safe environment
-- **no access control or security measures** are implemented
+See the specific instructions for each provider.
 
-> wordslab-notebooks screenshot
+#### Start wordlabs-notebboks on the cloud machine
 
-![wordslab-notebooks screenshot](./docs/images/wordslab-notebooks-screenshot.jpg)
+See the specific instructions for each provider.
 
-> wordslab-chat screenshot
-
-![wordslab-chat screenshot](./docs/images/wordslab-chat-screenshot.jpg)
-
-> wordslab-images screenshot
-
-![wordslab-images screenshot](./docs/images/wordslab-images-screenshot.jpg)
-
-## Documentation sections
+## LEGACY - Documentation sections - WILL BE UPDATED SOON
 
 - [Windows installation instructions](#windows-installation-instructions) (use your gaming PC at home)
   - [Start and stop Jupyterlab](#5-start-jupyterlab-and-test-your-environment)
