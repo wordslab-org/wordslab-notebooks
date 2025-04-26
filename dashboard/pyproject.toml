@@ -1,0 +1,12 @@
+[project]
+name = "dashboard"
+version = "0.1.0"
+description = "wordslab-notebooks dashboard"
+requires-python = ">=3.12"
+dependencies = [
+    "jlclient",
+    "monsterui==1.0.19",
+]
+
+[tool.uv.sources]
+jlclient = { git = "https://github.com/jarvislabsai/jlclient.git" }
