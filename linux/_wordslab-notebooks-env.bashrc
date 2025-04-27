@@ -23,21 +23,26 @@ export WORDSLAB_HOME=/home
 
 # Install directories
 export WORDSLAB_SCRIPTS=$WORDSLAB_HOME/wordslab-notebooks
-export CONDA_DIR=$WORDSLAB_HOME/miniforge3
 
-export WORDSLAB_NOTEBOOKS_ENV=$WORDSLAB_HOME/wordslab-notebooks-$WORDSLAB_VERSION
+export JUPYTERLAB_ENV=$WORDSLAB_HOME/jupyterlab
 export VSCODE_DIR=$WORDSLAB_HOME/code-server
-export OPENWEBUI_ENV=$WORDSLAB_HOME/open-webui-$WORDSLAB_VERSION
+export OPENWEBUI_ENV=$WORDSLAB_HOME/open-webui
 export OLLAMA_DIR=$WORDSLAB_HOME/ollama
 
 # Data directories
 export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace
 export WORDSLAB_MODELS=$WORDSLAB_HOME/models
 
-export UV_CACHE_DIR=$WORDSLAB_WORKSPACE/.python
 export JUPYTER_DATA=$WORDSLAB_WORKSPACE/.jupyter
 export VSCODE_DATA=$WORDSLAB_WORKSPACE/.codeserver
 export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.openwebui
+
+# Python global directories
+export UV_INSTALL_DIR=$WORDSLAB_WORKSPACE/.python
+export UV_PYTHON_INSTALL_DIR=$UV_INSTALL_DIR
+export UV_CACHE_DIR=$UV_INSTALL_DIR
+export UV_TOOL_DIR=$UV_INSTALL_DIR/tools 
+export UV_TOOL_BIN_DIR=$UV_INSTALL_DIR
 
 # Open ports for wordslab-notebooks built-in applications
 export DASHBOARD_PORT=8888

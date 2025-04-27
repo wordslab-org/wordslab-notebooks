@@ -43,9 +43,28 @@ fi
 
 # 4. Create a dedicated Python virtual environment for the project
 echo "Creating a virtual environment and Jupyter kernel for project: $dir_name"
-python -m venv --system-site-packages --prompt $dir_name .venv
+if [ -f "pyproject.toml" ]; then
+    uv add ipykernel
+    if [ -f "$WORDSLAB_WORKSPACE/.cpu-only"]; then
+        uv sync --extra cpu
+    else
+        uv sync --extra cuda
+    fi
+elif [ -f "requirements.txt" ]; then
+    uv venv
+    uv pip sync requirements.txt
+    uv pip install ipykernel
+else
+    cp $WORDSLAB_SCRIPTS/projects/pyproject.toml .
+    if [ -f "$WORDSLAB_WORKSPACE/.cpu-only"]; then
+        uv sync --extra cpu
+    else
+        uv sync --extra cuda
+    fi
+fi
 source .venv/bin/activate
 
 # 5. Create a Jupyter kernel with the project name for this virtual environment
 python -m ipykernel install --prefix=$JUPYTER_DATA --name=$dir_name
+
 echo "Virtual environment is ready for project $dir_name"

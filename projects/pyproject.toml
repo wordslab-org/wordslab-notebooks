@@ -1,0 +1,61 @@
+[project]
+name = "project"
+version = "0.1.0"
+description = "Add your project description here"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas==2.2.3",
+    "scikit-learn==1.6.1",
+    "fastai==2.8.1",
+    "nbdev==2.4.2",
+]
+
+[project.optional-dependencies]
+cpu = [
+  "torch==2.6.0",
+  "torchvision==0.21.0",
+  "torchaudio==2.6.0"
+]
+cuda = [
+  "torch==2.6.0",
+  "torchvision==0.21.0",
+  "torchaudio==2.6.0",
+  "vllm==0.8.4"
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel==6.29.5",
+]
+
+[tool.uv]
+conflicts = [
+  [
+    { extra = "cpu" },
+    { extra = "cuda" },
+  ],
+]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu124", extra = "cuda" },
+]
+torchvision = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu124", extra = "cuda" },
+]
+torchaudio = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu124", extra = "cuda" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true

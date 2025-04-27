@@ -1,11 +1,10 @@
 #!/bin/bash
+cpu_only=$1
 
-# Only install very basic datascience librairies in the conda environment: pandas and scikit-learn
-# All other librairies will be installed project by project in isolated virtual environments (see create-workspace-project)
-
-pip install pandas==2.2.3 scikit-learn==1.6.1 
-# fastai 2.8.1 is the first version compatible with Pytorch 2.6
-pip install fastai==2.8.1
+# Register that the install is CPU only
+if [ "$cpu_only" == "true" ]; then
+    touch $WORDSLAB_WORKSPACE/.cpu-only
+fi
 
 # The most important responsability of this script:
 # Configure all popular deeplearning librairies to download models and datasets under the $WORDSLAB_MODEL directory (see _wordslab-notebooks-env.bashrc) 
@@ -20,3 +19,9 @@ echo 'export TORCH_HOME=$WORDSLAB_MODELS/torch' >> ./_wordslab-notebooks-env.bas
 echo 'export KERAS_HOME=$WORDSLAB_MODELS/keras' >> ./_wordslab-notebooks-env.bashrc
 echo 'export TFHUB_CACHE_DIR=$WORDSLAB_MODELS/tfhub_modules' >> ./_wordslab-notebooks-env.bashrc
 echo 'export OLLAMA_MODELS=$WORDSLAB_MODELS/ollama' >> ./_wordslab-notebooks-env.bashrc
+
+# Create a first workspace project with tutorials for wordslab notebooks
+create-workspace-project https://github.com/wordslab-org/wordslab-notebooks-tutorials.git
+
+# => create-workspace-project will copy the ../projects/pyproject.toml file in this workspace project
+# => then it will install all the common datascience librairies, Pytorch (GPU or CPU version), and VLLM (GPU version)

@@ -57,6 +57,7 @@ CONTINUE_GLOBAL_DIR=$VSCODE_DATA/.continue $VSCODE_DIR/bin/code-server --bind-ad
 pid1=$!
 
 # Start Jupyterlab server
+source $JUPYTERLAB_ENV/.venv/bin/activate
 export JUPYTER_ALLOW_INSECURE_WRITES=true
 jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYTERLAB_PORT -$JUPYTERLAB_SECURE_PARAMS --no-browser -ServerApp.allow_root=True -ServerApp.allow_remote_access=True -ServerApp.allow_origin='*' -ServerApp.root_dir="$WORDSLAB_WORKSPACE" &
 pid2=$!
@@ -66,10 +67,9 @@ OLLAMA_HOME=0.0.0.0 OLLAMA_LOAD_TIMEOUT=-1 ollama serve &
 pid3=$!
 
 # Start open-webui server
-source <("$CONDA_DIR/bin/conda" 'shell.bash' 'hook' 2> /dev/null)
-conda activate $OPENWEBUI_ENV
+source $OPENWEUI_ENV/.venv/bin/activate
 
-if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
+if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     export USE_CUDA_DOCKER="false"
 else
     export USE_CUDA_DOCKER="true"
@@ -77,10 +77,8 @@ fi
 
 ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools DEFAULT_MODELS="$OLLAMA_CHAT_MODEL" RAG_EMBEDDING_ENGINE="ollama" RAG_EMBEDDING_MODEL="$OLLAMA_EMBED_MODEL" open-webui serve --host 0.0.0.0 --port $OPENWEBUI_PORT $OPENWEBUI_SECURE_PARAMS &
 pid4=$!
-conda deactivate
 
 # Start wordslab notebooks dashboard
-
 cd $WORDSLAB_SCRIPTS/dashboard
 ./start-dashboard.sh &
 pid5=$!

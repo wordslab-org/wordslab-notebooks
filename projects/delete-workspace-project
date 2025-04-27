@@ -14,6 +14,8 @@ if [ ! -d "$WORDSLAB_WORKSPACE/$dir_name" ]; then
 fi
 
 # 2. Delete the Jupyter kernel dedicated to the project
+source activate-workspace-project $dir_name
+
 echo "Deleting the Jupyter kernel for project: $dir_name"
 jupyter kernelspec uninstall -y $dir_name
 

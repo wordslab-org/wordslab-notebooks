@@ -26,7 +26,7 @@ while ! curl -s http://localhost:11434 > /dev/null; do
 done
 
 # Choose a default local LLMs for this machine
-if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
+if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     OLLAMA_CHAT_MODEL="gemma3:1b"
     OLLAMA_CODE_MODEL="qwen2.5-coder:0.5b-base"
 else
