@@ -17,7 +17,7 @@ echo 'export JUPYTERLAB_WORKSPACES_DIR=$JUPYTER_DATA/lab/workspaces' >> ./_words
 
 # Create jupterlab environment
 mkdir -p $JUPYTERLAB_ENV
-cp ./2_3_jupyterlab-pyproject.toml $JUPYTERLAB_ENV
+cp ./2_3_jupyterlab-pyproject.toml $JUPYTERLAB_ENV/pyproject.toml
 
 # Download Jupyterlab and all its extensions
 cd $JUPYTERLAB_ENV
