@@ -6,7 +6,7 @@ cpu_only=$1
 ./2_1_install-python-environment.sh
 
 # Add uv in the PATH after installing it
-source ~/.bashrc
+source $UV_INSTALL_DIR/env
 
 # Install wordslab-notebooks dashboard
 ./2_2_install-dashboard.sh
