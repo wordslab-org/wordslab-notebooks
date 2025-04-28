@@ -28,4 +28,4 @@ if [ ! -f "/.wordslab-$WORDSLAB_VERSION-installed" ]; then
 fi
 
 # Start all the wordslab-notebooks servers
-./4_start-wordslab-notebooks.sh
+./5_start-wordslab-notebooks.sh

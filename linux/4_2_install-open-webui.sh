@@ -8,11 +8,15 @@ mkdir $OPENWEBUI_DATA/tools
 
 # Create the OpenWebUI environment
 mkdir -p $OPENWEBUI_ENV
-cp ./3_2_openwebui-pyproject.toml $OPENWEBUI_ENV/pyproject.toml
+cp ./4_2_openwebui-pyproject.toml $OPENWEBUI_ENV/pyproject.toml
 
 # Download Jupyterlab and all its extensions
 cd $OPENWEBUI_ENV
-uv sync
+if [ -f "$WORDSLAB_WORKSPACE/.cpu-only"]; then
+    uv sync --extra cpu
+else
+    uv sync --extra cuda
+fi
 source .venv/bin/activate
 
 # Patch Open WebUI to enable HTTPS secure access

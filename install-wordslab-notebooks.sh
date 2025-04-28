@@ -44,11 +44,17 @@ source $BASHRC_FILE
 # Make sure all the necessary Ubtunu packages are installed
 ./1__update-operating-system.sh
 
-# Install the notebooks and code environment: Jupyterlab, VS Code server, Aider AI agent
+# Install the notebooks environment: Python, dahsboard, Jupyterlab, projects, datascience librairies
 ./2__install-wordslab-notebooks.sh
 
+# Make sure the python package manager is available for the following scripts
+source $UV_INSTALL_DIR/env
+
+# Install the code environment: VS Code server, Aider AI agent
+./3__install-vscode-server.sh
+
 # Install the chat and LLM environment: Open WebUI, Ollama
-./3__install-open-webui.sh
+./4__install-open-webui.sh
 
 # Update ~/.bashrc to start new shells in the right environment and directory
 ./1_3_configure-shell-environment.sh

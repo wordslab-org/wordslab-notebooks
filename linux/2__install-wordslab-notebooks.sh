@@ -23,9 +23,3 @@ source $UV_INSTALL_DIR/env
 # Install VLLM (GPU only)
 # Configure all popular deeplearning librairies to download their models and datasets under the $WORDSLAB_MODELS directory (see _wordslab-notebooks-env.bashrc) 
 ./2_5_install-datascience-libs.sh $cpu_only
-
-# Install Visual Studio Code server and Python extension
-./2_6_install-vscode-server.sh
-
-# Install Aider AI code assistant
-./2_7_install-aider-ai-agent.sh
