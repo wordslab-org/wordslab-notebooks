@@ -6,7 +6,7 @@
 # Set WORDSLAB_HOME to its default value if necessary
 
 if [ -z "${WORDSLAB_HOME}" ]; then
-    export $WORDSLAB_HOME=/home
+    export WORDSLAB_HOME=/home
 fi
 
 # Navigate to the linux directory where all the scripts live
