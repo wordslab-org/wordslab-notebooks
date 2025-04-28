@@ -8,7 +8,7 @@ mkdir $OPENWEBUI_DATA/tools
 
 # Create the OpenWebUI environment
 mkdir -p $OPENWEBUI_ENV
-cp ./3_2_openwebui-pyproject.toml $OPENWEBUI_ENV
+cp ./3_2_openwebui-pyproject.toml $OPENWEBUI_ENV/pyproject.toml
 
 # Download Jupyterlab and all its extensions
 cd $OPENWEBUI_ENV
