@@ -27,12 +27,5 @@ if [ ! -f "/.wordslab-$WORDSLAB_VERSION-installed" ]; then
     ./1__update-operating-system.sh
 fi
 
-# Initialize the Python environment 
-# (this will also change directory to $WORDSLAB_WORKSPACE)
-source ./_wordslab-notebooks-init.bashrc
-
-# Navigate (again) to the linux directory where all the scripts live
-cd $WORDSLAB_HOME/wordslab-notebooks/linux
-
 # Start all the wordslab-notebooks servers
 ./4_start-wordslab-notebooks.sh
