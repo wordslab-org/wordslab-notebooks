@@ -16,14 +16,14 @@ uv sync
 source .venv/bin/activate
 
 # Patch Open WebUI to enable HTTPS secure access
-OPENWEBUI_SERVER_FILE="$OPENWEBUI_ENV/lib/python3.12/site-packages/open_webui/__init__.py"
+OPENWEBUI_SERVER_FILE="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/open_webui/__init__.py"
 sed -i 's/port: int = 8080,/port: int = 8080, ssl_keyfile: str = None, ssl_certfile: str = None,/g' "$OPENWEBUI_SERVER_FILE"
 sed -i 's/port=port,/port=port, ssl_keyfile=ssl_keyfile, ssl_certfile=ssl_certfile,/g' "$OPENWEBUI_SERVER_FILE"
 
 # Initialize the Open WebUI installation
 
 # Need to set HF_HOME before downloading the embedding & reranking models
-source ./_wordslab-notebooks-env.bashrc
+source $WORDSLAB_SCRIPTS/linux/_wordslab-notebooks-env.bashrc
 
 if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
     export USE_CUDA_DOCKER="false"
