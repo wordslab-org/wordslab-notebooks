@@ -67,7 +67,7 @@ OLLAMA_HOME=0.0.0.0 OLLAMA_LOAD_TIMEOUT=-1 ollama serve &
 pid3=$!
 
 # Start open-webui server
-source $OPENWEUI_ENV/.venv/bin/activate
+source $OPENWEBUI_ENV/.venv/bin/activate
 
 if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     export USE_CUDA_DOCKER="false"
