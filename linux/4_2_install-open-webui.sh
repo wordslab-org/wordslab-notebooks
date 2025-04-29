@@ -12,7 +12,7 @@ cp ./4_2_openwebui-pyproject.toml $OPENWEBUI_ENV/pyproject.toml
 
 # Download Jupyterlab and all its extensions
 cd $OPENWEBUI_ENV
-if [ -f "$WORDSLAB_WORKSPACE/.cpu-only"]; then
+if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     uv sync --extra cpu
 else
     uv sync --extra cuda
