@@ -17,7 +17,6 @@ if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
 else
     uv sync --extra cuda
 fi
-source .venv/bin/activate
 
 # Patch Open WebUI to enable HTTPS secure access
 OPENWEBUI_SERVER_FILE="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/open_webui/__init__.py"
@@ -29,6 +28,7 @@ sed -i 's/port=port,/port=port, ssl_keyfile=ssl_keyfile, ssl_certfile=ssl_certfi
 # Need to set HF_HOME before downloading the embedding & reranking models
 source $WORDSLAB_SCRIPTS/linux/_wordslab-notebooks-env.bashrc
 
+source .venv/bin/activate
 if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
     export USE_CUDA_DOCKER="false"
 else
