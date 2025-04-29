@@ -5,4 +5,4 @@ cpu_only=$1
 ./3_1_install-vscode-server.sh
 
 # Install Aider AI code assistant
-./3_1_install-aider-ai-agent.sh
+./3_2_install-aider-ai-agent.sh
