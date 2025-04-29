@@ -46,21 +46,21 @@ echo "Creating a virtual environment and Jupyter kernel for project: $dir_name"
 if [ -f "pyproject.toml" ]; then
     uv add ipykernel
     if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
-        uv sync --extra cpu
+        uv sync --extra cpu --link-mode "symlink"
     else
-        uv sync --extra cuda
+        uv sync --extra cuda --link-mode "symlink"
     fi
 elif [ -f "requirements.txt" ]; then
     uv venv
-    uv pip sync requirements.txt
+    uv pip sync requirements.txt --link-mode "symlink"
     uv pip install ipykernel
 else
     cp $WORDSLAB_SCRIPTS/linux/2_5_datascience-pyproject.toml ./pyproject.toml
     sed -i "s/\"project\"/\"$dir_name\"/g" ./pyproject.toml
     if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
-        uv sync --extra cpu
+        uv sync --extra cpu --link-mode "symlink"
     else
-        uv sync --extra cuda
+        uv sync --extra cuda --link-mode "symlink"
     fi
 fi
 source .venv/bin/activate
