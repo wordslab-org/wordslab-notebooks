@@ -45,7 +45,7 @@ fi
 echo "Creating a virtual environment and Jupyter kernel for project: $dir_name"
 if [ -f "pyproject.toml" ]; then
     uv add ipykernel
-    if [ -f "$WORDSLAB_WORKSPACE/.cpu-only"]; then
+    if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
         uv sync --extra cpu
     else
         uv sync --extra cuda
@@ -57,7 +57,7 @@ elif [ -f "requirements.txt" ]; then
 else
     cp $WORDSLAB_SCRIPTS/linux/2_5_datascience-pyproject.toml ./pyproject.toml
     sed -i "s/\"project\"/\"$dir_name\"/g" ./pyproject.toml
-    if [ -f "$WORDSLAB_WORKSPACE/.cpu-only"]; then
+    if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
         uv sync --extra cpu
     else
         uv sync --extra cuda
