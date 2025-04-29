@@ -43,7 +43,6 @@ export UV_PYTHON_INSTALL_DIR=$UV_INSTALL_DIR
 export UV_CACHE_DIR=$UV_INSTALL_DIR
 export UV_TOOL_DIR=$UV_INSTALL_DIR/tools 
 export UV_TOOL_BIN_DIR=$UV_INSTALL_DIR
-export UV_LINK_MODE="symlink"
 
 # Open ports for wordslab-notebooks built-in applications
 export DASHBOARD_PORT=8888
