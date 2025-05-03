@@ -17,19 +17,21 @@ app5_url = os.getenv("USER_APP3_URL")
 
 # Create your app with the theme
 hdrs = Theme.blue.headers()
-app, rt = fast_app(hdrs=hdrs, static_path="images", debug=True, live=True)
+app, rt = fast_app(hdrs=(*hdrs, Link(rel="icon", type="image/jpg", href="/favicon.jpg")), static_path="images", debug=True, live=True)
 
 @rt("/")
 def get():
-    return DivHStacked(
-            Img(src="wordslab-notebooks-small.jpg", width=96, height=96),
-            H1("Wordslab notebooks"),
-            Div("version 2025-04", cls=TextT.meta)
-        ), DivVStacked(
+    return Title("Wordslab notebooks"), DivVStacked(
+            A(DivHStacked(
+                Img(src="wordslab-notebooks-small.jpg", width=96, height=96, cls="m-3"),
+                H1("Wordslab notebooks"),
+                Div("version 2025-04", cls=TextT.meta)
+            ), href="https://github.com/wordslab-org/wordslab-notebooks?tab=readme-ov-file#wordslab-notebooks---learn-and-build-with-ai-at-home", target="_blank"),
+            DividerLine(lwidth=2, y_space=4),
             DivHStacked(
                 ToolCard("Open WebUI", "openwebui.jpg", openwebui_url),
                 ToolCard("Jupyter Lab", "jupyterlab.jpg", jupyterlab_url),
-                ToolCard("VS Code", "vscode.jpg", vscode_url),
+                ToolCard("Visual Studio", "vscode.jpg", vscode_url),
                 Card(DivVStacked(
                     H3("User applications"),
                     Ol(
@@ -40,7 +42,7 @@ def get():
                         ToolLink("USER_APP5_PORT", app5_url)
                     )
                 )),
-                cls="space-x-10 my-10"
+                cls="space-x-10"
             )           
         )
 
