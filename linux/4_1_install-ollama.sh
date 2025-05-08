@@ -4,7 +4,7 @@
 mkdir $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.6.6 -o ollama-linux-amd64.tgz
+curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.6.8 -o ollama-linux-amd64.tgz
 tar -C $OLLAMA_DIR -xzf ollama-linux-amd64.tgz
 rm ollama-linux-amd64.tgz
 
