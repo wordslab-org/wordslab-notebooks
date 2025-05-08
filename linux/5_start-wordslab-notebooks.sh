@@ -63,7 +63,7 @@ jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYT
 pid2=$!
 
 # Start ollama server
-OLLAMA_HOME=0.0.0.0 OLLAMA_LOAD_TIMEOUT=-1 ollama serve &
+OLLAMA_HOST=0.0.0.0 OLLAMA_CONTEXT_LENGTH=8192 OLLAMA_LOAD_TIMEOUT=-1 ollama serve &
 pid3=$!
 
 # Start open-webui server
