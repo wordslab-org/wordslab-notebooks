@@ -38,13 +38,13 @@ Note: Apple silicon, AMD GPU and Intel or Qualcomm NPU processors are not suppor
 > Install
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.bat -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set WORDSLAB_VERSION=2025-05 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
 ```
 
 > Start
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call start-wordslab-notebooks.bat
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call "%WORDSLAB_WINDOWS_HOME%\start-wordslab-notebooks.bat"
 ```
 
 #### Linux commands
@@ -52,13 +52,13 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\word
 > Install
 
 ```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/install-wordslab-notebooks.sh | bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-05 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.sh | bash
 ```
 
 > Start
 
 ```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/start-wordslab-notebooks.sh | bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home && $WORDSLAB_HOME/start-wordslab-notebooks.sh
 ```
 
 ### Option 2 - Local laptop + Local gamer PC

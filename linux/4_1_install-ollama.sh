@@ -1,17 +1,20 @@
 #!/bin/bash
 
 # Install Ollama in a persistent directory (see _wordslab-notebooks-env.bashrc)
-mkdir $OLLAMA_DIR
+mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
 curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.6.8 -o ollama-linux-amd64.tgz
 tar -C $OLLAMA_DIR -xzf ollama-linux-amd64.tgz
 rm ollama-linux-amd64.tgz
 
-# Add ollama to the path so that anyone can control it on the machine
-echo '' >> ./_wordslab-notebooks-env.bashrc
-echo '# Add tools the PATH' >> ./_wordslab-notebooks-env.bashrc
-echo 'export PATH="$OLLAMA_DIR/bin:$PATH"' >> ./_wordslab-notebooks-env.bashrc
+if [ ! -f ~/.wordslab-installed ]; then
+
+    # Add ollama to the path so that anyone can control it on the machine
+    echo '' >> ./_wordslab-notebooks-env.bashrc
+    echo '# Add tools the PATH' >> ./_wordslab-notebooks-env.bashrc
+    echo 'export PATH="$OLLAMA_DIR/bin:$PATH"' >> ./_wordslab-notebooks-env.bashrc
+fi
 
 # Need to set OLLAMA_HOME before downloading the language model
 source ./_wordslab-notebooks-env.bashrc
@@ -43,12 +46,21 @@ else
 fi
 OLLAMA_EMBED_MODEL="nomic-embed-text:latest"
 
-# Save the LLM names as env variables 
-echo '' >> ./_wordslab-notebooks-env.bashrc
-echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
+if [ ! -f ~/.wordslab-installed ]; then
+
+    # Save the LLM names as env variables 
+    echo '' >> ./_wordslab-notebooks-env.bashrc
+    echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
+    echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
+    echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
+    echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
+else
+
+    # Update the LLM names in the env variables
+    sed -i '' 's/^export OLLAMA_CHAT_MODEL=.*/export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL/' ./_wordslab-notebooks-env.bashrc
+    sed -i '' 's/^export OLLAMA_CODE_MODEL=.*/export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL/' ./_wordslab-notebooks-env.bashrc
+    sed -i '' 's/^export OLLAMA_EMBED_MODEL=.*/export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL/' ./_wordslab-notebooks-env.bashrc
+fi
 
 # Download the default local LLMs
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL

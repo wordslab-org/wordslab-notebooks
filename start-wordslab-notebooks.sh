@@ -23,7 +23,7 @@ source ./_wordslab-notebooks-env.bashrc
 
 # If the container root file system was reset after we restart an instance
 # we need to reinstall the operating system packages and re configure the shell
-if [ ! -f "/.wordslab-$WORDSLAB_VERSION-installed" ]; then
+if [ ! -f "/.wordslab-installed" ]; then
     ./1__update-operating-system.sh
 fi
 

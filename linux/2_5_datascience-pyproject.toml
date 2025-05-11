@@ -59,6 +59,3 @@ explicit = true
 name = "pytorch-cu124"
 url = "https://download.pytorch.org/whl/cu124"
 explicit = true
-
-[tool.uv.pip]
-link-mode = "symlink"

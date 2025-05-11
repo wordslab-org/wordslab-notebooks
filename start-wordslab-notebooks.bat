@@ -107,4 +107,4 @@ if !ERRORLEVEL! equ 0 (
 
 cd ..
 
-wsl -d %name% -- bash -i /home/wordslab-notebooks/start-wordslab-notebooks.sh
+wsl -d %name% -- bash -i /home/start-wordslab-notebooks.sh

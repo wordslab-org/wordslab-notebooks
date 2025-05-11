@@ -7,7 +7,7 @@ REM Note : you can't change WORDSLAB_WORKSPACE or WORDSLAB_MODELS default paths 
 REM => this would break 4_mount-linux-virtual-disks.bat
 
 cd ..
-wsl -d %1 -- ./install-wordslab-notebooks.sh %2
+wsl -d %1 -- WORDSLAB_VERSION=%WORDSLAB_VERSION% ./install-wordslab-notebooks.sh %2
 
 rem Return to the original directory
 cd "%originalDir%"

@@ -1,7 +1,7 @@
 # Source this file in ~/.bashrc to configure the machine shell
 
-# This version is updated on each release
-export WORDSLAB_VERSION="2025-04"
+# This version is updated on install by ../install-wordslab-notebooks.sh
+export WORDSLAB_VERSION=main
 
 # Detect the execution environment
 if grep -qi microsoft /proc/version; then
@@ -22,7 +22,7 @@ fi
 export WORDSLAB_HOME=/home
 
 # Install directories
-export WORDSLAB_SCRIPTS=$WORDSLAB_HOME/wordslab-notebooks
+export WORDSLAB_SCRIPTS=$WORDSLAB_HOME/wordslab-notebooks-$WORDSLAB_VERSION
 
 export JUPYTERLAB_ENV=$WORDSLAB_HOME/jupyterlab
 export VSCODE_DIR=$WORDSLAB_HOME/code-server
@@ -41,6 +41,7 @@ export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.openwebui
 export UV_INSTALL_DIR=$WORDSLAB_HOME/python
 export UV_PYTHON_INSTALL_DIR=$UV_INSTALL_DIR
 export UV_CACHE_DIR=$UV_INSTALL_DIR
+export UV_LINK_MODE="symlink"
 export UV_TOOL_DIR=$UV_INSTALL_DIR/tools 
 export UV_TOOL_BIN_DIR=$UV_INSTALL_DIR
 

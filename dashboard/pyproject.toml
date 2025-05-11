@@ -7,7 +7,8 @@ dependencies = [
     "jlclient",
     "monsterui==1.0.19",
     "pynvml==12.0.0",
-    "psutil==7.0.0"
+    "psutil==7.0.0",
+    "ipykernel>=6.29.5",
 ]
 
 [tool.uv.sources]

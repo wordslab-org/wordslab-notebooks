@@ -2,9 +2,9 @@
 
 # Create the directory inside the workspace where all Open WebUI state will be stored
 
-mkdir $OPENWEBUI_DATA
-mkdir $OPENWEBUI_DATA/functions
-mkdir $OPENWEBUI_DATA/tools
+mkdir -p $OPENWEBUI_DATA
+mkdir -p $OPENWEBUI_DATA/functions
+mkdir -p $OPENWEBUI_DATA/tools
 
 # Create the OpenWebUI environment
 mkdir -p $OPENWEBUI_ENV
@@ -20,8 +20,10 @@ fi
 
 # Patch Open WebUI to enable HTTPS secure access
 OPENWEBUI_SERVER_FILE="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/open_webui/__init__.py"
-sed -i 's/port: int = 8080,/port: int = 8080, ssl_keyfile: str = None, ssl_certfile: str = None,/g' "$OPENWEBUI_SERVER_FILE"
-sed -i 's/port=port,/port=port, ssl_keyfile=ssl_keyfile, ssl_certfile=ssl_certfile,/g' "$OPENWEBUI_SERVER_FILE"
+if ! grep -q 'ssl_keyfile: str = None,' "$OPENWEBUI_SERVER_FILE"; then
+    sed -i 's/port: int = 8080,/port: int = 8080, ssl_keyfile: str = None, ssl_certfile: str = None,/g' "$OPENWEBUI_SERVER_FILE"
+    sed -i 's/port=port,/port=port, ssl_keyfile=ssl_keyfile, ssl_certfile=ssl_certfile,/g' "$OPENWEBUI_SERVER_FILE"
+fi
 
 # Initialize the Open WebUI installation
 

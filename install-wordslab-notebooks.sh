@@ -4,9 +4,12 @@
 # WORDSLAB_HOME=/home WORDSLAB_WORKSPACE=/home/workspace WORDSLAB_MODELS=/home/models ./install-wordslab-notebooks.sh
 
 # Set WORDSLAB_HOME to its default value if necessary
-
 if [ -z "${WORDSLAB_HOME}" ]; then
-    export WORDSLAB_HOME=/home
+    export WORDSLAB_HOME="/home"
+fi
+# Set WORDSLAB_VERSION to its default value if necessary
+if [ -z "${WORDSLAB_VERSION}" ]; then
+    export WORDSLAB_VERSION="2025-05"
 fi
 
 # Download wordslab-notebooks scripts in a persistent directory
@@ -16,13 +19,16 @@ cd $WORDSLAB_HOME
 
 apt update && apt install -y curl unzip
 
-curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
+if [ "$WORDSLAB_VERSION" == "main" ]; then
+  curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
+else
+  curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/tags/${WORDSLAB_VERSION}.zip
+fi
 unzip wordslab-notebooks.zip
 rm wordslab-notebooks.zip
-mv wordslab-notebooks-main wordslab-notebooks
 
 # Navigate to the linux directory where all the scripts live
-cd $WORDSLAB_HOME/wordslab-notebooks/linux
+cd $WORDSLAB_HOME/wordslab-notebooks-$WORDSLAB_VERSION/linux
 
 # Overwrite the default environment variables with the script envrionment
 BASHRC_FILE="./_wordslab-notebooks-env.bashrc"
@@ -59,11 +65,20 @@ source $UV_INSTALL_DIR/env
 # Update ~/.bashrc to start new shells in the right environment and directory
 ./1_3_configure-shell-environment.sh
 
+# Set up default startup script with the right path
+echo "cd $WORDSLAB_HOME/wordslab-notebooks-$WORDSLAB_VERSION && ./start-wordslab-notebooks.sh" > $WORDSLAB_HOME/start-wordslab-notebooks.bat
+
 echo ''
 echo '-------------------'
 echo 'END OF INSTALLATION'
 echo '-------------------'
 echo ''
-echo 'To learn how to use wordslab-notebooks:'
+echo 'To start wordslab-notebooks:'
 echo ''
-echo 'https://github.com/wordslab-org/wordslab-notebooks/blob/main/README.md'
+if [ -f /home/.WORDSLAB_WINDOWS_HOME ]; then
+    echo "cd $(< /home/.WORDSLAB_WINDOWS_HOME)"
+    echo "start-wordslab-notebooks.bat"
+else
+    echo "cd $WORDSLAB_HOME"
+    echo "./start-wordslab-notebooks.sh"
+fi
