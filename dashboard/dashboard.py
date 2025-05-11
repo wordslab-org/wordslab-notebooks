@@ -278,9 +278,9 @@ def get():
             ),
             DivHStacked(
                 CPUCard(),
-                GPUCard(),
-                DisksCard("Virtual disks", "hard-drive", get_disks_metrics()),
-                DisksCard("Windows disks", "database", get_windows_disks_metrics()) if windows_disks else None
+                GPUCard()
+#                DisksCard("Virtual disks", "hard-drive", get_disks_metrics()),
+#                DisksCard("Windows disks", "database", get_windows_disks_metrics()) if windows_disks else None
             )           
         )
 
