@@ -2,7 +2,7 @@
 name = "project"
 version = "0.1.0"
 description = "Add your project description here"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "pandas==2.2.3",
     "scikit-learn==1.6.1",
