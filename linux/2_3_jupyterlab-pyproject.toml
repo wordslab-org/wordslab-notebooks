@@ -2,7 +2,7 @@
 name = "jupyterlab-env"
 version = "0.1.0"
 description = "wordslab-notebooks jupyterlab environment"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "jupyterlab==4.4.2",
     "ipympl==0.9.7",
