@@ -6,9 +6,10 @@
 
 # Run wsl --status and capture the output
 $statusOutput = wsl --status 2>&1
+$returnCode = $LASTEXITCODE
 
 # Check if the output is empty
-if ([string]::IsNullOrWhiteSpace($statusOutput)) {
+if ([string]::IsNullOrWhiteSpace($statusOutput) -or $returnCode -ne 0) {
     # The output is empty, so run wsl --install --no-distribution
     Write-Output "Windows Subsystem for Linux is not installed. Installing WSL without a default distribution..."   
     wsl --install --no-distribution
