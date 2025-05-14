@@ -77,7 +77,7 @@ echo 'To start wordslab-notebooks:'
 echo ''
 if [ -f /home/.WORDSLAB_WINDOWS_HOME ]; then
     vm_path=$(< /home/.WORDSLAB_WINDOWS_HOME)
-    wordslab_path="${vmpath%\\*\\*}"
+    wordslab_path="${vm_path%\\*\\*}"
     echo "cd $wordslab_path"
     echo "start-wordslab-notebooks.bat"
 else
