@@ -1,7 +1,7 @@
 [project]
 name = "openwebui-env"
 version = "0.1.0"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = [
     "open-webui==0.6.9",
 ]
