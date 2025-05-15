@@ -18,8 +18,19 @@ else
     uv sync --extra cuda
 fi
 
+# IMPORTANT 
+# ---------
+# We want to use uv symlink link mode when install Open WebUI to avoid copying all the cuda librairies twice on disk.
+# But Open WebUI is not compatible with the way uv uses symbolic links: the frontend directory is not found (resolve fails in backend/open_webui/env.py line 250).
+# The only hack I found is to manually copy the version of the open_webui package from the uv cache in the virtual environment, while leaving all other packages as symlinks.
+OPENWEBUI_INSTALL_DIR="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/open_webui"
+OPENWEBUI_SERVER_FILE="$OPENWEBUI_INSTALL_DIR/__init__.py"
+OPENWEBUI_CACHE_DIR=$(dirname "$(readlink -f $OPENWEBUI_SERVER_FILE)")
+rm -rf $OPENWEBUI_INSTALL_DIR
+cp -r $OPENWEBUI_CACHE_DIR $(dirname "$OPENWEBUI_INSTALL_DIR")
+# --------
+
 # Patch Open WebUI to enable HTTPS secure access
-OPENWEBUI_SERVER_FILE="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/open_webui/__init__.py"
 if ! grep -q 'ssl_keyfile: str = None,' "$OPENWEBUI_SERVER_FILE"; then
     sed -i 's/port: int = 8080,/port: int = 8080, ssl_keyfile: str = None, ssl_certfile: str = None,/g' "$OPENWEBUI_SERVER_FILE"
     sed -i 's/port=port,/port=port, ssl_keyfile=ssl_keyfile, ssl_certfile=ssl_certfile,/g' "$OPENWEBUI_SERVER_FILE"
