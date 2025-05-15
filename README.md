@@ -94,7 +94,7 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab-client" && call curl -sSL https://raw.git
 On the client machine, if wordslab-notebooks is already installed :
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call prepare-client-machine.bat
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-05" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-client-machine.bat
 ```
 
 2. Generate secrets for the server machine
@@ -102,7 +102,7 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\word
 On the client machine, generate a tar file containing secrets for a specific server machine:
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call prepare-server-secrets.bat
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-05" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-server-secrets.bat
 ```
 
 This script will generate the file: %WORDSLAB_WINDOWS_HOME%\secrets\wordslab-server-192.168.1.28-secrets.tar
