@@ -126,7 +126,7 @@ On a Linux server machine:
 On a Windows server machine: 
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks" && call prepare-server-machine.bat
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-05" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-server-machine.bat
 ```
 
 On a Linux server machine: nothing to do, the machine is ready.
