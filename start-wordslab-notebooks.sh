@@ -10,7 +10,8 @@ if [ -z "${WORDSLAB_HOME}" ]; then
 fi
 
 # Navigate to the linux directory where all the scripts live
-cd $WORDSLAB_HOME/wordslab-notebooks/linux
+WORDSLAB_SCRIPTS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd $WORDSLAB_SCRIPTS/linux
 
 # Make sure the environment variables are initialized on Runpod
 if [ -f /etc/rp_environment ] && [ -z "$RUNPOD_POD_ID" ]; then
