@@ -241,7 +241,7 @@ from monsterui.all import *
 
 # Create your app with the theme
 hdrs = Theme.blue.headers()
-app, rt = fast_app(hdrs=(*hdrs, Link(rel="icon", type="image/jpg", href="/favicon.jpg")), static_path="images", debug=True, live=True)
+app, rt = fast_app(hdrs=(*hdrs, Link(rel="icon", type="image/jpg", href="/favicon.jpg")), static_path="images", debug=False, live=False)
 
 @rt("/")
 def get():
@@ -278,9 +278,9 @@ def get():
             ),
             DivHStacked(
                 CPUCard(),
-                GPUCard()
+                GPUCard() if not cpu_only else None,
 #                DisksCard("Virtual disks", "hard-drive", get_disks_metrics()),
-#                DisksCard("Windows disks", "database", get_windows_disks_metrics()) if windows_disks else None
+                WindowsDisksCard() if windows_disks else None
             )           
         )
 
@@ -303,6 +303,7 @@ def ToolLink(name, url):
         DivHStacked(Span(name, cls=TextPresets.muted_sm), Span(url), cls="space-x-5"), 
         href=url, target="_blank"), cls="my-2")
 
+@app.get("/cpu")
 def CPUCard():
     cpumetrics = get_cpu_metrics()
     cpudesc = f"{cpumetrics.cpu_cores} cores @ {cpumetrics.cpu_frequency} Mhz"
@@ -326,12 +327,12 @@ def CPUCard():
             Div(cpumetrics.cpu_model, cls="text-xs text-gray-400"),
             cls="space-y-2"
         ),
-        style="width:300px"
+        style="width:300px", hx_get=f"/cpu", hx_trigger="every 2s", hx_swap="outerHTML"
     )
 
+@app.get("/gpu")
 def GPUCard():
-    if not cpu_only:
-        gpumetrics = get_gpu_metrics()
+    gpumetrics = get_gpu_metrics()
     return Card(Div(
             DivHStacked(
                 UkIcon(icon="cpu", width=24, height=24),
@@ -356,23 +357,29 @@ def GPUCard():
                 P("Usage"),P("Not available"),
                 P("Memory"),P("Not available"),
             cols=2, cls="space-y-2"),
-            Div(f"Wordslab notebooks will not use any GPU", cls="text-xs text-gray-400"),
             cls="space-y-2"
         ),
-        style="width:300px"
+        style="width:300px", hx_get=f"/gpu", hx_trigger="every 2s", hx_swap="outerHTML"
     )
 
-def DisksCard(title, icon, disks_metrics):
-    return Card(Div(
+@app.get("/windisks")
+def WindowsDisksCard():    
+    return Card(DisksCardContent("Windows disks", "database", get_windows_disks_metrics()),
+        style="width:400px", hx_get=f"/windisks", hx_trigger="every 10s", hx_swap="outerHTML"
+    )
+
+def DisksCardContent(title, icon, disks_metrics):
+    return Div(
             DivHStacked(
                 UkIcon(icon=icon, width=24, height=24),
                 H3(title),
                 cls="space-x-2"
             ),
+            *[Div(Div(f"{disk_metrics.name} - {disk_metrics.size_used/disk_metrics.size_total*100:.1f} % used - {disk_metrics.size_used:.1f} GB / {disk_metrics.size_total:.1f} GB", cls="font-bold"),
+                  Ul(*[Li(Div(f"{dir_metrics.env_variable} - {dir_metrics.size_used:.1f} GB"), Div(dir_metrics.path, cls="text-gray-500 text-xs"), cls="ml-2 mt-2") for dir_metrics in disk_metrics.directories])
+                 ) for disk_metrics in disks_metrics.values()],
             cls="space-y-2"
-        ),
-        style="width:300px"
-    )
+        )
 
 
 serve(port=dashboard_port)
