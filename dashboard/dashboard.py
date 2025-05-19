@@ -64,7 +64,7 @@ def get_cpu_metrics() -> CPUMetrics:
     
     # Get RAM info in GB
     ram = psutil.virtual_memory()
-    ram_total = round(ram.total / (1024**3), 0)  # Convert bytes to GB
+    ram_total = round(ram.total / (1024**3), 1)  # Convert bytes to GB
     ram_used = round(ram.used / (1024**3), 2)    # Convert bytes to GB
     
     return CPUMetrics(
@@ -118,12 +118,18 @@ def get_gpu_metrics(gpu_id=0):
 
 # --- Disks ---
 
+import ollama
+import re
+
 wordslab_home = os.getenv('WORDSLAB_HOME')
 wordslab_workspace = os.getenv('WORDSLAB_WORKSPACE')
 wordslab_models = os.getenv('WORDSLAB_MODELS')
 
 wordslab_paths = { "/", wordslab_home, wordslab_workspace, wordslab_models }
 wordslab_paths_to_env_variable = { "/":"LINUX", wordslab_home:'WORDSLAB_HOME', wordslab_workspace:'WORDSLAB_WORKSPACE', wordslab_models:'WORDSLAB_MODELS'}
+
+ollama_models_path = os.getenv('OLLAMA_DIR')
+hf_home = os.getenv('HF_HOME')
 
 mountpoints = {part.mountpoint:part.device for part in set(psutil.disk_partitions(all=True)) if part.fstype in {'ext4','xfs','fuse','overlay'} and not any(substring in part.mountpoint for substring in ["/mnt/", "nvidia", ".so"])}
 
@@ -162,19 +168,40 @@ if windows_disks:
     wordslab_windows_home_vm_file = windows_path_to_linux_vm_file("WORDSLAB_WINDOWS_HOME", wordslab_windows_home)
     wordslab_windows_workspace_vm_file = windows_path_to_linux_vm_file("WORDSLAB_WINDOWS_WORKSPACE", wordslab_windows_workspace)
     wordslab_windows_models_vm_file = windows_path_to_linux_vm_file("WORDSLAB_WINDOWS_MODELS", wordslab_windows_models)
-
+   
 @dataclass
 class DirectoryMetrics: 
-    env_variable: str
+    name: str
     path: Path
-    size_used: float # GB
+    size: float # bytes
+
+    def size_mb(self):
+        return int(self.size/1024**2)
+        
+    def size_gb(self):
+        return int(self.size/1024**3)
 
 @dataclass
 class DiskMetrics:
     name: str
     size_total: float # GB
     size_used: float  # GB
-    directories: list[DirectoryMetrics]
+    directories: list[DirectoryMetrics]  
+
+class KnownDirectoriesMetrics:
+    operating_system: DirectoryMetrics
+    root_user: DirectoryMetrics
+    python_packages: list[DirectoryMetrics]
+    jupyterlab: DirectoryMetrics
+    codeserver: DirectoryMetrics
+    ollama: DirectoryMetrics
+    openwebui: DirectoryMetrics    
+    jupyterlab_data: DirectoryMetrics
+    codeserver_data: DirectoryMetrics
+    openwebui_data: DirectoryMetrics
+    workspace_projects: list[DirectoryMetrics]
+    ollama_models: list[DirectoryMetrics]
+    huggingface_models: list[DirectoryMetrics]
 
 def get_directory_size(path):
    # Use the 'du' command to get the total size of the directory
@@ -183,12 +210,7 @@ def get_directory_size(path):
     size = int(result.stdout.split('\t')[0])
     return size
 
-def get_disks_metrics():
-    worsdlab_paths_sizes = {path:get_directory_size(path) for path in [wordslab_home, wordslab_workspace, wordslab_models]}
-    if wordslab_workspace.startswith(wordslab_home):
-        worsdlab_paths_sizes[wordslab_home] -= worsdlab_paths_sizes[wordslab_workspace]
-    if wordslab_models.startswith(wordslab_home):
-        worsdlab_paths_sizes[wordslab_home] -= worsdlab_paths_sizes[wordslab_models]
+def get_vm_disks_metrics():
     wordslab_devices_usage = {item[0]:psutil.disk_usage(item[1][0]) for item in wordslab_paths_devices.items()}
     disks_metrics = []
     for disk_name,disk_usage in wordslab_devices_usage.items():
@@ -199,17 +221,12 @@ def get_disks_metrics():
             directories=[] 
         )
         disks_metrics.append(disk_metrics)
-        already_counted_size = 0
-        for path in reversed(wordslab_paths_devices[disk_name]):
-            path_size = worsdlab_paths_sizes[path] if path!='/' else disk_usage.used
-            path_size = path_size - already_counted_size
+        for path in reversed(wordslab_paths_devices[disk_name]):            
             dir_metrics = DirectoryMetrics(
-                env_variable=wordslab_paths_to_env_variable[path],
-                path=path,
-                size_used=path_size / 1024**3
+                name=wordslab_paths_to_env_variable[path],
+                path=path
             )
             disk_metrics.directories.append(dir_metrics)
-            already_counted_size = already_counted_size + path_size
     return disks_metrics
 
 def get_windows_disks_metrics():
@@ -227,13 +244,91 @@ def get_windows_disks_metrics():
             windows_disks_metrics[disk_letter] = windows_disk_metrics
         windows_disk_metrics.directories.append(
             DirectoryMetrics(
-                env_variable=env_variable,
+                name=env_variable,
                 path=vm_file_path,
-                size_used=file_size / 1024**3
+                size=file_size / 1024**3
             )
         )
     return windows_disks_metrics
 
+def get_known_directories_metrics():
+    dirs_metrics = KnownDirectoriesMetrics()
+    # Operating system
+    os_size = get_directory_size("/usr/bin") + get_directory_size("/usr/lib/x86_64-linux-gnu/") + get_directory_size("/usr/libexec") + get_directory_size("/usr/share")
+    dirs_metrics.operating_system = DirectoryMetrics(name="Operating system", path="/usr", size=os_size)
+    # Root user
+    root_user_size = get_directory_size("/root")
+    dirs_metrics.root_user = DirectoryMetrics(name="Root user", path="/root", size=root_user_size)
+    # Python packages
+    dirs_metrics.python_packages = []
+    python_archive = f"{wordslab_home}/python/archive-v0/"
+    for entry in os.listdir(python_archive):
+        full_path = os.path.join(python_archive, entry)
+        if os.path.isdir(full_path):
+            for item in os.listdir(full_path):
+                if item.endswith(".dist-info"):
+                    package_name = item[:-len(".dist-info")]
+                    size_bytes = get_directory_size(full_path)
+                    if size_bytes > (1024 * 1024):
+                        dirs_metrics.python_packages.append(DirectoryMetrics(name=package_name, path=full_path, size=size_bytes))
+                    break  # Only process first .dist-info found
+    dirs_metrics.python_packages.sort(key=lambda x: x.size, reverse=True)
+    # Wordslab software
+    path = f"{wordslab_home}/jupyterlab"
+    dirs_metrics.jupyterlab = DirectoryMetrics(name="JupyterLab", path=path, size=get_directory_size(path))
+    path = f"{wordslab_home}/code-server"
+    dirs_metrics.codeserver = DirectoryMetrics(name="Visual Studio", path=path, size=get_directory_size(path))
+    path = f"{wordslab_home}/ollama"
+    dirs_metrics.ollama = DirectoryMetrics(name="Ollama", path=path, size=get_directory_size(path))
+    path = f"{wordslab_home}/open-webui"
+    dirs_metrics.openwebui = DirectoryMetrics(name="Open WebUI", path=path, size=get_directory_size(path))  
+    path = f"{wordslab_workspace}/.jupyter"
+    dirs_metrics.jupyterlab_data = DirectoryMetrics(name="JupyterLab data", path=path, size=get_directory_size(path))
+    path = f"{wordslab_workspace}/.codeserver"
+    dirs_metrics.codeserver_data = DirectoryMetrics(name="Visual Studio data", path=path, size=get_directory_size(path))
+    path = f"{wordslab_workspace}/.openwebui"
+    dirs_metrics.openwebui_data = DirectoryMetrics(name="Open WebUI data", path=path, size=get_directory_size(path))
+    # Workspace projects
+    dirs_metrics.workspace_projects = []
+    project_dirs = [
+        name for name in os.listdir(wordslab_workspace)
+        if not name.startswith('.') and os.path.isdir(os.path.join(wordslab_workspace, name))
+    ]
+    for project_dir in project_dirs:
+        project_fullpath = os.path.join(wordslab_workspace, project_dir)
+        size_bytes = get_directory_size(project_fullpath)
+        if size_bytes > (1024 * 1024):
+            dirs_metrics.workspace_projects.append(DirectoryMetrics(name=project_dir, path=project_fullpath, size=size_bytes))
+    dirs_metrics.workspace_projects.sort(key=lambda x: x.size, reverse=True)
+    # Ollama models
+    dirs_metrics.ollama_models = []
+    try:
+        models = ollama.list().models
+    except:
+        models = []
+    models.sort(key=lambda m: m.size, reverse=True)
+    for model in models:
+        dirs_metrics.ollama_models.append(DirectoryMetrics(name=model.model, path=ollama_models_path, size=model.size))
+    # Huggingface models
+    dirs_metrics.huggingface_models = []
+    hf_home_size = get_directory_size(hf_home)
+    if hf_home_size > 0:    
+        cache_dir = Path(hf_home) / "hub"
+        hf_models_size = 0
+        pattern = re.compile(r"models--([^/\\]+)--([^/\\]+)")
+        for path in cache_dir.iterdir():
+            if path.is_dir():
+                match = pattern.fullmatch(path.name)
+                if match:
+                    org, model = match.groups()
+                    model_id = f"{org}/{model}"
+                    model_size = get_directory_size(path)
+                    hf_models_size += model_size
+                    dirs_metrics.huggingface_models.append(DirectoryMetrics(name=model_id, path=path.resolve(), size=model_size))    
+        dirs_metrics.huggingface_models.sort(key=lambda x: x.size, reverse=True)
+        dirs_metrics.huggingface_models.append(DirectoryMetrics(name="Models cache", path=hf_home, size=hf_home_size-hf_models_size))
+    return dirs_metrics
+    
 # --- User interface ---
 
 from fasthtml.common import *
@@ -241,7 +336,7 @@ from monsterui.all import *
 
 # Create your app with the theme
 hdrs = Theme.blue.headers()
-app, rt = fast_app(hdrs=(*hdrs, Link(rel="icon", type="image/jpg", href="/favicon.jpg")), static_path="images", debug=False, live=False)
+app, rt = fast_app(hdrs=(*hdrs, Link(rel="icon", type="image/jpg", href="/favicon.jpg")), static_path="images", debug=True, live=True)
 
 @rt("/")
 def get():
@@ -258,7 +353,7 @@ def get():
             ),
             DivHStacked(
                 ToolCard("Open WebUI", "Chat", "openwebui.jpg", openwebui_url),
-                ToolCard("Jupyter Lab", "Learn", "jupyterlab.jpg", jupyterlab_url),
+                ToolCard("JupyterLab", "Learn", "jupyterlab.jpg", jupyterlab_url),
                 ToolCard("Visual Studio", "Code", "vscode.jpg", vscode_url),
                 Card(DivVStacked(
                     H3("User applications"),
@@ -279,9 +374,17 @@ def get():
             DivHStacked(
                 CPUCard(),
                 GPUCard() if not cpu_only else None,
-#                DisksCard("Virtual disks", "hard-drive", get_disks_metrics()),
+#                DisksCard("Virtual disks", "hard-drive", get_vm_disks_metrics()),
                 WindowsDisksCard() if windows_disks else None
-            )           
+            ),
+            DivCentered(
+                DivHStacked(H4("Storage directories size (MB)", cls="mr-2"), cls="mt-4"),
+                DividerLine(y_space=1),
+                cls="w-full"
+            ),
+            DivHStacked(
+                *KnownDirectories()
+            )
         )
 
 def ToolCard(name, subtitle, image, url):
@@ -315,7 +418,7 @@ def CPUCard():
                 H3("CPU"),
                 Div(
                     P(cpudesc),
-                    P(f"{int(cpumetrics.ram_total)} GB RAM"),
+                    P(f"{cpumetrics.ram_total:.1f} GB RAM"),
                     cls="space-y-1 pl-2"
                 ),
                 cls="space-x-2"
@@ -357,6 +460,7 @@ def GPUCard():
                 P("Usage"),P("Not available"),
                 P("Memory"),P("Not available"),
             cols=2, cls="space-y-2"),
+            Div(f"Cuda version: {gpumetrics.cuda_version}", cls="text-xs text-gray-400"),
             cls="space-y-2"
         ),
         style="width:300px", hx_get=f"/gpu", hx_trigger="every 2s", hx_swap="outerHTML"
@@ -376,10 +480,48 @@ def DisksCardContent(title, icon, disks_metrics):
                 cls="space-x-2"
             ),
             *[Div(Div(f"{disk_metrics.name} - {disk_metrics.size_used/disk_metrics.size_total*100:.1f} % used - {disk_metrics.size_used:.1f} GB / {disk_metrics.size_total:.1f} GB", cls="font-bold"),
-                  Ul(*[Li(Div(f"{dir_metrics.env_variable} - {dir_metrics.size_used:.1f} GB"), Div(dir_metrics.path, cls="text-gray-500 text-xs"), cls="ml-2 mt-2") for dir_metrics in disk_metrics.directories])
+                  Ul(*[Li(Div(f"{dir_metrics.name} - {dir_metrics.size:.1f} GB"), Div(dir_metrics.path, cls="text-gray-500 text-xs"), cls="ml-2 mt-2") for dir_metrics in disk_metrics.directories])
                  ) for disk_metrics in disks_metrics.values()],
             cls="space-y-2"
         )
 
-
-serve(port=dashboard_port)
+def KnownDirectories():
+    kdm = get_known_directories_metrics()
+    table1 = Table(
+        Tr(Td(kdm.operating_system.name),Td(kdm.operating_system.size_mb())),
+        Tr(Td(kdm.root_user.name),Td(kdm.root_user.size_mb()))
+    )
+    table2 = Table(
+        Tr(Td(kdm.jupyterlab.name),Td(kdm.jupyterlab.size_mb())),
+        Tr(Td(kdm.codeserver.name),Td(kdm.codeserver.size_mb())),
+        Tr(Td(kdm.ollama.name),Td(kdm.ollama.size_mb())),
+        Tr(Td(kdm.openwebui.name),Td(kdm.openwebui.size_mb()))
+    )
+    table3_lines = []
+    for idx,python_package in enumerate(kdm.python_packages):
+        if idx>10: break
+        table3_lines.append(Tr(Td(python_package.name),Td(python_package.size_mb())))
+    table3 = Table(*table3_lines)
+    table4 = Table(
+        Tr(Td(kdm.jupyterlab_data.name),Td(kdm.jupyterlab_data.size_mb())),
+        Tr(Td(kdm.codeserver_data.name),Td(kdm.codeserver_data.size_mb())),
+        Tr(Td(kdm.openwebui_data.name),Td(kdm.openwebui_data.size_mb()))
+    )
+    table5_lines = []
+    for idx,workspace_project in enumerate(kdm.workspace_projects):
+        if idx>10: break
+        table5_lines.append(Tr(Td(workspace_project.name),Td(workspace_project.size_mb())))
+    table5 = Table(*table5_lines)   
+    table6_lines = []
+    for idx,ollama_model in enumerate(kdm.ollama_models):
+        if idx>10: break
+        table6_lines.append(Tr(Td(ollama_model.name),Td(ollama_model.size_mb())))
+    table6 = Table(*table6_lines) 
+    table7_lines = []
+    for idx,huggingface_model in enumerate(kdm.huggingface_models):
+        if idx>10: break
+        table7_lines.append(Tr(Td(huggingface_model.name),Td(huggingface_model.size_mb())))
+    table7 = Table(*table7_lines) 
+    return [table1,table2,table3,table4,table5,table6,table7]
+    
+serve(port=8883)
