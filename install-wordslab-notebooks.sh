@@ -24,7 +24,7 @@ if [ "$WORDSLAB_VERSION" == "main" ]; then
 else
   curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/tags/${WORDSLAB_VERSION}.zip
 fi
-unzip wordslab-notebooks.zip
+unzip -o wordslab-notebooks.zip
 rm wordslab-notebooks.zip
 
 # Navigate to the linux directory where all the scripts live
