@@ -49,16 +49,28 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call "%WORDSLAB_WINDOWS_HOME%\start-w
 
 #### Linux commands
 
+> Run wordslab commands as root
+
+You need to run the commands to install or start wordslab-notebooks below as root.
+
+If you didn't log in as root, first execute:
+
+```bash
+sudo bash
+```
+
+Then enter your password.
+
 > Install
 
 ```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-05 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-05 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
 ```
 
 > Start
 
 ```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home && $WORDSLAB_HOME/start-wordslab-notebooks.sh
+export WORDSLAB_HOME=/home/wordslab && $WORDSLAB_HOME/start-wordslab-notebooks.sh
 ```
 
 ### Option 2 - Local laptop + Local gamer PC
