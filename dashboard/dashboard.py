@@ -126,7 +126,7 @@ wordslab_workspace = os.getenv('WORDSLAB_WORKSPACE')
 wordslab_models = os.getenv('WORDSLAB_MODELS')
 
 wordslab_paths = { "/", wordslab_home, wordslab_workspace, wordslab_models }
-wordslab_paths_to_env_variable = { "/":"LINUX", wordslab_home:'WORDSLAB_HOME', wordslab_workspace:'WORDSLAB_WORKSPACE', wordslab_models:'WORDSLAB_MODELS'}
+wordslab_paths_to_env_variable = { "/":"System", wordslab_home:'WORDSLAB_HOME', wordslab_workspace:'WORDSLAB_WORKSPACE', wordslab_models:'WORDSLAB_MODELS'}
 
 ollama_models_path = os.getenv('OLLAMA_DIR')
 hf_home = os.getenv('HF_HOME')
@@ -212,22 +212,23 @@ def get_directory_size(path):
 
 def get_vm_disks_metrics():
     wordslab_devices_usage = {item[0]:psutil.disk_usage(item[1][0]) for item in wordslab_paths_devices.items()}
-    disks_metrics = []
+    vm_disks_metrics = {}
     for disk_name,disk_usage in wordslab_devices_usage.items():
-        disk_metrics = DiskMetrics(
+        vm_disk_metrics = DiskMetrics(
             name=disk_name,
             size_total=disk_usage.total / 1024**3,
             size_used=disk_usage.used / 1024**3,
             directories=[] 
         )
-        disks_metrics.append(disk_metrics)
+        vm_disks_metrics[disk_name] = vm_disk_metrics
         for path in reversed(wordslab_paths_devices[disk_name]):            
             dir_metrics = DirectoryMetrics(
                 name=wordslab_paths_to_env_variable[path],
-                path=path
+                path=path,
+                size=-1
             )
-            disk_metrics.directories.append(dir_metrics)
-    return disks_metrics
+            vm_disk_metrics.directories.append(dir_metrics)
+    return vm_disks_metrics
 
 def get_windows_disks_metrics():
     windows_disks_metrics = {}
@@ -336,15 +337,16 @@ from monsterui.all import *
 
 # Create your app with the theme
 hdrs = Theme.blue.headers()
-app, rt = fast_app(hdrs=(*hdrs, Link(rel="icon", type="image/jpg", href="/favicon.jpg")), static_path="images", debug=True, live=True)
+app, rt = fast_app(hdrs=(*hdrs, Link(rel="icon", type="image/jpg", href="/favicon.jpg")), static_path="images")
 
 @rt("/")
 def get():
     return Title("Wordslab notebooks"), DivVStacked(
             A(DivHStacked(
                 Img(src="wordslab-notebooks-small.jpg", width=96, height=96, cls="m-3"),
-                H1("Wordslab notebooks"),
-                Div(f"version {wordslab_version}", cls=TextT.meta)
+                Div(H1("Wordslab notebooks"),
+                Div("Click on the title to access the documentation", cls=TextT.meta)),
+                Div(wordslab_version, cls=TextT.meta)
             ), href="https://github.com/wordslab-org/wordslab-notebooks?tab=readme-ov-file#wordslab-notebooks---learn-and-build-with-ai-at-home", target="_blank"),
             DivCentered(
                 H4("Applications"),
@@ -374,17 +376,15 @@ def get():
             DivHStacked(
                 CPUCard(),
                 GPUCard() if not cpu_only else None,
-#                DisksCard("Virtual disks", "hard-drive", get_vm_disks_metrics()),
-                WindowsDisksCard() if windows_disks else None
+                Card(Div("Linux disks: loading ..."), style="width:400px", hx_get=f"/vmdisks", hx_trigger="every 1s", hx_swap="outerHTML") if not windows_disks else None,
+                Card(Div("Windows disks: loading ..."), style="width:400px", hx_get=f"/windisks", hx_trigger="every 1s", hx_swap="outerHTML") if windows_disks else None
             ),
             DivCentered(
                 DivHStacked(H4("Storage directories size (MB)", cls="mr-2"), cls="mt-4"),
                 DividerLine(y_space=1),
                 cls="w-full"
             ),
-            DivHStacked(
-                *KnownDirectories()
-            )
+            DivHStacked(Card(Div("Storage directories: loading ...")), hx_get=f"/knowndirs", hx_trigger="every 1s", hx_swap="outerHTML")
         )
 
 def ToolCard(name, subtitle, image, url):
@@ -466,10 +466,16 @@ def GPUCard():
         style="width:300px", hx_get=f"/gpu", hx_trigger="every 2s", hx_swap="outerHTML"
     )
 
+@app.get("/vmdisks")
+def VmDisksCard():    
+    return Card(DisksCardContent("Linux disks", "hard-drive", get_vm_disks_metrics()),
+        style="width:400px", hx_get=f"/vmdisks", hx_trigger="every 60s", hx_swap="outerHTML"
+    )
+
 @app.get("/windisks")
 def WindowsDisksCard():    
     return Card(DisksCardContent("Windows disks", "database", get_windows_disks_metrics()),
-        style="width:400px", hx_get=f"/windisks", hx_trigger="every 10s", hx_swap="outerHTML"
+        style="width:400px", hx_get=f"/windisks", hx_trigger="every 60s", hx_swap="outerHTML"
     )
 
 def DisksCardContent(title, icon, disks_metrics):
@@ -480,18 +486,22 @@ def DisksCardContent(title, icon, disks_metrics):
                 cls="space-x-2"
             ),
             *[Div(Div(f"{disk_metrics.name} - {disk_metrics.size_used/disk_metrics.size_total*100:.1f} % used - {disk_metrics.size_used:.1f} GB / {disk_metrics.size_total:.1f} GB", cls="font-bold"),
-                  Ul(*[Li(Div(f"{dir_metrics.name} - {dir_metrics.size:.1f} GB"), Div(dir_metrics.path, cls="text-gray-500 text-xs"), cls="ml-2 mt-2") for dir_metrics in disk_metrics.directories])
+                  Ul(*[Li(Div(f"{dir_metrics.name} - {dir_metrics.size:.1f} GB"), Div(dir_metrics.path, cls="text-gray-500 text-xs"), cls="ml-2 mt-2") for dir_metrics in disk_metrics.directories if dir_metrics.size>=0],
+                    *[Li(Span(f"{dir_metrics.name} - "),Span(dir_metrics.path, cls="text-gray-500 text-xs")) for dir_metrics in disk_metrics.directories if dir_metrics.size<0])
                  ) for disk_metrics in disks_metrics.values()],
             cls="space-y-2"
         )
-
+    
+@app.get("/knowndirs")
 def KnownDirectories():
     kdm = get_known_directories_metrics()
     table1 = Table(
+        Th("System", span="2"),
         Tr(Td(kdm.operating_system.name),Td(kdm.operating_system.size_mb())),
         Tr(Td(kdm.root_user.name),Td(kdm.root_user.size_mb()))
     )
     table2 = Table(
+        Th("Applications", span="2"),
         Tr(Td(kdm.jupyterlab.name),Td(kdm.jupyterlab.size_mb())),
         Tr(Td(kdm.codeserver.name),Td(kdm.codeserver.size_mb())),
         Tr(Td(kdm.ollama.name),Td(kdm.ollama.size_mb())),
@@ -501,8 +511,9 @@ def KnownDirectories():
     for idx,python_package in enumerate(kdm.python_packages):
         if idx>10: break
         table3_lines.append(Tr(Td(python_package.name),Td(python_package.size_mb())))
-    table3 = Table(*table3_lines)
+    table3 = Table(Th("Python packages", span="2"),*table3_lines)
     table4 = Table(
+        Th("Applications data", span="2"),
         Tr(Td(kdm.jupyterlab_data.name),Td(kdm.jupyterlab_data.size_mb())),
         Tr(Td(kdm.codeserver_data.name),Td(kdm.codeserver_data.size_mb())),
         Tr(Td(kdm.openwebui_data.name),Td(kdm.openwebui_data.size_mb()))
@@ -511,17 +522,22 @@ def KnownDirectories():
     for idx,workspace_project in enumerate(kdm.workspace_projects):
         if idx>10: break
         table5_lines.append(Tr(Td(workspace_project.name),Td(workspace_project.size_mb())))
-    table5 = Table(*table5_lines)   
+    table5 = Table(Th("Workspace projects", span="2"),*table5_lines)   
     table6_lines = []
     for idx,ollama_model in enumerate(kdm.ollama_models):
         if idx>10: break
         table6_lines.append(Tr(Td(ollama_model.name),Td(ollama_model.size_mb())))
-    table6 = Table(*table6_lines) 
+    table6 = Table(Th("Ollama models", span="2"),*table6_lines) 
     table7_lines = []
     for idx,huggingface_model in enumerate(kdm.huggingface_models):
         if idx>10: break
         table7_lines.append(Tr(Td(huggingface_model.name),Td(huggingface_model.size_mb())))
-    table7 = Table(*table7_lines) 
-    return [table1,table2,table3,table4,table5,table6,table7]
+    table7 = Table(Th("vLLM models", span="2"),*table7_lines) 
+    return DivHStacked(
+                Card(table1,table2,table4,cls="h-96 overflow-y-auto"),
+                Card(table5,table3,cls="h-96 overflow-y-auto"),
+                Card(table6,table7,cls="h-96 overflow-y-auto"),
+                hx_get=f"/knowndirs", hx_trigger="every 60s", hx_swap="outerHTML"
+            )
     
 serve(port=8883)
