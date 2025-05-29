@@ -67,6 +67,7 @@ source $UV_INSTALL_DIR/env
 
 # Set up default startup script with the right path
 echo "cd $WORDSLAB_HOME/wordslab-notebooks-$WORDSLAB_VERSION && ./start-wordslab-notebooks.sh" > $WORDSLAB_HOME/start-wordslab-notebooks.sh
+chmod u+x $WORDSLAB_HOME/start-wordslab-notebooks.sh
 
 echo ''
 echo '-------------------'
