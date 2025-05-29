@@ -540,4 +540,4 @@ def KnownDirectories():
                 hx_get=f"/knowndirs", hx_trigger="every 60s", hx_swap="outerHTML"
             )
     
-serve(port=8883)
+serve(port=dashboard_port)
