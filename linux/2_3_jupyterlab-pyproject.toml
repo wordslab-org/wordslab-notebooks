@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "wordslab-notebooks jupyterlab environment"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "jupyterlab==4.4.2",
+    "jupyterlab==4.4.3",
     "ipympl==0.9.7",
     "jupyterlab-execute-time==3.2.0",
     "jupyterlab-git==0.51.1",
