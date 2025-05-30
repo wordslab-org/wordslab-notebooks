@@ -512,7 +512,7 @@ def KnownDirectories():
     )
     table3_lines = []
     for idx,python_package in enumerate(kdm.python_packages):
-        if idx>10: break
+        if idx>50: break
         table3_lines.append(Tr(Td(python_package.name),Td(python_package.size_mb())))
     table3 = Table(Th("Python packages", span="2"),*table3_lines)
     table4 = Table(
@@ -523,17 +523,14 @@ def KnownDirectories():
     )
     table5_lines = []
     for idx,workspace_project in enumerate(kdm.workspace_projects):
-        if idx>10: break
         table5_lines.append(Tr(Td(workspace_project.name),Td(workspace_project.size_mb())))
     table5 = Table(Th("Workspace projects", span="2"),*table5_lines)   
     table6_lines = []
     for idx,ollama_model in enumerate(kdm.ollama_models):
-        if idx>10: break
         table6_lines.append(Tr(Td(ollama_model.name),Td(ollama_model.size_mb())))
     table6 = Table(Th("Ollama models", span="2"),*table6_lines) 
     table7_lines = []
     for idx,huggingface_model in enumerate(kdm.huggingface_models):
-        if idx>10: break
         table7_lines.append(Tr(Td(huggingface_model.name),Td(huggingface_model.size_mb())))
     table7 = Table(Th("vLLM models", span="2"),*table7_lines) 
     return DivHStacked(
