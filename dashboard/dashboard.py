@@ -312,7 +312,10 @@ def get_known_directories_metrics():
         dirs_metrics.ollama_models.append(DirectoryMetrics(name=model.model, path=ollama_models_path, size=model.size))
     # Huggingface models
     dirs_metrics.huggingface_models = []
-    hf_home_size = get_directory_size(hf_home)
+    if Path(hf_home).exists():
+        hf_home_size = get_directory_size(hf_home)
+    else:
+        hf_home_size = 0
     if hf_home_size > 0:    
         cache_dir = Path(hf_home) / "hub"
         hf_models_size = 0
