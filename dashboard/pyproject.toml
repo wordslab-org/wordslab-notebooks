@@ -5,11 +5,11 @@ description = "wordslab-notebooks dashboard"
 requires-python = ">=3.12"
 dependencies = [
     "jlclient",
-    "monsterui==1.0.19",
+    "monsterui==1.0.23",
     "pynvml==12.0.0",
     "psutil==7.0.0",
-    "ipykernel>=6.29.5",
-    "ollama>=0.4.8",
+    "ipykernel==6.30.1",
+    "ollama==0.5.3",
 ]
 
 [tool.uv.sources]

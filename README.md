@@ -1,20 +1,99 @@
-# wordslab-notebooks - Learn and build with AI at home
+# Wordslab notebooks
+
+*Learn, explore and build AI applications on your own machine*
 
 ## Overview
 
-![wordslab-notebooks main applications](./docs/images/architecture-overview-main-apps.jpg)
+![wordslab-notebooks overview](./docs/images/wordslab-notebooks-dashboard.png)
 
-![wordslab-notebooks installation options](./docs/images/architecture-installation-options.jpg)
+One click install of all the tools you need to learn, explore and build AI applications on your own machine.
+
+- Recent and compatible versions of the  best open source tools
+- Optimized work environment to save disk space and memory
+- Options to leverage your own machines at home or to rent more powerful machines in the cloud 
+- Documentation to guide you in your AI learning and exploration journey
+	
+3 main applications
+
+- A rich chat interface (text, images, voice) : open webui + whisper voice dictation
+- A notebooks platform (text & code) : jupyterlab + jupyter ai extension 
+- A development environment (code) : visual studio code + continue.dev extension + aider terminal agent
+
+![wordslab-notebooks main applications](./docs/images/wordslab-notebooks-main-apps.jpg)
+
+Installs a ready to use and fully integrated AI environment with
+
+- A visual dashboard to help you navigate all features and manage your machine resources
+- Optimized inference engines to run AI models : ollama + vllm
+
+Why use this instead of a popular cloud service like ChatGPT ou Gemini ?
+
+- free solution with no rate limits if you already own a powerful machine
+- confidentiality and privacy of your data and projects
+- choose what tools and models you install and **when you upgrade**
+- understand how AI works and build your own solutions 
+
+## Installation overview
+
+When installed on Windows, wordslab-notebooks leverages the Windows Subsystem for Linux to create and run a lightweight Linux virtual machine
+- no impact on the configuration of your windows machine
+- everything is contained in just three isolated virtual disks files
+- you can choose the location of these three files: software, workspace, models
+
+When installed on Linux, wordslab-notebooks is directly installed in three directories of your choice.
+
+You install, start and access wordslab-notebooks with just 3 commands
 
 ![wordslab-notebooks architecture overview](./docs/images/architecture-overview.jpg)
 
 Don't be deceived by the apparent simplicity of this solution: **simplicity is the main feature of the product**. 
 
-This lightweight and seamless experience is the result of **many iterations over 4 years**. 
+This lightweight and seamless experience is the result of **many iterations over 3 years** of tests and research. 
 
 You will see over time that **everything you try just works out of the box**.
 
-WARNING: this local AI development environment is meant to be used **for personal use only, on a computer which is not directly accessible from the internet**
+## Installation options
+
+![wordslab-notebooks installation options](./docs/images/architecture-installation-options.jpg)
+
+Local PC requirements
+
+- Windows 10 or 11, Ubuntu Linux 22.04+
+- x64 CPU (Intel or AMD), 16 GB RAM and 50 GB free disk space
+- Nvidia GPU recommended but not mandatory, RTX 3000 or newer, at least 8 GB VRAM
+- CPU-only install possible, if you plan to use models hosted in the cloud in combination with your own PC
+- Administrator access (except if the Windows Subsystem for Linux is already installed on your Windows machine)
+
+Not supported yet
+- Apple machines
+- ARM processors
+- AMD GPUs
+
+If your machine doesn't meet these minimal requirements, you can rent a powerful machine for less than 1$ per hour from one of the following supported GPU cloud providers
+
+- [Runpod.io](https://www.runpod.io/pricing) 
+- [Vast.ai](https://vast.ai/pricing)
+- [Jarvislabs.ai](https://jarvislabs.ai/pricing)
+
+Guides to choose a provider and install wordslab on a rented machine are provided below.
+
+Another option is to install wordslab on your local machine without a proper GPU, and to subscribe to a cloud service to run your models in the cloud
+
+- advantages : this is probably the cheapest option, you only pay for the tokens you generate, you keep your projects and most of your data local
+- drawbacks : you send all your conversations to a cloud service, they are no longer private, and you loose some flexibility and choice in the models you can run
+
+Examples of such cloud services 
+	
+- [Openrouter](https://openrouter.ai/)
+- [Huggingface inference](https://huggingface.co/docs/inference-providers/index)
+- [Replicate](https://replicate.com/)
+- [Openai](https://platform.openai.com/docs/pricing) / [Anthropic](https://www.anthropic.com/pricing#api) / [Google](https://ai.google.dev/gemini-api/docs/pricing) / [Mistral](https://mistral.ai/pricing#api-pricing)
+
+Some of these providers have generous free tiers which can get you started without a credit card.
+
+If you get serious building ai solutions, you will certainly use a combination of all three options at different times: one or more local machine, a more powerful virtual machine rented in the cloud for a specific experiment, and hosted ai models
+
+WARNING: the local AI development environment is meant to be used **for personal use only, on a computer which is not directly accessible from the internet**
 - ease of use was prioritized for a single user in a safe environment
 - **no access control or security measures** are implemented
 
@@ -23,6 +102,10 @@ WARNING: this local AI development environment is meant to be used **for persona
 ### Option 1 - Local gamer PC 
 
 ![wordslab-notebooks installation config 1](./docs/images/architecture-config1-one-machine.jpg)
+
+Install wordslab on a Local PC (Windows or Linux)
+
+[Detailed instructions](./docs/install-local.md)
 
 Hardware requirements
 - a computer with a **x64 processor** (Intel or AMD) and at least 16 GB of RAM
@@ -78,6 +161,10 @@ export WORDSLAB_HOME=/home/wordslab && $WORDSLAB_HOME/start-wordslab-notebooks.s
 ![wordslab-notebooks installation config 2 install](./docs/images/architecture-config2-local-client-server-install.jpg)
 
 ![wordslab-notebooks installation config 3 start](./docs/images/architecture-config2-local-client-server-start.jpg)
+
+Install wordslab on a Windows machine used as a client to access a remote wordslab server machine
+
+[Detailed instructions](./docs/install-windows-client.md)
 
 First, **install the server machine** using the commands above in option 1.
 
@@ -165,6 +252,18 @@ On the second Windows client machine, execute the command from: 1. Prepare clien
 
 ![wordslab-notebooks installation config 3 rent](./docs/images/architecture-config3-cloud-client-server-start.jpg)
 
+Install wordslab on Runpod.io
+
+[Detailed instructions](./docs/install-runpod.md)
+
+Install wordslab on Vast.ai
+
+[Detailed instructions](./docs/install-vastai.md)
+
+Install wordslab on Jarvislabs.ai
+
+[Detailed instructions](./docs/install-jarvislabs.md)
+
 #### Subscribe to a cloud service
 
 Three options are officially supported and documented, but many others may work well.
@@ -186,6 +285,12 @@ See the specific instructions for each provider.
 #### Start wordlabs-notebboks on the cloud machine
 
 See the specific instructions for each provider.
+
+
+
+
+
+
 
 ## LEGACY - Documentation sections - WILL BE UPDATED SOON
 
