@@ -1,5 +1,34 @@
 # Install wordslab on a Local PC
 
+Choose 3 directories on your machine
+
+WORDSLAB_HOME : wordslab installation scripts and virtual disk containing the Linux virtual machine OS and all applications installed by wordslab (initial size 20 GB) - default: c:\wordslab
+
+WORDSLAB_WORKSPACE : virtual disk containing your projects code and data + their specific software dependencies (initial size 0 GB) - default: %WORDSLAB_HOME%\virtual-machines\wordslab-workspace
+
+WORDSLAB_MODELS : virtual disk containing all the AI models initially installed by wordslab and then downloaded in the course of your projects (initial size 30 GB) - default: %WORDSLAB_HOME%\virtual-machines\wordslab-models
+		
+If your machine has several physical disks or partitions, you can split your wordslab install between all of them to best use your available storage space.
+	
+Avoid choosing directories which are automatically synchronized with a remote storage service like OneDrive because the virtual disks files are huge and are continously updated.
+	
+Choose a disk with a fast reading speed for WORDSLAB_MODELS or you will have to wait several minutes each time you want load a 10+ GB model in memory.
+
+the script wil automatically create the directories if they don't already exist
+
+if the Windows Subsystem for Linux is not yet installed on your machine
+	- the script will prompt you for administrator access
+	- then the script will ask you to reboot your machine once
+	- after reboot, relaunch the same command as above a second time to continue and finish the installation 
+
+The installation scripts will download up to 50 GB, the install time will mainly depend of your network bandwidth
+
+Parameters for special cases (you shouldn't need them)
+
+- you can add the -cpu flag to the install command if you want to force a CPU-only install even if a Nvidia GPU is available on your machine 
+
+- you can add the -name <virtual-machine-name> parameter if you want to install several versions of wordslab notebooks in parallel on the same machine: the workspace and models virtual disks will be shared between these versions (default virtual machine name: wordslab-notebooks)
+
 ## Windows installation instructions
 
 ### Windows install commands
