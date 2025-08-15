@@ -6,7 +6,7 @@ If you use the commands below, all the data will be lost **forever**, there is n
 
 ## OS and software installation
 
-> wsl --unregister wordslab-notebooks (if you kep the default name)
+> wsl --unregister wordslab-notebooks (if you kept the default name)
 
 or
 
