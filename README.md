@@ -15,34 +15,34 @@ One click install of all the tools you need to learn, explore and build AI appli
 	
 3 main applications
 
-- A rich chat interface (text, images, voice) : open webui + whisper voice dictation
-- A notebooks platform (text & code) : jupyterlab + jupyter ai extension 
-- A development environment (code) : visual studio code + continue.dev extension + aider terminal agent
+- A rich chat interface (text, images, voice) : Open WebUI
+- A notebooks platform (text & code) : JupyterJab + Jupyter AI extension 
+- A development environment (code) : Visual Studio Code + Continue.dev extension + Aider terminal agent
 
 ![wordslab-notebooks main applications](./docs/images/wordslab-notebooks-main-apps.jpg)
 
 Installs a ready to use and fully integrated AI environment with
 
-- A visual dashboard to help you navigate all features and manage your machine resources
-- Optimized inference engines to run AI models : ollama + vllm
+- A visual dashboard to help you navigate all applications and manage your machine resources
+- Optimized inference engines to run AI models : Ollama + vLLM
 
-Why use this instead of a popular cloud service like ChatGPT ou Gemini ?
+Why use this instead of a popular cloud services like ChatGPT ou Gemini ?
 
-- free solution with no rate limits if you already own a powerful machine
-- confidentiality and privacy of your data and projects
-- choose what tools and models you install and **when you upgrade**
-- understand how AI works and build your own solutions 
+- Free solution with no rate limits if you already own a powerful machine
+- Confidentiality and privacy of your data and projects
+- Choose what tools and models you install and **when you upgrade**
+- Understand how AI works and build your own solutions 
 
 ## Installation overview
 
 When installed on Windows, wordslab-notebooks leverages the Windows Subsystem for Linux to create and run a lightweight Linux virtual machine
-- no impact on the configuration of your windows machine
-- everything is contained in just three isolated virtual disks files
-- you can choose the location of these three files: software, workspace, models
+- No impact on the configuration of your windows machine
+- Everything is contained in three virtual disks files: software, workspace, models
+- You can choose a different location for these three files to optimize your local storage
 
-When installed on Linux, wordslab-notebooks is directly installed in three directories of your choice.
+When installed on Linux, wordslab-notebooks is directly installed in one to three directories of your choice.
 
-You install, start and access wordslab-notebooks with just 3 commands
+You can install, start and access wordslab-notebooks with just 3 commands
 
 ![wordslab-notebooks architecture overview](./docs/images/architecture-overview.jpg)
 
@@ -62,9 +62,9 @@ Local PC requirements
 - x64 CPU (Intel or AMD), 16 GB RAM and 50 GB free disk space
 - Nvidia GPU recommended but not mandatory, RTX 3000 or newer, at least 8 GB VRAM
 - CPU-only install possible, if you plan to use models hosted in the cloud in combination with your own PC
-- administrator access (except if the Windows Subsystem for Linux is already installed on your Windows machine)
+- Administrator access (except if the Windows Subsystem for Linux is already installed on your Windows machine)
 
-Not supported yet: Apple machines, ARM processors, AMD GPUs.
+Not supported: Apple machines, ARM processors, AMD GPUs.
 
 If your machine doesn't meet these minimal requirements, you can rent a powerful machine for less than 1$ per hour from one of the following supported GPU cloud providers
 
@@ -74,18 +74,18 @@ If your machine doesn't meet these minimal requirements, you can rent a powerful
 
 Guides to choose a provider and install wordslab on a rented machine are provided below.
 
-Another option is to install wordslab on your local machine without a proper GPU, and to subscribe to a cloud service to run your models in the cloud
+Another option is to install wordslab on your local machine without a proper GPU, and to subscribe to a cloud service to run your AI models in the cloud
 
-- advantages : this is probably the cheapest option, you only pay for the tokens you generate, you keep your projects and most of your data local
-- drawbacks : you send all your conversations to a cloud service, they are no longer private, and you loose some flexibility and choice in the models you can run
+- Advantages: this is probably the cheapest option, you only pay for the tokens you generate, you keep your projects and most of your data local
+- Drawbacks: you send all your conversations to a cloud service, they are no longer private, and you loose some flexibility and choice in the models you can run
 
 Examples of such cloud services 
 	
-- [Openrouter](https://openrouter.ai/)
-- [Openai](https://platform.openai.com/docs/pricing) / [Anthropic](https://www.anthropic.com/pricing#api) / [Google](https://ai.google.dev/gemini-api/docs/pricing) / [Mistral](https://mistral.ai/pricing#api-pricing)
+- [OpenRouter](https://openrouter.ai/)
+- [OpenAI](https://platform.openai.com/docs/pricing) / [Anthropic](https://www.anthropic.com/pricing#api) / [Google](https://ai.google.dev/gemini-api/docs/pricing) / [Mistral](https://mistral.ai/pricing#api-pricing)
 - [Huggingface inference](https://huggingface.co/docs/inference-providers/index)
 - [Replicate](https://replicate.com/)
-- 
+
 Some of these providers have generous free tiers which can get you started without a credit card.
 
 If you have two machines at home
@@ -93,13 +93,13 @@ If you have two machines at home
 - a powerful - but hot and noisy - gamer PC in your home office
 - a weaker - but cold and quiet - slim laptop in your living room
  
-you can also install wordslab-notebooks in a client - server setting at home, where you run your AI models on your gamer PC on your office, and access your applications through a web browser running on your slim laptop.
+You can also install wordslab-notebooks in a client/server setting at home, where you run your AI models on your gamer PC and access your applications through a web browser running on your slim laptop.
 
-If you get serious building ai solutions, you will certainly use a combination of all three options at different times: one or more local machines, a more powerful virtual machine rented in the cloud for a specific experiment, and hosted AI models for frontier performance.
+If you get serious building AI solutions, you will certainly use a combination of all three options at different times: one or more local machines, a more powerful virtual machine rented in the cloud for a specific experiment, and hosted AI models for frontier performance.
 
 WARNING: the local AI development environment is meant to be used **for personal use only, on a computer which is not directly accessible from the internet**
-- ease of use was prioritized for a single user in a safe environment
-- **no access control or security measures** are implemented
+- Ease of use was prioritized for a single user in a safe environment
+- **No access control or security measures** are implemented
 
 ## Table of contents
 
@@ -110,7 +110,7 @@ WARNING: the local AI development environment is meant to be used **for personal
   - [Update your installation to a more recent version](#update-your-installation-to-a-more-recent-version)
   - [Backup and restore your local environment](#backup-and-restore-your-local-environment)
   - [Uninstall wordslab-notebooks](#uninstall-wordslab-notebooks)
-  - [Installation scripts reference documentation](#installation-scripts-documentation)
+  - [Installation scripts reference](./docs/install-scripts-reference.md)
 - [User manual](#user-manual)
    - [Wordslab notebooks dashboard](#wordslab-notebooks-dashboard)
    - [Chat with OpenWebUI](#chat-with-openwebui)
