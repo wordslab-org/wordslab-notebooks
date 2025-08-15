@@ -136,7 +136,9 @@ Not supported yet: Apple machines, ARM processors, AMD GPUs.
 
 #### Detailed installation instructions with screenshots
 
-Open the [detailed installation instructions](./docs/install-local.md) or just run the quick commands below.
+For the first installation, it is recommended to follow the [detailed installation instructions](./docs/install-local.md).
+
+For the followinig installations, if you are already familiar with the procedure, you can just run the quick commands below.
 
 #### Quick Windows commands
 
