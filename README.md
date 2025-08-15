@@ -112,10 +112,11 @@ WARNING: the local AI development environment is meant to be used **for personal
   - [Uninstall wordslab-notebooks](#uninstall-wordslab-notebooks)
   - [Installation scripts reference documentation](#installation-scripts-documentation)
 - [User manual](#user-manual)
-   - [Wordslab notebooks dashboard](#Wordslab notebooks dashboard)
-   - [Chat with OpenWebUI](#Chat with OpenWebUI)
-   - [Learn and explore with JupyterLab](#Learn and explore with JupyterLab)
-   - [Develop with Visual Studio Code](#Develop with Visual Studio Code)
+   - [Wordslab notebooks dashboard](#wordslab-notebooks-dashboard)
+   - [Chat with OpenWebUI](#chat-with-openwebui)
+   - [Learn and explore with JupyterLab](#learn-and-explore-with-jupyterlab)
+   - [Develop with Visual Studio Code](#develop-with-visual-studio-code)
+   - [Configure and use external services](#configure-and-use-external-services)
 
 ## Installation instructions
 
@@ -197,11 +198,7 @@ Please note that only Windows client machines are supported.
 
 ![wordslab-notebooks installation config 3 start](./docs/images/architecture-config2-local-client-server-start.jpg)
 
-#### Detailed client machine installation instructions with screenshots
-
-Open the [detailed installation instructions](./docs/install-windows-client.md) or just run the quick commands below.
-
-#### Quick client machine commands
+#### Windows client machine commands
 
 1. Prepare client machine
 
@@ -229,7 +226,7 @@ This script will generate the file: %WORDSLAB_WINDOWS_HOME%\secrets\wordslab-ser
 
 IMPORTANT: you will need to regenerate this secrets file each time the server IP address or DNS name changes.
 
-#### Quick server machine commands
+#### Server machine commands
 
 3. Transfer the secrets tar file to the server machine:
 
@@ -406,8 +403,143 @@ Execute the script: *99_uninstall-windows-subsystem-for-linux.bat*
 
 ### Wordslab notebooks dashboard
 
+Click on the link provided in the startup script to launch the Wordslab notebooks dashboard: for example [https://127.0.0.1:8888](https://127.0.0.1:8888]) on a local PC.
+
+The dashboard provides:
+
+Links to the three main applications
+- OpenWebUI chat interface
+- JupyterLab notebooks
+- Visual Studio Code development environment 
+
+Information and metrics to manage your AI environment
+- Virtual machine hardware and usage : cpu, ram, gpu, vram.
+- Storage space details for: operating system, applications, workspace projects, models.
+
+The dashboard also provides links to access custom applications launched by the user inside the virtual machine
+1. Launch an application on the port number stored in the USER_APP1_PORT environment variable inside the virtual machine
+2. Access this application from a browser outside the virtual machine by clicking on the first link in the "User applications" tile
+
 ### Chat with OpenWebUI
+
+Use the dropdown list to select the language model wich will generate the answers in your chats.
+
+Option 1: download a language model from an internet repository to your machine as a big file of several GB and run it locally.
+
+Option 2: connect to a cloud service with an API key and access a remote language model running in the cloud.
+
+Here are a few tips to select the right language model for your needs
+- the size of a model is measured in billions of parameters
+- a bigger model packs more knowledge and is generally more capable
+- but it requires more GPU memory, is more expensive and generates text slower
+
+When you run a language model locally
+- you are limited by the memory and compute capacity of your GPU
+- choose a model size smaller than your GPU memory: you can't run a model bigger than 8 billion parameters on a 8 GB gpu
+
+When you call a language model running in the cloud
+- you are not limited by your machine hardware
+- but the price you pay is usually proportional to the size of the model
+
+Models also differ by their capabilities
+- some models are better at creative writing and culture, some model are better at science and code: choose a model depending on your personal and specific needs
+- some models are english and chinese only, some models are multiligual: choose a model depending on your native language
+- some models are capable of taking images as input in addition to text, but other models are still text only
+
+Always read the license, usage restrictions, and terms of service of a model: you are sometimes not allowed to use the model for commercial use, or to reuse its outputs to improve another model.
+
+To start, just stick with the model that was installed by default.
+
+Language model installed by default in wordslab 2025-08 : [Google Deepmind Gemma 3](https://deepmind.google/models/gemma/gemma-3/)
+- 24 GB or biggerGPU : gemma3:27b (27 billion parameters)
+- 16 GB GPU: gemma3:12b (12 billion parameters)
+- 8GB or smaller GPU: gemma3:4b (4 billion parameters)
+- CPU only: gemma3:1b (1 billion parameters)
+
+Gemma 3 is a multilingual a multimodal generalist model: it means that it can process text AND images as input in your native language.
+
+Type "hello" in the chat, wait a few seconds for the model to load in memory, and verify that you get an answer.
+
+The conversation appears on the left of the screen
+- the model accumulates information with each new turn of conversation 
+- if the conversation grows too long or if you change topics several times in the same conversation, the model can get confused
+- you can start a new conversation by clicking on the button in the top left corner 
+- you can group related conversations in a directory
+- you can delete conversations when you don't need them anymore
+
+Use the conversation to progressively refine the output of the model. For example if you instructed the model to summarize something, and the summary is too short / too long, not using the right kind of language, or not structured like you expected, just tell it to the model and ask it to generate the summary again. Do this as long as you don't get back what you want.
+
+If you selected a language model which can also analyze images, you can complement your instruction with an image by clicking on + in the input box.
+
+If you find that you are always repeating the same instructions to the model:
+- you can record your preferences once and for all in a system prompt (Controls / System Prompt)
+- you can capture frequent instructions in a reusable prompt (Workspace / Prompts / +)
+
+If you don't add more context to the conversation, the model will try to answer "from memory":
+- it will often invent a very convincing answer but you can't trust it - it could be true, or it could be completely imaginary
+- the model only memorizes facts that are very common on the internet: it generally knows nothing of your small company, your local regulations, your neighborhood
+- the model was trained with data extracted from the internet one or two years ago: it doesn't know who the president of the country is today, what the current tax rate is, what happened yesterday 
+
+If you created a Google PSE account, you can activate the "web search" tool: when the tool is activated, the model will first do a web seach before generating an answer, to try to ground it on facts (Admin Panel / Settings / Web Search).
+
+If the information necessary to answer your questions or execute your instructions can't be found on the internet, you can index your own documents to create a local knowledge base (Workspace / Knowledge / +).
+
+When OpenWebUI detects that you try to generate a file, it will trigger the artefact view in a separate panel: then you can copy and download the result, or even execute it if it's code.
+
+If you subscribed to Replicate or another image generation service, you can ask openwebui to generate an image (Admin Panel / Settings / Images). You will often get better results if you do this in two steps: first ask the model to generate a richer and more precise instruction, then use it to generate an image.
+
+If the task you are trying to execute requires to do arithmetic operations, OpenWebUI will use a code interpreter (Admin Panel / Settings / Code execution).
+
+There is a marketplace of openui extensions at https://openwebui.com/.
 
 ### Learn and explore with JupyterLab
 
+If you want to build solutions, or if you want to go further than a simple chat interface, you will have to write a little bit of code.
+
+To help you get started, wordslab will provide ready to use code projects for the most frequent use cases of AI. You will just be able to clone them in your wordslab environment and read / execute them step by step to see how it works. Then you can just change a few parameters here and there to adapt the program to your needs.
+
+For example
+- wordslab-text will show you how to extract information from documents or user feedbacks
+- wordslab-images will show you how to analyze and generate images
+- wordslab-voice will teach you how to transcribe and summarize your meetings
+
+You can work on your code projects in two different environments which share the same source files
+- JupyterLab notebooks: a notebook is a mix of documentation and code which enables understanding, executing, and visualising operations step by step, and which is perfect to explore and develop new snippets of code, friendly for everybody
+- Visual Studio Code projects: a more complex integrated development environment for developers, perfect to integrate and test all the code snippets in a consistent and reliable application 
+
+To transition from one environment to another, the nbdev toolset is preinstalled by wordslab: you can use it to create a code library from a set of notebooks.
+
+Both tools are installed with extensions enabling AI assistance directly in the development environment.
+
+For jupyterlab notebooks, the jupyter-ai extension adds 
+- a chat ui right next to your notebooks which can interact with their content
+- an autocomplete feature when you write code in a notebook
+- a magic command to execute a language model instructions directly in a notebook cell
+
+When you work on your notebooks or code projects it is important to regularly take a snapshot of your files and to store it in a consolidated history of your project: both tools are also installed with extensions to use Github.
+
 ### Develop with Visual Studio Code
+
+For Visual Studio Code projects, the Continue.dev extension adds
+- a chat ui durectly in your IDE which can interact with your code files
+- magic commands to enrich the context of the conversation from many information sources 
+- an autocomplete feature when you write code
+- shortcuts to execute common development operations with a language model
+
+Aider is also installed and ready to use: it is a command line agentic asssitant which can generate code for you.
+
+### Configure and use external services
+
+If you are serious about learning, exploring and building ai, we strongly advise that you subscribe to the following services
+
+Huggingface: central repository for all open and private models and datasets - mandatory, free
+
+Github: central repository for all open and private code projects - mandatory, free
+	
+Openrouter: get access to all large langage models from one single account (no need to create an account with openai, then anthropic, then google, then groq ...) - recommended, paid
+
+Google personalized search engine: use it to enable web search in the openwebui chat interface or in your agents - recommended, paid
+	
+Replicate: get access to many models beyond text => image generation, speech transcription... - optional, paid
+
+More details in [AI and code infrastructure services](./code/external-services.md)

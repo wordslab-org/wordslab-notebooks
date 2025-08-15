@@ -19,6 +19,38 @@ Criteria 2 : understand if your bottleneck will be the memory bandwidth or compu
 - as a rule of thumb: if there is a single user or if you run queries one by one, you will be limited by the memory bandwidth 
 - if there are many simultaneous users of if you can group requests by big batches, you will be limited by the compute capacity 
 
+## Estimating the GPU memory and generation speed
+
+The language model generation speed for a single user is limited by the GPU memory bandwidth.
+
+CPU only - Intel Core i7 12700H
+- gemma3:1b - 10-28 tokens/sec (1.5 GB)
+
+Nvidia RTX 3070 Ti laptop
+- gemma3:4b - 85 tokens/sec (5.7 GB)
+- gemma3:1b - 160 tokens/sec (1.9 GB)
+
+Nvidia RTX 4090 desktop
+- gemma3:27b - 40 tokens/sec (22 GB)
+- gemma3:12b - 75 tokens/sec (12 GB)
+- gemma3:4b - 150 tokens/sec (6.2 GB)
+- gemma3:1b - 265 tokens/sec (1.9 GB)
+
+Nvidia RTX 5090 on Runpod
+- gemma3:27b - 61 tokens/sec
+- gemma3:12b - 107 tokens/sec
+- gemma3:4b - 205 tokens/sec
+- gemma3:1b - 322 tokens/sec
+
+Nvidia RTX 4090 desktop - other models
+- mistral-small3.1:24b - 50 tokens/sec (26 GB 9%/91% CPU/GPU)
+- qwen3:30b - 138 tokens/sec (21 GB)
+- qwen3:14b - 75 tokens/sec (12 GB)
+- qwen3:8b - 115 tokens /sec (7.5 GB)
+- qwen3:4b - 165 tokens /sec (5.2 GB)
+- qwen3:1.7b - 265 tokens /sec (2.0 GB)
+- qwen3:0.6b - 340 tokens /sec (1.2 GB)
+
 ## Estimating the storage size
 
 Quick tip: start with 100 GB.
@@ -42,4 +74,4 @@ Storage size for models : total size of all the models and datasets you will dow
 - model in 4 bits precision: 10 billion parameters = 5 GB
 - model in 8 bits precision: 10 billion parameters = 10 GB
 - model in 16 bits precision: 10 billion parameters = 20 GB
-- note that of you want to test a selection of Large Language Models, your models directory can get pretty large quickly
+- note that of you want to test a selection of Large Language Models, your models directory can get pretty large quickly 
