@@ -105,7 +105,7 @@ The Windows updates will be applied during the reboot.
 
 ![Install Python](./images/install-local/11-python-install.png)
 
-3. Jupyterlab and several key extensions
+3. Jupyterlab and several key extensions, key AI libraries - PyTorch and vLLM
 
 ![Install Jupyterlab](./images/install-local/12-jupyterlab-install.png)
 
@@ -305,3 +305,4 @@ Ollama models
 vLLM models	
 
 - none after install
+
