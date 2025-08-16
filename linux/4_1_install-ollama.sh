@@ -50,23 +50,13 @@ else
 fi
 OLLAMA_EMBED_MODEL="nomic-embed-text:latest"
 
-if [ ! -f ~/.wordslab-installed ]; then
-
-    # Save the LLM names as env variables 
-    echo '' >> ./_wordslab-notebooks-env.bashrc
-    echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
-    echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
-    echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
-    echo "export OLLAMA_CODE_MODEL=$OLLAMA_COMPLETION_MODEL" >> ./_wordslab-notebooks-env.bashrc
-    echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
-else
-
-    # Update the LLM names in the env variables
-    sed -i '' 's/^export OLLAMA_CHAT_MODEL=.*/export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL/' ./_wordslab-notebooks-env.bashrc
-    sed -i '' 's/^export OLLAMA_CODE_MODEL=.*/export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL/' ./_wordslab-notebooks-env.bashrc
-    sed -i '' 's/^export OLLAMA_COMPLETION_MODEL=.*/export OLLAMA_COMPLETION_MODEL=$OLLAMA_COMPLETION_MODEL/' ./_wordslab-notebooks-env.bashrc
-    sed -i '' 's/^export OLLAMA_EMBED_MODEL=.*/export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL/' ./_wordslab-notebooks-env.bashrc
-fi
+# Save the LLM names as env variables 
+echo '' >> ./_wordslab-notebooks-env.bashrc
+echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_CODE_MODEL=$OLLAMA_COMPLETION_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 
 # Download the default local LLMs
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL
