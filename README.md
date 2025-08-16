@@ -297,10 +297,6 @@ Open the [detailed installation instructions](./docs/install-vastai.md) for Vast
 
 Open the [detailed installation instructions](./docs/install-jarvislabs.md) for JarvisLabs
 
-Install wordslab on Jarvislabs.ai
-
-[Detailed instructions](./docs/install-jarvislabs.md)
-
 ### Update your installation to a more recent version
 
 The wordslab-notebooks distribution is versioned with version identifiers like '2025-08' (release published in August 2025).
@@ -327,7 +323,7 @@ Update command (version 2025-08)
 set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2025-08" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
 ```
 
-If want to make sure youy don't loose anything, consider making a backup of your environment first, as described in the next section.
+If you want to make sure you don't loose any data, consider making a backup of your environment first, as described in the next section.
 
 ### Backup and restore your local environment
 
