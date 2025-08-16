@@ -13,4 +13,4 @@ echo source $WORDSLAB_SCRIPTS/linux/_wordslab-notebooks-env.bashrc >> ~/.bashrc
 echo source $WORDSLAB_SCRIPTS/linux/_wordslab-notebooks-init.bashrc >> ~/.bashrc
 
 # Add a flag file to ditinguish the first install from the following updates
-touch ~/.wordslab-installed
+echo $WORDSLAB_VERSION > ~/.wordslab-installed
