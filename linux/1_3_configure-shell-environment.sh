@@ -6,6 +6,8 @@
 # - set environment variables for storage and ports
 # - start a new shell in the right Python environment and the right directory
 
+# Note that these commands will accumulate in ~/.bashrc as you install successive versions
+# => the last version overwrites the previous values
 echo '' >> ~/.bashrc
 echo source $WORDSLAB_SCRIPTS/linux/_wordslab-notebooks-env.bashrc >> ~/.bashrc
 echo source $WORDSLAB_SCRIPTS/linux/_wordslab-notebooks-init.bashrc >> ~/.bashrc
