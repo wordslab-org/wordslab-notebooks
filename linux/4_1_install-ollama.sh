@@ -31,18 +31,22 @@ done
 # Choose a default local LLMs for this machine
 if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     OLLAMA_CHAT_MODEL="gemma3:1b"
-    OLLAMA_CODE_MODEL="qwen2.5-coder:0.5b-base"
+    OLLAMA_CODE_MODEL="qwen3:1.7b"
+    OLLAMA_COMPLETION_MODEL="qwen2.5-coder:0.5b-base"
 else
     # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
     if [ "$vram_gib" -ge 23 ]; then        
         OLLAMA_CHAT_MODEL="gemma3:27b"
+        OLLAMA_CODE_MODEL="qwen3-coder:30b"
     elif [ "$vram_gib" -ge 15 ]; then
         OLLAMA_CHAT_MODEL="gemma3:12b"
+        OLLAMA_CODE_MODEL="qwen3:14b"
     else
         OLLAMA_CHAT_MODEL="gemma3:4b"
+        OLLAMA_CODE_MODEL="qwen3:4b"
     fi
-    OLLAMA_CODE_MODEL="qwen2.5-coder:1.5b-base"
+    OLLAMA_COMPLETION_MODEL="qwen2.5-coder:1.5b-base"
 fi
 OLLAMA_EMBED_MODEL="nomic-embed-text:latest"
 
@@ -53,18 +57,21 @@ if [ ! -f ~/.wordslab-installed ]; then
     echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
     echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
     echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
+    echo "export OLLAMA_CODE_MODEL=$OLLAMA_COMPLETION_MODEL" >> ./_wordslab-notebooks-env.bashrc
     echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 else
 
     # Update the LLM names in the env variables
     sed -i '' 's/^export OLLAMA_CHAT_MODEL=.*/export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL/' ./_wordslab-notebooks-env.bashrc
     sed -i '' 's/^export OLLAMA_CODE_MODEL=.*/export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL/' ./_wordslab-notebooks-env.bashrc
+    sed -i '' 's/^export OLLAMA_COMPLETION_MODEL=.*/export OLLAMA_COMPLETION_MODEL=$OLLAMA_COMPLETION_MODEL/' ./_wordslab-notebooks-env.bashrc
     sed -i '' 's/^export OLLAMA_EMBED_MODEL=.*/export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL/' ./_wordslab-notebooks-env.bashrc
 fi
 
 # Download the default local LLMs
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CODE_MODEL
+$OLLAMA_DIR/bin/ollama pull $OLLAMA_COMPLETION_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_EMBED_MODEL
 
 # Stop ollama
@@ -76,12 +83,12 @@ JAI_CONFIG_FILE="$JUPYTER_DATA_DIR/jupyter_ai/config.json"
 mkdir -p "$(dirname "$JAI_CONFIG_FILE")"
 cat > "$JAI_CONFIG_FILE" <<EOF
 {
-    "model_provider_id": "ollama:$OLLAMA_CHAT_MODEL",
+    "model_provider_id": "ollama:$OLLAMA_CODE_MODEL",
     "embeddings_provider_id": "ollama:$OLLAMA_EMBED_MODEL",
     "send_with_shift_enter": false,
     "fields": {},
     "api_keys": {},
-    "completions_model_provider_id": "ollama:$OLLAMA_CODE_MODEL",
+    "completions_model_provider_id": "ollama:$OLLAMA_COMPLETION_MODEL",
     "completions_fields": {}
 }
 EOF
@@ -130,14 +137,14 @@ name: Local Assistant
 version: 1.0.0
 schema: v1
 models:
-  - name: $OLLAMA_CHAT_MODEL
-    provider: ollama
-    model: $OLLAMA_CHAT_MODEL
-    roles:
-      - chat
   - name: $OLLAMA_CODE_MODEL
     provider: ollama
     model: $OLLAMA_CODE_MODEL
+    roles:
+      - chat
+  - name: $OLLAMA_COMPLETION_MODEL
+    provider: ollama
+    model: $OLLAMA_COMPLETION_MODEL
     roles:
       - autocomplete
   - name: $OLLAMA_EMBED_MODEL
