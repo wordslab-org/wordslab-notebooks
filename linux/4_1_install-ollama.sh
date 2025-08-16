@@ -123,70 +123,34 @@ EOF
 
 # Configure models for VsCode extension Continue.dev
 
-CONT_CONFIG_FILE="$VSCODE_DATA/.continue/config.json"
+CONT_CONFIG_FILE="$VSCODE_DATA/.continue/config.yaml"
 mkdir -p "$(dirname "$CONT_CONFIG_FILE")"
 cat > "$CONT_CONFIG_FILE" <<EOF
-{
-  "models": [
-    {
-      "title": "$OLLAMA_CHAT_MODEL",
-      "provider": "ollama",
-      "model": "$OLLAMA_CHAT_MODEL"
-    }
-  ],
-  "contextProviders": [
-    {
-      "name": "code",
-      "params": {}
-    },
-    {
-      "name": "docs",
-      "params": {}
-    },
-    {
-      "name": "diff",
-      "params": {}
-    },
-    {
-      "name": "terminal",
-      "params": {}
-    },
-    {
-      "name": "problems",
-      "params": {}
-    },
-    {
-      "name": "folder",
-      "params": {}
-    },
-    {
-      "name": "codebase",
-      "params": {}
-    }
-  ],
-  "slashCommands": [
-    {
-      "name": "share",
-      "description": "Export the current chat session to markdown"
-    },
-    {
-      "name": "cmd",
-      "description": "Generate a shell command"
-    },
-    {
-      "name": "commit",
-      "description": "Generate a git commit message"
-    }
-  ],
-  "data": [],
-  "tabAutocompleteModel": {
-    "title": "$OLLAMA_CODE_MODEL",
-    "provider": "ollama",
-    "model": "$OLLAMA_CODE_MODEL"
-  },
-  "embeddingsProvider": {
-    "provider": "ollama",
-    "model": "$OLLAMA_EMBED_MODEL"
-  }
-}
+name: Local Assistant
+version: 1.0.0
+schema: v1
+models:
+  - name: $OLLAMA_CHAT_MODEL
+    provider: ollama
+    model: $OLLAMA_CHAT_MODEL
+    roles:
+      - chat
+  - name: $OLLAMA_CODE_MODEL
+    provider: ollama
+    model: $OLLAMA_CODE_MODEL
+    roles:
+      - autocomplete
+  - name: $OLLAMA_EMBED_MODEL
+    provider: ollama
+    model: $OLLAMA_EMBED_MODEL
+    roles:
+      - embed
+context:
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase
 EOF
