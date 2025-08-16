@@ -8,13 +8,10 @@ curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.11.4 -o oll
 tar -C $OLLAMA_DIR -xzf ollama-linux-amd64.tgz
 rm ollama-linux-amd64.tgz
 
-if [ ! -f ~/.wordslab-installed ]; then
-
-    # Add ollama to the path so that anyone can control it on the machine
-    echo '' >> ./_wordslab-notebooks-env.bashrc
-    echo '# Add tools the PATH' >> ./_wordslab-notebooks-env.bashrc
-    echo 'export PATH="$OLLAMA_DIR/bin:$PATH"' >> ./_wordslab-notebooks-env.bashrc
-fi
+# Add ollama to the path so that anyone can control it on the machine
+echo '' >> ./_wordslab-notebooks-env.bashrc
+echo '# Add tools the PATH' >> ./_wordslab-notebooks-env.bashrc
+echo 'export PATH="$OLLAMA_DIR/bin:$PATH"' >> ./_wordslab-notebooks-env.bashrc
 
 # Need to set OLLAMA_HOME before downloading the language model
 source ./_wordslab-notebooks-env.bashrc
@@ -55,7 +52,7 @@ echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_CODE_MODEL=$OLLAMA_COMPLETION_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_COMPLETION_MODEL=$OLLAMA_COMPLETION_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 
 # Download the default local LLMs

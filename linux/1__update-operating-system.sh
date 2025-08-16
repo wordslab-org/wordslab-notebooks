@@ -20,14 +20,3 @@ fi
 
 # Remember that the operating system was updated (to avoid doing it twice)
 touch /.wordslab-installed
-
-# Don't execute this right now when installing for the first time
-# -> in this case, the shell is configured later at the end of the installation process
-if [ -d $OPENWEBUI_ENV ]; then
-
-    # When a new shell is launched
-    # - define environment variables for storage paths and ports
-    # - activate the right python environment 
-    ./1_3_configure-shell-environment.sh
-    
-fi
