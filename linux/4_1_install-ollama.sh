@@ -70,7 +70,7 @@ JAI_CONFIG_FILE="$JUPYTER_DATA_DIR/jupyter_ai/config.json"
 mkdir -p "$(dirname "$JAI_CONFIG_FILE")"
 cat > "$JAI_CONFIG_FILE" <<EOF
 {
-    "model_provider_id": "ollama:$OLLAMA_CODE_MODEL",
+    "model_provider_id": "ollama:$OLLAMA_CHAT_MODEL",
     "embeddings_provider_id": "ollama:$OLLAMA_EMBED_MODEL",
     "send_with_shift_enter": false,
     "fields": {},
@@ -126,17 +126,23 @@ schema: v1
 models:
   - name: $OLLAMA_CODE_MODEL
     provider: ollama
-    model: $OLLAMA_CODE_MODEL
+    model: $OLLAMA_CODE_MODEL    
+    defaultCompletionOptions:
+      contextLength: 8192
     roles:
       - chat
   - name: $OLLAMA_COMPLETION_MODEL
     provider: ollama
-    model: $OLLAMA_COMPLETION_MODEL
+    model: $OLLAMA_COMPLETION_MODEL    
+    defaultCompletionOptions:
+      contextLength: 8192
     roles:
       - autocomplete
   - name: $OLLAMA_EMBED_MODEL
     provider: ollama
-    model: $OLLAMA_EMBED_MODEL
+    model: $OLLAMA_EMBED_MODEL    
+    defaultCompletionOptions:
+      contextLength: 8192
     roles:
       - embed
 context:
