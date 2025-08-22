@@ -10,4 +10,4 @@ mkdir -p $VSCODE_DATA
 $VSCODE_DIR/bin/code-server --install-extension ms-python.python@2025.4.0 --extensions-dir $VSCODE_DATA/extensions
 
 # Install the Continue AI code assistant
-CONTINUE_GLOBAL_DIR=$VSCODE_DATA/.continue $VSCODE_DIR/bin/code-server --install-extension Continue.continue@1.0.23 --extensions-dir $VSCODE_DATA/extensions
+CONTINUE_GLOBAL_DIR=$VSCODE_DATA/.continue $VSCODE_DIR/bin/code-server --install-extension Continue.continue@1.0.25 --extensions-dir $VSCODE_DATA/extensions

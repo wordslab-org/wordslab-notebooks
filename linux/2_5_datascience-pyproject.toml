@@ -20,7 +20,7 @@ cuda = [
   "torch==2.7.1",
   "torchvision==0.22.1",
   "torchaudio==2.7.1",
-  "vllm==0.10.0"
+  "vllm==0.10.1.1"
 ]
 
 [dependency-groups]
