@@ -1,4 +1,4 @@
-# Reting a GPU machine in the cloud
+# Renting a GPU machine in the cloud
 
 ## Choosing a GPU to run a generative AI application 
 
