@@ -6,22 +6,37 @@ REM - or directly from a github URL, on a machine where nothing is installed yet
 
 if not exist prepare-server-secrets.bat (
 
-    REM Mandatory environment variable
     REM WORDSLAB_WINDOWS_HOME: installation scripts and client/server secrets
     if not defined WORDSLAB_WINDOWS_HOME (
-        set "WORDSLAB_WINDOWS_HOME=C:\wordslab-client"
+        set "WORDSLAB_WINDOWS_HOME=C:\wordslab"
     )
 
     mkdir "%WORDSLAB_WINDOWS_HOME%"
     cd /d "%WORDSLAB_WINDOWS_HOME%"
 
+    REM WORDSLAB_VERSION: wordslab-notebook version TAG in github repo (or main to get the main branch)
+    if not defined WORDSLAB_VERSION (
+        set WORDSLAB_VERSION=2025-08
+    )
+
     REM Download and unzip the installation scripts
-    curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
+    if "%WORDSLAB_VERSION%"=="main" (
+        curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/heads/main.zip
+    ) else (
+        curl -L -o wordslab-notebooks.zip https://github.com/wordslab-org/wordslab-notebooks/archive/refs/tags/%WORDSLAB_VERSION%.zip
+    )
     tar -x -f wordslab-notebooks.zip
     del wordslab-notebooks.zip
-    ren wordslab-notebooks-main wordslab-notebooks
 
-    set "scriptsDir=%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks"
+    REM Set up default startup script with the right path
+    (
+        echo set "WORDSLAB_WINDOWS_HOME=%WORDSLAB_WINDOWS_HOME%"
+        echo set "WORDSLAB_VERSION=%WORDSLAB_VERSION%"
+        echo call cd "%%WORDSLAB_WINDOWS_HOME%%\wordslab-notebooks-%%WORDSLAB_VERSION%%"
+        echo call start-wordslab-notebooks.bat
+    ) > %WORDSLAB_WINDOWS_HOME%\start-wordslab-notebooks.bat
+
+    set "scriptsDir=%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%"
     cd /d "%scriptsDir%"
 
 ) else (

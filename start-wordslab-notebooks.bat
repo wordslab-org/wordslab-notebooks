@@ -70,7 +70,7 @@ del test-certificate.txt
 
 REM Execute startup script on the remote Linux machine
 :startup_script
-ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "export WORDSLAB_HOME=%WORDSLAB_HOME% && cd %WORDSLAB_HOME%/wordslab-notebooks && ./start-wordslab-notebooks.sh"
+ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "export WORDSLAB_HOME=%WORDSLAB_HOME% && cd %WORDSLAB_HOME% && ./start-wordslab-notebooks.sh"
 
 exit /b 0
 

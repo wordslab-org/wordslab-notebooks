@@ -194,13 +194,13 @@ cd /workspace
 Open a terminal on your Windows machine and execute the command below.
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-08" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call start-wordslab-notebooks.bat [virtual machine IP address] [virtual machine SSH port]
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call "%WORDSLAB_WINDOWS_HOME%\start-wordslab-notebooks.bat" [virtual machine IP address] [virtual machine SSH port]
 ```
 
 For example:
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-08" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call start-wordslab-notebooks.bat 213.173.103.6 34046
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call "%WORDSLAB_WINDOWS_HOME%\start-wordslab-notebooks.bat" 213.173.103.6 34046
 ```
 
 The script may need to reinstall a few Ubuntu packages on the temporary disk of the new virtual machine.

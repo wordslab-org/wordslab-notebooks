@@ -207,7 +207,7 @@ Please note that only Windows client machines are supported.
 On the client machine, if wordslab-notebooks is not installed:
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab-client" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/heads/main/prepare-client-machine.bat -o "%temp%\prepare-client-machine.bat" && call "%temp%\prepare-client-machine.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-08" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/prepare-client-machine.bat -o "%temp%\prepare-client-machine.bat" && call "%temp%\prepare-client-machine.bat"
 ```
 
 On the client machine, if wordslab-notebooks is already installed :

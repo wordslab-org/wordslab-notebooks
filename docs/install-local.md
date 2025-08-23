@@ -213,7 +213,7 @@ You will need to enter your password.
 2. Copy / paste the installation command below in the terminal
 
 ```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-05 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-08 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
 ```
 
 3. Personalize the installation paths on your computer, and select the version you want to install
@@ -221,7 +221,7 @@ apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && expo
 - export WORDSLAB_HOME=/home/wordslab
 - export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace 
 - export WORDSLAB_MODELS=$WORDSLAB_HOME/models
-- export WORDSLAB_VERSION=2025-05
+- export WORDSLAB_VERSION=2025-08
 
 Press Enter to launch the installation script
 
