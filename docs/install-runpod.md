@@ -203,9 +203,11 @@ For example:
 set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call "%WORDSLAB_WINDOWS_HOME%\start-wordslab-notebooks.bat" 213.173.103.6 34046
 ```
 
+If it is your first connection, the script will optionnaly ask you to create a password to protect the access to Jupyterlab and Visual Studio Code on your remote machine: choose a password or leave it empty for free access.
+
 The script may need to reinstall a few Ubuntu packages on the temporary disk of the new virtual machine.
 
-At the end of the startup process, the script will display a link to the wordslab-notebooks dashbord.
+At the end of the startup process, the script will display a link to the wordslab-notebooks dashboard.
 
 Click on this link to access the applications.
 

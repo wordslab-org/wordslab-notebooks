@@ -134,7 +134,7 @@ REM Set up default startup script with the right path
     echo set "WORDSLAB_WINDOWS_HOME=%WORDSLAB_WINDOWS_HOME%"
     echo set "WORDSLAB_VERSION=%WORDSLAB_VERSION%"
     echo call cd "%%WORDSLAB_WINDOWS_HOME%%\wordslab-notebooks-%%WORDSLAB_VERSION%%"
-    echo call start-wordslab-notebooks.bat
+    echo call start-wordslab-notebooks.bat %%1 %%2
 ) > start-wordslab-notebooks.bat
 
 REM Execute Windows installation scripts
