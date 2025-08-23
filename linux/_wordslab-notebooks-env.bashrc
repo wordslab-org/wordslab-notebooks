@@ -40,7 +40,11 @@ export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.openwebui
 # Python global directories
 export UV_INSTALL_DIR=$WORDSLAB_HOME/python
 export UV_PYTHON_INSTALL_DIR=$UV_INSTALL_DIR
+export UV_PYTHON_BIN_DIR=$UV_INSTALL_DIR
 export UV_CACHE_DIR=$UV_INSTALL_DIR
+if [ -v UV_NO_CACHE ]; then
+    unset UV_NO_CACHE
+fi
 export UV_LINK_MODE="symlink"
 export UV_TOOL_DIR=$UV_INSTALL_DIR/tools 
 export UV_TOOL_BIN_DIR=$UV_INSTALL_DIR
