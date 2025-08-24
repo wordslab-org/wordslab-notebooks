@@ -63,7 +63,7 @@ if "%certificate-exists%"=="false"  (
         call prepare-server-secrets.bat "%CERTIFICATE_ADDRESS%"
     )
 
-    ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "mkdir -p %WORDSLAB_HOME%/workspace/.secrets"
+    ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "mkdir %WORDSLAB_HOME%/workspace/.secrets"
     scp -P %port% -i %secretsDir%\ssh-key %secretsDir%\wordslab-server-%CERTIFICATE_ADDRESS%-secrets.tar root@%address%:%WORDSLAB_HOME%/workspace/.secrets/wordslab-server-secrets.tar
     ssh -p %port% -o StrictHostKeyChecking=no root@%address% -i "%secretsDir%\ssh-key" "cd %WORDSLAB_HOME%/workspace/.secrets && tar -xvf wordslab-server-secrets.tar"
 )

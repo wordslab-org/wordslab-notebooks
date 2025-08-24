@@ -182,6 +182,14 @@ export WORDSLAB_HOME=/home/wordslab && $WORDSLAB_HOME/start-wordslab-notebooks.s
 
 ### Option 2 - Local client and local server
 
+Please note that only Windows client machines are supported.
+
+![wordslab-notebooks installation config 2 install](./docs/images/architecture-config2-local-client-server-install.jpg)
+
+![wordslab-notebooks installation config 3 start](./docs/images/architecture-config2-local-client-server-start.jpg)
+
+#### Server machine installation
+
 First, **install the server machine** using the instructions provided above in [Option 1 - Local PC](#option-1---local-pc).
 
 On the server machine, get the server machine IP address or DNS name with one of the commands below:
@@ -194,17 +202,15 @@ ipconfig
 ifconfig
 ```
 
-Please note that only Windows client machines are supported.
-
-![wordslab-notebooks installation config 2 install](./docs/images/architecture-config2-local-client-server-install.jpg)
-
-![wordslab-notebooks installation config 3 start](./docs/images/architecture-config2-local-client-server-start.jpg)
+Take note if the IP v4 address of the server machine, for example: 192.168.1.28
 
 #### Windows client machine commands
 
 1. Prepare client machine
 
-On the client machine, if wordslab-notebooks is not installed:
+Execute one of the two commands below depending on your client machine status.
+
+On the client machine, if wordslab-notebooks is not yet installed:
 
 ```shell
 set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-08" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/prepare-client-machine.bat -o "%temp%\prepare-client-machine.bat" && call "%temp%\prepare-client-machine.bat"
@@ -218,7 +224,9 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-08" &
 
 2. Generate secrets for the server machine
 
-On the client machine, generate a tar file containing secrets for a specific server machine:
+On the client machine, generate a tar file containing secrets for a specific server machine: this script will prompt you for:
+- the IP address of the server machine that you collected in the previous step, for example: 192.168.1.28
+- optional: a password to protect access to Jupyterlab and Visual Studio Code - just type Enter if you don't need a password
 
 ```shell
 set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-08" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-server-secrets.bat
@@ -226,27 +234,45 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-08" &
 
 This script will generate the file: %WORDSLAB_WINDOWS_HOME%\secrets\wordslab-server-192.168.1.28-secrets.tar (where 192.168.1.28 is replaced with your server machine IP address).
 
+The script output should look like:
+
+```
+Please enter a password for accessing this remote machine (or leave empty for no password):
+192.168.1.29 will be accessible without password
+
+The secrets for the remote wordslab-notebooks server are stored in C:\wordslab-client3\secrets\wordslab-server-192.168.1.28-secrets.tar
+
+Now you need to transfer these secrets to the server machine: please refer to the documentation at https://github.com/wordslab-org/wordslab-notebooks/.
+```
+
 IMPORTANT: you will need to regenerate this secrets file each time the server IP address or DNS name changes.
 
 #### Server machine commands
 
-3. Transfer the secrets tar file to the server machine:
+3. Transfer the secrets tar file (for example "wordslab-server-192.168.1.28-secrets.tar") to the server machine:
+
+Execute one of the two steps below depending on your server operating system.
 
 On a Windows server machine: 
-- copy the tar file in the %WORDSLAB_WINDOWS_HOME%\secrets directory
+- create the %WORDSLAB_WINDOWS_HOME%\secrets directory if it doesn't exist (for example c:\wordslab\secrets)
+- copy the tar file in the %WORDSLAB_WINDOWS_HOME%\secrets directory (for example c:\wordslab\secrets\wordslab-server-192.168.1.28-secrets.tar)
 
 On a Linux server machine: 
-- copy the tar file in the $WORDSLAB_WORKSPACE/.secrets directory
+- create the $WORDSLAB_WORKSPACE/.secrets if it doesn't exist (for example /home/workspace/.secrets)
+- copy the tar file in the $WORDSLAB_WORKSPACE/.secrets directory (for example /home/workspace/.secrets/wordslab-server-192.168.1.28-secrets.tar)
 - cd $WORDSLAB_WORKSPACE/.secrets directory
 - tar -xvf [tar file]
 
 4. Prepare the server machine
+
+Execute one of the two steps below depending on your server operating system.
 
 On a Windows server machine: 
 
 ```shell
 set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-08" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-server-machine.bat
 ```
+The secrets files are now installed on your Windows server machine.
 
 On a Linux server machine: nothing to do, the machine is ready.
 
@@ -258,13 +284,39 @@ The startup script will automatically detect the secrets you installed on the se
 - the web applications will be exposed with the https protocol
 - a password will be required for Jupyterlab and Visual Studio Code
 
+On Windows, the startup script will ask you to approve an elevation of privileges (administrator rights) to be allowed create the firewall rules needed to open access to your virtual machine from your local network.
+
+The startup script will display a link you can use to access wordslab-notebooks from a remote machine: copy this link to use it from your client machine.
+
+```
+------------------
+Open the DASHBOARD
+------------------
+
+http://192.168.1.28:8888
+
+------------------
+```
+
+#### Access wordslab-notebooks from your client machine
+
+On your client machine, open a web browser and navigate to the URL displayed by the startup script, for example:
+
+```
+http://192.168.1.28:8888
+```
+
+If you set up a password during the server installation, input it in the first text box you see when trying to acces JupyterLab or Visual Studio.
+
+Note: if you also want to access wordslab-notebooks directly from your server machine, execute the procedure below (in this case the server is another client machine).
+
 #### Optional - Other client machines
 
 If you want to install wordslab-notebooks certificates on other client machines:
 
 Transfer the file %WORDSLAB_WINDOWS_HOME%\secrets\wordslab-client-secrets.tar from the first Windows client machine to the directory %WORDSLAB_WINDOWS_HOME%\secrets on the second Windows client machine.
 
-On the second Windows client machine, execute the command from: [1. Prepare client machine](#quick-client-machine-commands).
+On the second Windows client machine, execute the command from: [1. Prepare client machine](#windows-client-machine-commands).
 
 ### Option 3 - Local client and cloud server
 
