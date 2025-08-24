@@ -19,7 +19,7 @@ fi
 #  export USER_APP4_URL=https://192.168.1.28:8886
 #  export USER_APP5_URL=https://192.168.1.28:8887
 #  export DASHBOARD_URL=https://192.168.1.28:8888
-eval $(python3 5_export-wordslab-urls.py)
+eval $(source ../dashboard/.venv/bin/activate && python3 5_export-wordslab-urls.py)
 
 # Define the paths to the secrets files
 CERTIFICATE_FILE="$WORDSLAB_WORKSPACE/.secrets/certificate.pem"
