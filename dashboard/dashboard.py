@@ -319,16 +319,17 @@ def get_known_directories_metrics():
     if hf_home_size > 0:    
         cache_dir = Path(hf_home) / "hub"
         hf_models_size = 0
-        pattern = re.compile(r"models--([^/\\]+)--([^/\\]+)")
-        for path in cache_dir.iterdir():
-            if path.is_dir():
-                match = pattern.fullmatch(path.name)
-                if match:
-                    org, model = match.groups()
-                    model_id = f"{org}/{model}"
-                    model_size = get_directory_size(path)
-                    hf_models_size += model_size
-                    dirs_metrics.huggingface_models.append(DirectoryMetrics(name=model_id, path=path.resolve(), size=model_size))    
+        if Path(cache_dir).exists():
+            pattern = re.compile(r"models--([^/\\]+)--([^/\\]+)")
+            for path in cache_dir.iterdir():
+                if path.is_dir():
+                    match = pattern.fullmatch(path.name)
+                    if match:
+                        org, model = match.groups()
+                        model_id = f"{org}/{model}"
+                        model_size = get_directory_size(path)
+                        hf_models_size += model_size
+                        dirs_metrics.huggingface_models.append(DirectoryMetrics(name=model_id, path=path.resolve(), size=model_size))    
         dirs_metrics.huggingface_models.sort(key=lambda x: x.size, reverse=True)
         dirs_metrics.huggingface_models.append(DirectoryMetrics(name="Models cache", path=hf_home, size=hf_home_size-hf_models_size))
     return dirs_metrics

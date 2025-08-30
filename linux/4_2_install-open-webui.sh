@@ -47,4 +47,9 @@ if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
 else
     export USE_CUDA_DOCKER="true"
 fi
-DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools DEFAULT_MODELS="$OLLAMA_CHAT_MODEL" RAG_EMBEDDING_ENGINE="ollama" RAG_EMBEDDING_MODEL="$OLLAMA_EMBED_MODEL" python -c "import open_webui.main"
+
+# Load the small Whisper model for speech to text
+DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools python -c '
+from open_webui.routers.audio import set_faster_whisper_model
+set_faster_whisper_model(os.getenv("small"))
+'
