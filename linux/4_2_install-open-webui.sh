@@ -51,5 +51,5 @@ fi
 # Load the small Whisper model for speech to text
 DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools python -c '
 from open_webui.routers.audio import set_faster_whisper_model
-set_faster_whisper_model(os.getenv("small"))
+set_faster_whisper_model("small")
 '

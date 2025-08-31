@@ -68,10 +68,15 @@ pid3=$!
 
 # Start Docling server
 if [ "${OPENWEBUI_START_DOCLING:-no}" = "yes" ]; then
-    OPENWEBUI_DOCLING_CONFIG="CONTENT_EXTRACTION_ENGINE='Docling' DOCLING_SERVER_URL='127.0.0.1:5001' DOCLING_OCR_ENGINE='easyocr' DOCLING_OCR_LANG='en,fr,de,es'"
-    pid4=$(./5_1_start-docling-documents-extraction.sh 5001)
+    # Launch docling on the defaut port
+    ./5_1_start-docling-documents-extraction.sh 5001
+    pid4=$!
+    # Environment variables to connect Open WebUI to Docling
+    export CONTENT_EXTRACTION_ENGINE="Docling"
+    export DOCLING_SERVER_URL="http://127.0.0.1:5001"
+    export DOCLING_OCR_ENGINE="easyocr" 
+    export DOCLING_OCR_LANG="en,fr,de,es"
 else
-    OPENWEBUI_DOCLING_CONFIG=""
     pid4=""
 fi
 
@@ -84,7 +89,7 @@ else
     export USE_CUDA_DOCKER="true"
 fi
 
-ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools DEFAULT_MODELS="$OLLAMA_CHAT_MODEL" $OPENWEBUI_DOCLING_CONFIG RAG_EMBEDDING_ENGINE="ollama" RAG_EMBEDDING_MODEL="$OLLAMA_EMBED_MODEL" WHISPER_MODEL="small" LD_LIBRARY_PATH="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/nvidia/cudnn/lib/:$LD_LIBRARY_PATH" open-webui serve --host 0.0.0.0 --port $OPENWEBUI_PORT $OPENWEBUI_SECURE_PARAMS &
+ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools DEFAULT_MODELS="$OLLAMA_CHAT_MODEL" RAG_EMBEDDING_ENGINE="ollama" RAG_EMBEDDING_MODEL="$OLLAMA_EMBED_MODEL" WHISPER_MODEL="small" LD_LIBRARY_PATH="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/nvidia/cudnn/lib/:$LD_LIBRARY_PATH" open-webui serve --host 0.0.0.0 --port $OPENWEBUI_PORT $OPENWEBUI_SECURE_PARAMS &
 pid5=$!
 
 # Start wordslab notebooks dashboard

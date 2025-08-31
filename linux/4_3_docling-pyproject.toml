@@ -2,6 +2,7 @@
 name = "docling-env"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
+dependencies = [
 # https://github.com/docling-project/docling-serve/blob/v1.3.1/pyproject.toml
     "vllm==0.10.1.1", # Pin the version of vLLM to avoid downloading it twice
     "docling==2.48.0", # Pin the version of Docling to ensure reproducibility
