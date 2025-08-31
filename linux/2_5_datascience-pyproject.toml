@@ -8,7 +8,10 @@ dependencies = [
     "scikit-learn==1.7.1",
     "fastai==2.8.3",
     "nbdev==2.4.5",
-    "ollama==0.5.3"
+    "ollama==0.5.3",
+    "jupyter-ai-magics==2.31.6",
+    "langchain-ollama==0.3.6",
+    "langchain-openai==0.3.30"
 ]
 
 [project.optional-dependencies]
