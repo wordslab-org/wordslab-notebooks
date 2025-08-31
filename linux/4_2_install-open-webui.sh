@@ -10,7 +10,7 @@ mkdir -p $OPENWEBUI_DATA/tools
 mkdir -p $OPENWEBUI_ENV
 cp ./4_2_openwebui-pyproject.toml $OPENWEBUI_ENV/pyproject.toml
 
-# Download Jupyterlab and all its extensions
+# Download Open WebUI
 cd $OPENWEBUI_ENV
 if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     uv sync --extra cpu

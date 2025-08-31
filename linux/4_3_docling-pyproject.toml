@@ -1,0 +1,43 @@
+[project]
+name = "docling-env"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+# https://github.com/docling-project/docling-serve/blob/v1.3.1/pyproject.toml
+    "vllm==0.10.1.1", # Pin the version of vLLM to avoid downloading it twice
+    "docling==2.48.0", # Pin the version of Docling to ensure reproducibility
+    "docling-serve[ui]==1.3.1",
+]
+
+[project.optional-dependencies]
+cpu = [
+  "torch==2.7.1"
+]
+cuda = [
+  "torch==2.7.1"
+]
+
+[tool.uv]
+conflicts = [
+  [
+    { extra = "cpu" },
+    { extra = "cuda" },
+  ],
+]
+# WARNING: temporary fix for a conflict between vllm 0.10.1.1 and docling-serve 1.3.1
+override-dependencies = [ "pydantic==2.11.7", ]
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu128", extra = "cuda" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true

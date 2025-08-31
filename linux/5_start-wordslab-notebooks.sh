@@ -66,6 +66,15 @@ pid2=$!
 OLLAMA_HOST=0.0.0.0 OLLAMA_CONTEXT_LENGTH=8192 OLLAMA_KEEP_ALIVE=-1 OLLAMA_FLASH_ATTENTION=1 ollama serve &
 pid3=$!
 
+# Start Docling server
+if [ "${OPENWEBUI_START_DOCLING:-no}" = "yes" ]; then
+    OPENWEBUI_DOCLING_CONFIG="CONTENT_EXTRACTION_ENGINE='Docling' DOCLING_SERVER_URL='127.0.0.1:5001' DOCLING_OCR_ENGINE='easyocr' DOCLING_OCR_LANG='en,fr,de,es'"
+    pid4=$(./5_1_start-docling-documents-extraction.sh 5001)
+else
+    OPENWEBUI_DOCLING_CONFIG=""
+    pid4=""
+fi
+
 # Start open-webui server
 source $OPENWEBUI_ENV/.venv/bin/activate
 
@@ -75,17 +84,17 @@ else
     export USE_CUDA_DOCKER="true"
 fi
 
-ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools DEFAULT_MODELS="$OLLAMA_CHAT_MODEL" RAG_EMBEDDING_ENGINE="ollama" RAG_EMBEDDING_MODEL="$OLLAMA_EMBED_MODEL" WHISPER_MODEL="small" LD_LIBRARY_PATH="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/nvidia/cudnn/lib/:$LD_LIBRARY_PATH" open-webui serve --host 0.0.0.0 --port $OPENWEBUI_PORT $OPENWEBUI_SECURE_PARAMS &
-pid4=$!
+ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools DEFAULT_MODELS="$OLLAMA_CHAT_MODEL" $OPENWEBUI_DOCLING_CONFIG RAG_EMBEDDING_ENGINE="ollama" RAG_EMBEDDING_MODEL="$OLLAMA_EMBED_MODEL" WHISPER_MODEL="small" LD_LIBRARY_PATH="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/nvidia/cudnn/lib/:$LD_LIBRARY_PATH" open-webui serve --host 0.0.0.0 --port $OPENWEBUI_PORT $OPENWEBUI_SECURE_PARAMS &
+pid5=$!
 
 # Start wordslab notebooks dashboard
 cd $WORDSLAB_SCRIPTS/dashboard
 ./start-dashboard.sh &
-pid5=$!
+pid6=$!
 
 sleep 5
 
-echo ''
+echo '' 
 echo '------------------'
 echo 'Open the DASHBOARD'
 echo '------------------'
@@ -98,9 +107,9 @@ echo ''
 # Define cleanup function to kill all commands
 cleanup() {
   echo "Stopping all servers..."
-  kill $pid1 $pid2 $pid3 $pid4 $pid5
+  kill $pid1 $pid2 $pid3 $pid4 $pid5 $pid6
 }
 # Trap SIGINT and call cleanup
 trap cleanup SIGINT
 # Wait for all processes to finish
-wait $pid1 $pid2 $pid3 $pid4 $pid5
+wait $pid1 $pid2 $pid3 $pid4 $pid5 $pid6

@@ -37,6 +37,12 @@ export JUPYTER_DATA=$WORDSLAB_WORKSPACE/.jupyter
 export VSCODE_DATA=$WORDSLAB_WORKSPACE/.codeserver
 export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.openwebui
 
+# Optional Docling documents extractions
+export OPENWEBUI_START_DOCLING=no # 'yes' or 'no' to start OpenWebUI with Docling support - 5 GB VRAM used
+export DOCLING_ENV=$WORDSLAB_HOME/docling
+export DOCLING_DATA=$WORDSLAB_WORKSPACE/.docling
+export DOCLING_MODELS=$WORDSLAB_MODELS/docling
+
 # Python global directories
 export UV_INSTALL_DIR=$WORDSLAB_HOME/python
 export UV_PYTHON_INSTALL_DIR=$UV_INSTALL_DIR
@@ -55,7 +61,7 @@ export DASHBOARD_PORT=8888
 export JUPYTERLAB_PORT=8880
 export VSCODE_PORT=8881
 export OPENWEBUI_PORT=8882
-# Note: ollama is not exposed to the outside world, it must be used from inside the container
+# Note: ollama and docling are not exposed to the outside world, they must be used from inside the container
 
 # Additional open ports for 5 user defined applications
 export USER_APP1_PORT=8883
