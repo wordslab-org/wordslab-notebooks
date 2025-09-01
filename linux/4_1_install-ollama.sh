@@ -80,40 +80,14 @@ cat > "$JAI_CONFIG_FILE" <<EOF
 }
 EOF
 
-JIC_CONFIG_FILE="$JUPYTERLAB_SETTINGS_DIR/@jupyterlab/completer-extension/inline-completer.jupyterlab-settings"
-mkdir -p "$(dirname "$JIC_CONFIG_FILE")"
-cat > "$JIC_CONFIG_FILE" <<EOF
-{
-    "providers": {
-        "@jupyterlab/inline-completer:history": {
-            "enabled": false,
-            "timeout": 5000,
-            "debouncerDelay": 0,
-            "maxSuggestions": 100
-        },
-        "@jupyterlab/jupyter-ai": {
-            "enabled": true,
-            "timeout": 5000,
-            "debouncerDelay": 250,
-            "triggerKind": "any",
-            "maxPrefix": 10000,
-            "maxSuffix": 10000,
-            "disabledLanguages": [
-                "ipythongfm"
-            ],
-            "streaming": "manual"
-        }
-    },
-    "showWidget": "onHover",
-    "showShortcuts": true,
-    "suppressIfTabCompleterActive": true,
-    "streamingAnimation": "uncover",
-    "minLines": 0,
-    "maxLines": 0,
-    "reserveSpaceForLongest": false,
-    "editorResizeDelay": 1000
-}
-EOF
+# Disable inline completion with Jupyter-ai: it is an "experimental" feature in Jupyterlab 4.1
+# - doesn't work well, context is too small (one cell), implementation too naive
+# - completions are triggered continuously, pushed the GPU to 100% all the time
+
+#JIC_CONFIG_FILE="$JUPYTERLAB_SETTINGS_DIR/@jupyterlab/completer-extension/inline-completer.jupyterlab-settings"
+#mkdir -p "$(dirname "$JIC_CONFIG_FILE")"
+#cat > "$JIC_CONFIG_FILE" <<EOF
+#EOF
 
 # Configure models for VsCode extension Continue.dev
 

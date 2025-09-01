@@ -53,7 +53,7 @@ if [ -f "$CERTIFICATE_FILE" ]; then
 fi
 
 # Start Visual Studio Code server
-CONTINUE_GLOBAL_DIR=$VSCODE_DATA/.continue $VSCODE_DIR/bin/code-server --bind-addr 0.0.0.0 --port $VSCODE_PORT $VSCODE_SECURE_PARAMS --user-data-dir $VSCODE_DATA --extensions-dir $VSCODE_DATA/extensions --config $VSCODE_DATA/config.yaml --disable-workspace-trust $WORDSLAB_WORKSPACE &
+CONTINUE_GLOBAL_DIR=$VSCODE_DATA/.continue $VSCODE_DIR/bin/code-server --bind-addr 0.0.0.0 --port $VSCODE_PORT $VSCODE_SECURE_PARAMS --user-data-dir $VSCODE_DATA --extensions-dir $VSCODE_DATA/extensions --config $VSCODE_DATA/config.yaml --disable-workspace-trust $WORDSLAB_WORKSPACE/wordslab-notebooks-tutorials &
 pid1=$!
 
 # Start Jupyterlab server
@@ -63,7 +63,7 @@ jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYT
 pid2=$!
 
 # Start ollama server
-OLLAMA_HOST=0.0.0.0 OLLAMA_CONTEXT_LENGTH=8192 OLLAMA_KEEP_ALIVE=-1 OLLAMA_FLASH_ATTENTION=1 ollama serve &
+OLLAMA_HOST=0.0.0.0 OLLAMA_CONTEXT_LENGTH=8192 OLLAMA_KEEP_ALIVE=-1 OLLAMA_FLASH_ATTENTION=1 OLLAMA_NEW_ESTIMATES=1 ollama serve &
 pid3=$!
 
 # Start Docling server
