@@ -16,7 +16,7 @@ if not exist prepare-server-secrets.bat (
 
     REM WORDSLAB_VERSION: wordslab-notebook version TAG in github repo (or main to get the main branch)
     if not defined WORDSLAB_VERSION (
-        set WORDSLAB_VERSION=2025-08
+        set WORDSLAB_VERSION=2025-09
     )
 
     REM Download and unzip the installation scripts

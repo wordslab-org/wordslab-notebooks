@@ -18,7 +18,7 @@ REM install-wordslab-notebooks.bat <server address> <server ssh port>(optional)
 REM Mandatory environment variables
 REM WORDSLAB_VERSION: wordslab-notebook version TAG in github repo
 if not defined WORDSLAB_VERSION (
-    set "WORDSLAB_VERSION=2025-08"
+    set "WORDSLAB_VERSION=2025-09"
 )
 
 REM Default parameter values
@@ -92,7 +92,7 @@ if not defined WORDSLAB_WINDOWS_MODELS (
 )
 REM WORDSLAB_VERSION: wordslab-notebook version TAG in github repo (or main to get the main branch)
 if not defined WORDSLAB_VERSION (
-    set WORDSLAB_VERSION=2025-08
+    set WORDSLAB_VERSION=2025-09
 )
 
 if not exist "%WORDSLAB_WINDOWS_HOME%" mkdir %WORDSLAB_WINDOWS_HOME%

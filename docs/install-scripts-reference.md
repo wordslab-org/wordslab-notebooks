@@ -1,6 +1,6 @@
 # Installation scripts documentation
 
-Version: wordslab-notebooks **2025-08**
+Version: wordslab-notebooks **2025-09**
 
 ## Windows installation script details
 
