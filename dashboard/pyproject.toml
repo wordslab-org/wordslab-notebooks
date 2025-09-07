@@ -7,7 +7,7 @@ dependencies = [
     "jlclient",
     "requests",
     "monsterui==1.0.26",
-    "nvidia-ml-py==13.580.65",
+    "pynvml==12.0.0",
     "psutil==7.0.0",
     "ipykernel==6.30.1",
     "ollama==0.5.3",
