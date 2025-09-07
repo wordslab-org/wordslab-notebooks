@@ -563,7 +563,6 @@ Both tools are installed with extensions enabling AI assistance directly in the 
 
 For jupyterlab notebooks, the jupyter-ai extension adds 
 - a chat ui right next to your notebooks which can interact with their content
-- an autocomplete feature when you write code in a notebook
 - a magic command to execute a language model instructions directly in a notebook cell
 
 When you work on your notebooks or code projects it is important to regularly take a snapshot of your files and to store it in a consolidated history of your project: both tools are also installed with extensions to use Github.
@@ -592,4 +591,4 @@ Google personalized search engine: use it to enable web search in the openwebui 
 	
 Replicate: get access to many models beyond text => image generation, speech transcription... - optional, paid
 
-More details in [AI and code infrastructure services](./code/external-services.md)
+More details in [AI and code infrastructure services](./docs/external-services.md)
