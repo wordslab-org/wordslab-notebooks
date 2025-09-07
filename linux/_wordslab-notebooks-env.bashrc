@@ -37,12 +37,6 @@ export JUPYTER_DATA=$WORDSLAB_WORKSPACE/.jupyter
 export VSCODE_DATA=$WORDSLAB_WORKSPACE/.codeserver
 export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.openwebui
 
-# Optional Docling documents extractions
-export OPENWEBUI_START_DOCLING=no # 'yes' or 'no' to start OpenWebUI with Docling support - 5 GB VRAM used
-export DOCLING_ENV=$WORDSLAB_HOME/docling
-export DOCLING_DATA=$WORDSLAB_WORKSPACE/.docling
-export DOCLING_MODELS=$WORDSLAB_MODELS/docling
-
 # Python global directories
 export UV_INSTALL_DIR=$WORDSLAB_HOME/python
 export UV_PYTHON_INSTALL_DIR=$UV_INSTALL_DIR
@@ -55,13 +49,24 @@ export UV_LINK_MODE="symlink"
 export UV_TOOL_DIR=$UV_INSTALL_DIR/tools 
 export UV_TOOL_BIN_DIR=$UV_INSTALL_DIR
 
+# Optional Docling documents extractions
+export OPENWEBUI_START_DOCLING=no # 'yes' or 'no' to start OpenWebUI with Docling support - 5 GB VRAM used
+export DOCLING_ENV=$WORDSLAB_HOME/docling
+export DOCLING_DATA=$WORDSLAB_WORKSPACE/.docling
+export DOCLING_MODELS=$WORDSLAB_MODELS/docling
+
 # Open ports for wordslab-notebooks built-in applications
 export DASHBOARD_PORT=8888
-
 export JUPYTERLAB_PORT=8880
 export VSCODE_PORT=8881
 export OPENWEBUI_PORT=8882
-# Note: ollama and docling are not exposed to the outside world, they must be used from inside the container
+
+# Note: ollama and docling are not exposed to the outside world
+# => they must be used from inside the container
+# ... used by Aider
+export OLLAMA_API_BASE=http://127.0.0.1:11434
+# ... used by Open WebUI
+export DOCLING_SERVER_URL=http://127.0.0.1:5001
 
 # Additional open ports for 5 user defined applications
 export USER_APP1_PORT=8883
@@ -69,3 +74,5 @@ export USER_APP2_PORT=8884
 export USER_APP3_PORT=8885
 export USER_APP4_PORT=8886
 export USER_APP5_PORT=8887
+
+
