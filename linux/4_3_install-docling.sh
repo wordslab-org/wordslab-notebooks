@@ -24,5 +24,5 @@ fi
 
 source .venv/bin/activate
 
-MODELS_LIST="layout tableformer picture_classifier easyocr"
+MODELS_LIST="layout tableformer code_formula picture_classifier easyocr granitedocling"
 docling-tools models download -o "$DOCLING_MODELS" $MODELS_LIST

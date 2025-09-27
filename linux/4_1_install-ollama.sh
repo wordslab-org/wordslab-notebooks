@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.11.10 -o ollama-linux-amd64.tgz
+curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.12.3 -o ollama-linux-amd64.tgz
 tar -C $OLLAMA_DIR -xzf ollama-linux-amd64.tgz
 rm ollama-linux-amd64.tgz
 
@@ -35,7 +35,7 @@ else
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
     if [ "$vram_gib" -ge 23 ]; then        
         OLLAMA_CHAT_MODEL="gemma3:27b"
-        OLLAMA_CODE_MODEL="qwen3:30b"
+        OLLAMA_CODE_MODEL="qwen3-coder:30b"
     elif [ "$vram_gib" -ge 15 ]; then
         OLLAMA_CHAT_MODEL="gemma3:12b"
         OLLAMA_CODE_MODEL="qwen3:14b"

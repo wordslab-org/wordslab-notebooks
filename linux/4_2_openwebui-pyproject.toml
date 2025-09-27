@@ -3,15 +3,15 @@ name = "openwebui-env"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "open-webui==0.6.26",
+    "open-webui==0.6.31",
 ]
 
 [project.optional-dependencies]
 cpu = [
-  "torch==2.7.1"
+  "torch==2.8.0"
 ]
 cuda = [
-  "torch==2.7.1"
+  "torch==2.8.0"
 ]
 
 [tool.uv]
