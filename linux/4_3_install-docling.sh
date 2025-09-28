@@ -20,9 +20,17 @@ else
     uv sync --extra cuda
 fi
 
+# After testing, granite-docling inference doesn't work with hf transformers as of 09/28 2025 - leaving this here for a future version
+# Temporary patch: docling-serve 1.5.1 and Open WebUI 0.6.31 don't support the recent granite-docling VLM yet, while docling 2.54.0 already supports it
+# => set this model as default in a VLM pipeline when no model is explicitly selected in the request params
+# sed -i 's/pipeline_options\.vlm_options = vlm_model_specs\.SMOLDOCLING_TRANSFORMERS/pipeline_options\.vlm_options = vlm_model_specs\.GRANITEDOCLING_TRANSFORMERS/g' $DOCLING_ENV/.venv/lib/python3.12/site-packages/docling_jobkit/convert/manager.py
+
 # Initialize the Docling installation
 
 source .venv/bin/activate
 
-MODELS_LIST="layout tableformer code_formula picture_classifier easyocr granitedocling"
+# After testing, granite-docling inference doesn't work with hf transformers as of 09/28 2025 - leaving this here for a future version
+# MODELS_LIST="layout tableformer code_formula picture_classifier easyocr granitedocling"
+
+MODELS_LIST="layout tableformer code_formula picture_classifier easyocr"
 docling-tools models download -o "$DOCLING_MODELS" $MODELS_LIST

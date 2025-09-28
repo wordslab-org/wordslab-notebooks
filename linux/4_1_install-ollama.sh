@@ -30,6 +30,7 @@ if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     OLLAMA_CHAT_MODEL="gemma3:1b"
     OLLAMA_CODE_MODEL="qwen3:1.7b"
     OLLAMA_COMPLETION_MODEL="qwen2.5-coder:0.5b-base"
+    OLLAMA_EMBED_MODEL="embeddinggemma:300m"
 else
     # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
@@ -44,8 +45,8 @@ else
         OLLAMA_CODE_MODEL="qwen3:4b"
     fi
     OLLAMA_COMPLETION_MODEL="qwen2.5-coder:1.5b-base"
+    OLLAMA_EMBED_MODEL="embeddinggemma:300m"
 fi
-OLLAMA_EMBED_MODEL="nomic-embed-text:latest"
 
 # Save the LLM names as env variables 
 echo '' >> ./_wordslab-notebooks-env.bashrc
