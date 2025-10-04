@@ -24,7 +24,7 @@ If the Windows Subsystem for Linux is not yet installed on your machine
 - then the script will ask you to reboot your machine once
 - after reboot, relaunch the same command as above a second time to continue and finish the installation 
 
-The installation scripts will download up to 50 GB: the install time will mainly depend on your network bandwidth.
+The installation scripts will download 30 GB to 60 GB: the install time will mainly depend on your network bandwidth.
 
 Installation script parameters for special cases (you shouldn't need them)
 - you can add the -cpu flag to the install command if you want to force a CPU-only install even if a Nvidia GPU is available on your machine 
@@ -256,56 +256,58 @@ Maximal install size = **60 GB** (24 GB GPU with bigger models)
 
 ### WORDSLAB_HOME disk
 
-**20.2 GB**
+**20.4 GB**
 
 System	
-- Operating system:	1572
+- Operating system:	1578
 - Root user:	202
 
 Applications	
 - JupyterLab:	112
-- Visual Studio:	447
-- Ollama:	2609
-- Open WebUI:	559
+- Visual Studio:	454
+- Ollama:	3006
+- Open WebUI:	525
 
 Python packages	
-- torch-2.7.1+cu128:	1850
-- vllm-0.10.1.1	1189:
-- nvidia_cudnn_cu12-9.7.1.26:	1054
-- nvidia_cublas_cu12-12.8.3.14:	857
-- triton-3.3.1:	537
-- nvidia_cusolver_cu12-11.7.2.55:	376
-- nvidia_cusparse_cu12-12.5.7.53:	376
-- xformers-0.0.31:	367
-- open_webui-0.6.26:	286
-- nvidia_cufft_cu12-11.3.3.41:	268
-- nvidia_nccl_cu12-2.26.2:	260
-- nvidia_cusparselt_cu12-0.6.3:	226
+- torch-2.8.0+cu128:	1648
+- vllm-0.11.0:	1292
+- nvidia_cudnn_cu12-9.10.2.21:	1004
+- nvidia_cublas_cu12-12.8.4.1:	829
+- triton-3.4.0:	539
+- nvidia_cusparselt_cu12-0.7.1:	431
+- nvidia_nccl_cu12-2.27.3:	409
+- nvidia_cusolver_cu12-11.7.3.90:	386
+- nvidia_cusparse_cu12-12.5.8.93:	370
+- xformers-0.0.32.post1:	367
+- nvidia_cufft_cu12-11.3.3.83:	268
+- open_webui-0.6.32:	253
 - cupy_cuda12x-13.6.0:	222
-- nvidia_cuda_nvrtc_cu12-12.8.61:	211
+- nvidia_cuda_nvrtc_cu12-12.8.93:	211
+- gradio-5.49.0:	197
+- ray-2.49.2:	170
 - ... and many others
 
 ### WORDSLAB_WORKSPACE disk
 
-**1.1 GB**
+**1.3 GB**
 
 Workspace projects	
-- wordslab-notebooks-tutorials:	218
+- wordslab-notebooks-tutorials:	225
 
 Applications data	
 - JupyterLab data:	0
-- Visual Studio data:	332
+- Visual Studio data:	336
 - Open WebUI data:	464
 
 ### WORDSLAB_MODELS disk
 
-**7.8 GB** for GPUs with 8 GB VRAM // **36.1 GB** for GPUs with 24 GB VRAM
+**8.1 GB** for GPUs with 8 GB VRAM // **36.4 GB** for GPUs with 24 GB VRAM
 
 Ollama models	
 - gemma3:4b:	3184  // gemma3:27b:   16591
-- qwen3:4b:     2381  // qwen3:30b:    17697
+- qwen3:4b:     2381  // qwen3-coder:30b:    17697
 - qwen2.5-coder:1.5b-base:	940
-- nomic-embed-text:latest:	261
+- embeddinggemma:300m:	593
 
 vLLM models	
 
