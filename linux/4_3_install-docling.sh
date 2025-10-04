@@ -32,5 +32,8 @@ source .venv/bin/activate
 # After testing, granite-docling inference doesn't work with hf transformers as of 09/28 2025 - leaving this here for a future version
 # MODELS_LIST="layout tableformer code_formula picture_classifier easyocr granitedocling"
 
+# Need this to set HF_HOME before the models download - for xet cache
+source ./_wordslab-notebooks-env.bashrc
+
 MODELS_LIST="layout tableformer code_formula picture_classifier easyocr"
 docling-tools models download -o "$DOCLING_MODELS" $MODELS_LIST
