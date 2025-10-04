@@ -33,7 +33,7 @@ source .venv/bin/activate
 # MODELS_LIST="layout tableformer code_formula picture_classifier easyocr granitedocling"
 
 # Need this to set HF_HOME before the models download - for xet cache
-source ./_wordslab-notebooks-env.bashrc
+source $WORDSLAB_SCRIPTS/linux/_wordslab-notebooks-env.bashrc
 
 MODELS_LIST="layout tableformer code_formula picture_classifier easyocr"
 docling-tools models download -o "$DOCLING_MODELS" $MODELS_LIST
