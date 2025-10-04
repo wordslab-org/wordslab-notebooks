@@ -122,9 +122,9 @@ WARNING: the local AI development environment is meant to be used **for personal
   - [Option 2 - Local client and local server](#option-2---local-client-and-local-server)
   - [Option 3 - Local client and cloud server](#option-3---local-client-and-cloud-server)
   - [Update your installation to a more recent version](#update-your-installation-to-a-more-recent-version)
+  - [Installation scripts documentation](./docs/install-scripts-reference.md)
   - [Backup and restore your local environment](#backup-and-restore-your-local-environment)
   - [Uninstall wordslab-notebooks](#uninstall-wordslab-notebooks)
-  - [Installation scripts reference](./docs/install-scripts-reference.md)
 - [User manual](#user-manual)
    - [Wordslab notebooks dashboard](#wordslab-notebooks-dashboard)
    - [Chat with OpenWebUI](#chat-with-openwebui)
@@ -390,6 +390,10 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=
 ```
 
 If you want to make sure you don't loose any data, consider making a backup of your environment first, as described in the next section.
+
+### Installation scripts documentation
+
+Detailed [technical documentation](./docs/install-scripts-reference.md) for all installation scripts.
 
 ### Backup and restore your local environment
 

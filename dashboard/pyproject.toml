@@ -10,7 +10,7 @@ dependencies = [
     "pynvml==12.0.0",
     "psutil==7.0.0",
     "ipykernel==6.30.1",
-    "ollama==0.5.3",
+    "ollama==0.6.0",
 ]
 
 [tool.uv.sources]
