@@ -49,7 +49,7 @@ Installation script parameters for special cases (you shouldn't need them)
 4. Copy / paste the installation command below in the terminal
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2025-09" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2025-10" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
 ```
 
 ![Installation command](./images/install-local/04-installation-command.png)
@@ -59,7 +59,7 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=
 - set "WORDSLAB_WINDOWS_HOME=C:\wordslab" 
 - set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace" 
 - set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models"
-- set WORDSLAB_VERSION=2025-09
+- set WORDSLAB_VERSION=2025-10
 
 Press Enter to launch the installation script
 
@@ -213,7 +213,7 @@ You will need to enter your password.
 2. Copy / paste the installation command below in the terminal
 
 ```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-09 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-10 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
 ```
 
 3. Personalize the installation paths on your computer, and select the version you want to install
@@ -221,7 +221,7 @@ apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && expo
 - export WORDSLAB_HOME=/home/wordslab
 - export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace 
 - export WORDSLAB_MODELS=$WORDSLAB_HOME/models
-- export WORDSLAB_VERSION=2025-09
+- export WORDSLAB_VERSION=2025-10
 
 Press Enter to launch the installation script
 
@@ -247,7 +247,7 @@ Press Enter to launch the startup script
 
 => they are identical for a Windows or Linux machine, see the section "wordslab-notebooks startup steps" above
 
-## Storage directories size (MB) - Version 2025-09
+## Storage directories size (MB) - Version 2025-10
 
 Please note that the exact install size will vary for each wordslab version and also depends on your GPU memory capacity (wordslab downloads bigger models by default if your GPU has more VRAM): the numbers below should be seen as a minimum.
 

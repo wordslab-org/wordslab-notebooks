@@ -1,6 +1,6 @@
 # Installation scripts documentation
 
-Version: wordslab-notebooks **2025-09**
+Version: wordslab-notebooks **2025-10**
 
 ## Windows installation script details
 
@@ -22,7 +22,7 @@ The script serves as a main entry point that determines whether to install local
 - Sets default values for installation parameters:
   - `name=wordslab-notebooks` (WSL distribution name)
   - `cpu=true` (default to CPU-only installation)
-  - `WORDSLAB_VERSION=2025-09` (default version tag)
+  - `WORDSLAB_VERSION=2025-10` (default version tag)
   - Various Windows-specific paths for installation directories
 
 ### 3. **Remote Installation Mode (Linux Servers)**
@@ -64,7 +64,7 @@ The script uses SSH to run platform detection commands on remote servers, identi
 ### **Version Management**
 Supports both:
 - `main` branch for latest development version
-- Specific version tags (like `2025-09`) for stable releases
+- Specific version tags (like `2025-10`) for stable releases
 
 ### **GPU Detection**
 On Windows, the script checks for NVIDIA GPU availability and automatically sets CPU mode to false if a GPU is detected.
@@ -98,7 +98,7 @@ This is the main installation script for the WordsLab Notebooks environment. It'
 ## Key Functions
 
 ### 1. **Environment Configuration**
-- Sets default values for `WORDSLAB_HOME` (default: `/home`) and `WORDSLAB_VERSION` (default: `2025-09`)
+- Sets default values for `WORDSLAB_HOME` (default: `/home`) and `WORDSLAB_VERSION` (default: `2025-10`)
 - Supports customization through environment variables for installation paths
 - Prepares the installation directory structure
 
