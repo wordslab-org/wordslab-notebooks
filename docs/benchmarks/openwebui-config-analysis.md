@@ -385,14 +385,6 @@ Description: Sets the maximum size of a file that can be uploaded for document i
 
 ## Functions and tools
 
-
-
-
----
-
-
-
-
 ENABLE_RAG_WEB_LOADER_SSL_VERIFICATION
 - True 	: default
 - False	: Bypass SSL Verification for RAG on Websites

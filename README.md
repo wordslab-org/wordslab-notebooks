@@ -73,7 +73,8 @@ You will see over time that **everything you try just works out of the box**.
 Local PC requirements
 
 - Windows 10 or 11, Ubuntu Linux 22.04+
-- x64 CPU (Intel or AMD), 16 GB RAM and 50 GB free disk space
+- x64 CPU (Intel or AMD), 16 GB RAM
+- 50 GB free disk space (see [more details here](./docs/install-local.md#storage-directories-size-mb---version-2025-10))
 - Nvidia GPU recommended but not mandatory, RTX 3000 or newer, at least 8 GB VRAM
 - CPU-only install possible, if you plan to use models hosted in the cloud in combination with your own PC
 - Administrator access (except if the Windows Subsystem for Linux is already installed on your Windows machine)
@@ -139,7 +140,8 @@ WARNING: the local AI development environment is meant to be used **for personal
 Local PC requirements
 
 - Windows 10 or 11, Ubuntu Linux 22.04+
-- x64 CPU (Intel or AMD), 16 GB RAM and 50 GB free disk space
+- x64 CPU (Intel or AMD), 16 GB RAM
+- 50 GB free disk space (see [more details here](./docs/install-local.md#storage-directories-size-mb---version-2025-10))
 - Nvidia GPU recommended but not mandatory, RTX 3000 or newer, at least 8 GB VRAM
 - CPU-only install possible, if you plan to use models hosted in the cloud in combination with your own PC
 - administrator access (except if the Windows Subsystem for Linux is already installed on your Windows machine)
@@ -469,6 +471,10 @@ Execute the script: *99_uninstall-windows-subsystem-for-linux.bat*
 
 ## User manual
 
+You will find here a very quick overview of Wordslab notebooks features.
+
+For more details, read the [Wordslab notebooks tutorials](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/README.md).
+
 ### Wordslab notebooks dashboard
 
 Click on the link provided in the startup script to launch the Wordslab notebooks dashboard: for example [https://127.0.0.1:8888](https://127.0.0.1:8888]) on a local PC.
@@ -487,6 +493,8 @@ Information and metrics to manage your AI environment
 The dashboard also provides links to access custom applications launched by the user inside the virtual machine
 1. Launch an application on the port number stored in the USER_APP1_PORT environment variable inside the virtual machine
 2. Access this application from a browser outside the virtual machine by clicking on the first link in the "User applications" tile
+
+For more details, read the [Wordslab dashboard tutorial](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/01_wordslab_dashboard.ipynb).
 
 ### Chat with OpenWebUI
 
@@ -537,7 +545,13 @@ The conversation appears on the left of the screen
 
 Use the conversation to progressively refine the output of the model. For example if you instructed the model to summarize something, and the summary is too short / too long, not using the right kind of language, or not structured like you expected, just tell it to the model and ask it to generate the summary again. Do this as long as you don't get back what you want.
 
+You can click on the microphone on the right of the prompt input box and dictate your instructions with your voice thanks to the preinstalled Whisper transcription service.
+
 If you selected a language model which can also analyze images, you can complement your instruction with an image by clicking on + in the input box.
+
+This same menu can be used to insert documents in the context of the conversation. By default Open WebUI will work OK with relatively simple documents.
+
+If your documents are more complex, with elaborate layouts, tables, formulas ... you can activate the Docling document understanding service by settiing an environment variable then restarting wordslab notebooks (see the detailed tutorial below).
 
 If you find that you are always repeating the same instructions to the model:
 - you can record your preferences once and for all in a system prompt (Controls / System Prompt)
@@ -548,7 +562,7 @@ If you don't add more context to the conversation, the model will try to answer 
 - the model only memorizes facts that are very common on the internet: it generally knows nothing of your small company, your local regulations, your neighborhood
 - the model was trained with data extracted from the internet one or two years ago: it doesn't know who the president of the country is today, what the current tax rate is, what happened yesterday 
 
-If you created a Google PSE account, you can activate the "web search" tool: when the tool is activated, the model will first do a web seach before generating an answer, to try to ground it on facts (Admin Panel / Settings / Web Search).
+If you created a Google PSE account (see the detailed tutorial below), you can activate the "web search" tool: when the tool is activated, the model will first do a web seach before generating an answer, to try to ground it on facts (Admin Panel / Settings / Web Search).
 
 If the information necessary to answer your questions or execute your instructions can't be found on the internet, you can index your own documents to create a local knowledge base (Workspace / Knowledge / +).
 
@@ -558,7 +572,9 @@ If you subscribed to Replicate or another image generation service, you can ask 
 
 If the task you are trying to execute requires to do arithmetic operations, OpenWebUI will use a code interpreter (Admin Panel / Settings / Code execution).
 
-There is a marketplace of openui extensions at https://openwebui.com/.
+There is a marketplace of Open WebUI extensions at https://openwebui.com/.
+
+For more details read the [Open WebUI tutorial](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/02_openwebui_chat.ipynb).
 
 ### Learn and explore with JupyterLab
 
@@ -575,38 +591,46 @@ You can work on your code projects in two different environments which share the
 - JupyterLab notebooks: a notebook is a mix of documentation and code which enables understanding, executing, and visualising operations step by step, and which is perfect to explore and develop new snippets of code, friendly for everybody
 - Visual Studio Code projects: a more complex integrated development environment for developers, perfect to integrate and test all the code snippets in a consistent and reliable application 
 
-To transition from one environment to another, the nbdev toolset is preinstalled by wordslab: you can use it to create a code library from a set of notebooks.
-
 Both tools are installed with extensions enabling AI assistance directly in the development environment.
+
+To transition from one environment to another, the [nbdev](https://nbdev.fast.ai/) toolset is preinstalled by wordslab: you can use it to create a code library from a set of notebooks.
+
+When you work on your notebooks or code projects it is important to regularly take a snapshot of your files and to store it in a consolidated history of your project: both tools are also installed with extensions to use Github.
+
+To create new JupyterLab projects and configure them properly with a dedicated virtual Python environment and associated Jupyterlab kernel, you can use the following scripts:
+- create-workspace-project [github-project-url.git]
+- activate-workspace-project [project-name]
 
 For jupyterlab notebooks, the jupyter-ai extension adds 
 - a chat ui right next to your notebooks which can interact with their content
 - a magic command to execute a language model instructions directly in a notebook cell
 
-When you work on your notebooks or code projects it is important to regularly take a snapshot of your files and to store it in a consolidated history of your project: both tools are also installed with extensions to use Github.
+For more details read the [JupyterLab tutorial](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/03_jupyterlab-notebooks.ipynb).
 
 ### Develop with Visual Studio Code
 
-For Visual Studio Code projects, the Continue.dev extension adds
-- a chat ui durectly in your IDE which can interact with your code files
-- magic commands to enrich the context of the conversation from many information sources 
+If you are a developer and want to code more serious projects, a server version of Visual Studio Code is installed in your Wordslab notebooks environment.
+
+By default, only Python development tools are installed, but you can use the extensions manager to download support for any other popular language.
+
+To provide AI assistance in your Visual Studio Code IDE, the Continue.dev extension is installed. It provides
+- a chat ui directly integrated in your IDE which can interact with your code files
+- an agent which can executing coding tasks on your behalf
 - an autocomplete feature when you write code
 - shortcuts to execute common development operations with a language model
 
-Aider is also installed and ready to use: it is a command line agentic asssitant which can generate code for you.
+To provide AI assistance in you Terminal, the Aider AI pair programmer is also installed and ready to use: it is a command line agentic asssitant which can generate code for you.
+
+For more details read the [Visual Studio Code tutorial](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/04_visual-studio_code.ipynb).
 
 ### Configure and use external services
 
 If you are serious about learning, exploring and building ai, we strongly advise that you subscribe to the following services
 
-Huggingface: central repository for all open and private models and datasets - mandatory, free
+- Github: central repository for all open and private code projects - mandatory, free
+- Huggingface: central repository for all open and private models and datasets - mandatory, free
+- Openrouter: get access to all large langage models from one single account (no need to create an account with openai, then anthropic, then google, then groq ...) - recommended, paid
+- Google personalized search engine: use it to enable web search in the openwebui chat interface or in your agents - recommended, paid
+- Replicate: get access to many models beyond text => image generation, speech transcription... - optional, paid
 
-Github: central repository for all open and private code projects - mandatory, free
-	
-Openrouter: get access to all large langage models from one single account (no need to create an account with openai, then anthropic, then google, then groq ...) - recommended, paid
-
-Google personalized search engine: use it to enable web search in the openwebui chat interface or in your agents - recommended, paid
-	
-Replicate: get access to many models beyond text => image generation, speech transcription... - optional, paid
-
-More details in [AI and code infrastructure services](./docs/external-services.md)
+More details directly in the [Wordslab notebooks tutorials](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/README.md).
