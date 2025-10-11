@@ -1298,7 +1298,7 @@ This script installs Ollama and sets up a complete local LLM ecosystem with auto
 The script automatically chooses the best LLM based on available GPU memory:
 - CPU-only mode: Uses smaller models (gemma3:1b, qwen3:1.7b, etc.)
 - GPU mode: Selects larger models based on VRAM capacity:
-  - 24GB+ VRAM: gemma3:27b, qwen3-coder:30b
+  - 24GB+ VRAM: gemma3:27b, qwen3:30b
   - 16GB VRAM: gemma3:12b, qwen3:14b  
   - 8GB VRAM: gemma3:4b, qwen3:4b
 

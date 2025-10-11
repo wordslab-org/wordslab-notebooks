@@ -305,7 +305,7 @@ Applications data
 
 Ollama models	
 - gemma3:4b:	3184  // gemma3:27b:   16591
-- qwen3:4b:     2381  // qwen3-coder:30b:    17697
+- qwen3:4b:     2381  // qwen3:30b:    17697
 - qwen2.5-coder:1.5b-base:	940
 - embeddinggemma:300m:	593
 

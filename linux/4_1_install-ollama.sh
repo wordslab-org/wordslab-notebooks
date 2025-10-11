@@ -36,7 +36,7 @@ else
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
     if [ "$vram_gib" -ge 23 ]; then        
         OLLAMA_CHAT_MODEL="gemma3:27b"
-        OLLAMA_CODE_MODEL="qwen3-coder:30b"
+        OLLAMA_CODE_MODEL="qwen3:30b"
     elif [ "$vram_gib" -ge 15 ]; then
         OLLAMA_CHAT_MODEL="gemma3:12b"
         OLLAMA_CODE_MODEL="qwen3:14b"
