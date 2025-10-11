@@ -6,4 +6,4 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 source $UV_INSTALL_DIR/env
 
 # Install Python version
-uv python install 3.12.11
+uv python install 3.12.12

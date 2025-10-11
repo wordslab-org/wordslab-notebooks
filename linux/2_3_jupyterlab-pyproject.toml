@@ -5,12 +5,12 @@ description = "wordslab-notebooks jupyterlab environment"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "jupyterlab==4.4.9",
-    "ipympl==0.9.7",
+    "ipympl==0.9.8",
     "jupyterlab-execute-time==3.2.0",
     "jupyterlab-git==0.51.2",
     "jupyterlab-nvdashboard==0.13.0",
     "pynvml==12.0.0",
     "jupyter-ai==2.31.6",
-    "langchain-ollama==0.3.8",
-    "langchain-openai==0.3.33",
+    "langchain-ollama==0.3.10",
+    "langchain-openai==0.3.35",
 ]
