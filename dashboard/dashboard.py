@@ -351,7 +351,7 @@ def get():
                 Div(H1("Wordslab notebooks"),
                 Div("Click on the title to access the documentation", cls=TextT.meta)),
                 Div(wordslab_version, cls=TextT.meta)
-            ), href="https://github.com/wordslab-org/wordslab-notebooks?tab=readme-ov-file#wordslab-notebooks---learn-and-build-with-ai-at-home", target="_blank"),
+            ), href="https://github.com/wordslab-org/wordslab-notebooks?tab=readme-ov-file#wordslab-notebooks", target="_blank"),
             DivCentered(
                 H4("Applications"),
                 DividerLine(y_space=1),
