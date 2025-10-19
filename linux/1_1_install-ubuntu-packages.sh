@@ -6,7 +6,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt update
 apt install --yes sudo apt-utils locales 
 echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
-apt install --yes less vim tmux screen
+apt install --yes less vim nano tmux screen
 apt install --yes ca-certificates curl wget unzip openssh-client
 apt install --yes htop nvtop iputils-ping net-tools traceroute
 apt install --yes git git-lfs
