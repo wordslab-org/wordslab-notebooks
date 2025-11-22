@@ -4,17 +4,17 @@ version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
 # https://github.com/docling-project/docling-serve/blob/v1.3.1/pyproject.toml
-    "vllm==0.11.0", # Pin the version of vLLM to avoid downloading it twice
-    "docling==2.55.1", # Pin the version of Docling to ensure reproducibility
-    "docling-serve[ui]==1.6.0",
+    "vllm==0.11.2", # Pin the version of vLLM to avoid downloading it twice
+    "docling==2.63.0", # Pin the version of Docling to ensure reproducibility
+    "docling-serve[ui]==1.8.0",
 ]
 
 [project.optional-dependencies]
 cpu = [
-  "torch==2.8.0"
+  "torch==2.9.0"
 ]
 cuda = [
-  "torch==2.8.0"
+  "torch==2.9.0"
 ]
 
 [tool.uv]
@@ -28,7 +28,7 @@ conflicts = [
 [tool.uv.sources]
 torch = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu128", extra = "cuda" },
+  { index = "pytorch-cu129", extra = "cuda" },
 ]
 
 [[tool.uv.index]]
@@ -37,6 +37,6 @@ url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [[tool.uv.index]]
-name = "pytorch-cu128"
-url = "https://download.pytorch.org/whl/cu128"
+name = "pytorch-cu129"
+url = "https://download.pytorch.org/whl/cu129"
 explicit = true

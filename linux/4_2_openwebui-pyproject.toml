@@ -3,15 +3,15 @@ name = "openwebui-env"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "open-webui==0.6.33",
+    "open-webui==0.6.36",
 ]
 
 [project.optional-dependencies]
 cpu = [
-  "torch==2.8.0"
+  "torch==2.9.0"
 ]
 cuda = [
-  "torch==2.8.0"
+  "torch==2.9.0"
 ]
 
 [tool.uv]
@@ -25,7 +25,7 @@ conflicts = [
 [tool.uv.sources]
 torch = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu128", extra = "cuda" },
+  { index = "pytorch-cu129", extra = "cuda" },
 ]
 
 [[tool.uv.index]]
@@ -34,6 +34,6 @@ url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [[tool.uv.index]]
-name = "pytorch-cu128"
-url = "https://download.pytorch.org/whl/cu128"
+name = "pytorch-cu129"
+url = "https://download.pytorch.org/whl/cu129"
 explicit = true
