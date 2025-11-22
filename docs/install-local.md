@@ -49,7 +49,7 @@ Installation script parameters for special cases (you shouldn't need them)
 4. Copy / paste the installation command below in the terminal
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2025-10" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2025-11" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
 ```
 
 ![Installation command](./images/install-local/04-installation-command.png)
@@ -59,7 +59,7 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=
 - set "WORDSLAB_WINDOWS_HOME=C:\wordslab" 
 - set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace" 
 - set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models"
-- set WORDSLAB_VERSION=2025-10
+- set WORDSLAB_VERSION=2025-11
 
 Press Enter to launch the installation script
 
@@ -213,7 +213,7 @@ You will need to enter your password.
 2. Copy / paste the installation command below in the terminal
 
 ```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-10 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-11 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
 ```
 
 3. Personalize the installation paths on your computer, and select the version you want to install
@@ -221,7 +221,7 @@ apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && expo
 - export WORDSLAB_HOME=/home/wordslab
 - export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace 
 - export WORDSLAB_MODELS=$WORDSLAB_HOME/models
-- export WORDSLAB_VERSION=2025-10
+- export WORDSLAB_VERSION=2025-11
 
 Press Enter to launch the installation script
 
@@ -247,7 +247,7 @@ Press Enter to launch the startup script
 
 => they are identical for a Windows or Linux machine, see the section "wordslab-notebooks startup steps" above
 
-## Storage directories size (MB) - Version 2025-10
+## Storage directories size (MB) - Version 2025-11
 
 Please note that the exact install size will vary for each wordslab version and also depends on your GPU memory capacity (wordslab downloads bigger models by default if your GPU has more VRAM): the numbers below should be seen as a minimum.
 
@@ -256,35 +256,36 @@ Maximal install size = **60 GB** (24 GB GPU with bigger models)
 
 ### WORDSLAB_HOME disk
 
-**20.4 GB**
+**21.4 GB**
 
 System	
-- Operating system:	1578
-- Root user:	202
+- Operating system:	1550
+- Root user:	191
 
 Applications	
-- JupyterLab:	112
-- Visual Studio:	454
-- Ollama:	3006
-- Open WebUI:	525
+- JupyterLab:	116
+- Visual Studio:	463
+- Ollama:	3239
+- Open WebUI:	519
 
 Python packages	
-- torch-2.8.0+cu128:	1648
-- vllm-0.11.0:	1292
-- nvidia_cudnn_cu12-9.10.2.21:	1004
-- nvidia_cublas_cu12-12.8.4.1:	829
-- triton-3.4.0:	539
-- nvidia_cusparselt_cu12-0.7.1:	431
-- nvidia_nccl_cu12-2.27.3:	409
-- nvidia_cusolver_cu12-11.7.3.90:	386
-- nvidia_cusparse_cu12-12.5.8.93:	370
-- xformers-0.0.32.post1:	367
-- nvidia_cufft_cu12-11.3.3.83:	268
-- open_webui-0.6.32:	253
-- cupy_cuda12x-13.6.0:	222
-- nvidia_cuda_nvrtc_cu12-12.8.93:	211
-- gradio-5.49.0:	197
-- ray-2.49.2:	170
+- torch-2.9.0+cu129	2120
+- nvidia_cudnn_cu12-9.10.2.21	1004
+- vllm-0.11.2	980
+- nvidia_cublas_cu12-12.9.1.4	816
+- triton-3.5.0	591
+- nvidia_cusolver_cu12-11.7.5.82	472
+- nvidia_cusparse_cu12-12.5.10.65	464
+- nvidia_cusparselt_cu12-0.7.1	431
+- nvidia_nccl_cu12-2.27.5	409
+- xformers-0.0.33.post1	390
+- nvidia_cufft_cu12-11.4.1.4	280
+- open_webui-0.6.36	255
+- cupy_cuda12x-13.6.0	222
+- nvidia_cuda_nvrtc_cu12-12.9.86	216
+- gradio-5.50.0	197
+- nvidia_cutlass_dsl-4.3.0	184
+- ray-2.52.0	179
 - ... and many others
 
 ### WORDSLAB_WORKSPACE disk
@@ -292,16 +293,16 @@ Python packages
 **1.3 GB**
 
 Workspace projects	
-- wordslab-notebooks-tutorials:	225
+- wordslab-notebooks-tutorials:	242
 
 Applications data	
 - JupyterLab data:	0
-- Visual Studio data:	336
+- Visual Studio data:	301
 - Open WebUI data:	464
 
 ### WORDSLAB_MODELS disk
 
-**8.1 GB** for GPUs with 8 GB VRAM // **36.4 GB** for GPUs with 24 GB VRAM
+**8.7 GB** for GPUs with 8 GB VRAM // **37 GB** for GPUs with 24 GB VRAM
 
 Ollama models	
 - gemma3:4b:	3184  // gemma3:27b:   16591
@@ -311,6 +312,6 @@ Ollama models
 
 vLLM models	
 
-- Docling documents analysis models: 461
+- Docling documents analysis models: 1692
 
 
