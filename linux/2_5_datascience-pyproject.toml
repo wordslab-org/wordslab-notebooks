@@ -13,7 +13,8 @@ dependencies = [
     "openai==2.8.1",
     "jupyter-ai-magics==2.31.6",
     "langchain-ollama==0.3.10",
-    "langchain-openai==0.3.35"
+    "langchain-openai==0.3.35",
+    "wordslab-notebooks-lib"
 ]
 
 [project.optional-dependencies]
