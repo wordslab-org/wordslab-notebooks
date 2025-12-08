@@ -14,4 +14,5 @@ dependencies = [
     "jupyter-ai==2.31.6",
     "langchain-ollama==0.3.10",
     "langchain-openai==0.3.35",
+    "wordslab-notebooks-lib"
 ]
