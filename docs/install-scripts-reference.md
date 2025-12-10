@@ -30,7 +30,7 @@ Version: wordslab-notebooks 2025-10
   - [2_5_datascience-pyproject.toml](#2_5_datascience-pyprojecttoml)
   - [3__install-vscode-server.sh](#3__install-vscode-serversh)
   - [3_1_install-vscode-server.sh](#3_1_install-vscode-serversh)
-  - [3_2_install-aider-ai-agent.sh](#3_2_install-aider-ai-agentsh)
+  - [3_2_install-cline-ai-agent.sh](#3_2_install-cline-ai-agentsh)
   - [4__install-open-webui.sh](#4__install-open-webuish)
   - [4_1_install-ollama.sh](#4_1_install-ollamash)
   - [4_2_install-open-webui.sh](#4_2_install-open-webuish)
@@ -512,7 +512,7 @@ This script serves as the complete installation solution for the WordsLab Notebo
 
 Sequentially installs all major components:
 - Notebooks Environment: Python, JupyterLab, dashboard, data science libraries
-- Code Environment: VS Code server, Aider AI agent
+- Code Environment: VS Code server, Continue extension, Cline AI coding agent
 - Chat/LLM Environment: Open WebUI, Ollama
 
 ##### 6. Shell Configuration
@@ -1179,7 +1179,7 @@ The file essentially defines the "recipe" for creating reproducible, well-config
 
 This script serves as a coordinator that:
 1. Installs Visual Studio Code server - Runs the `3_1_install-vscode-server.sh` script to set up the VS Code server component
-2. Installs Aider AI code assistant - Executes the `3_2_install-aider-ai-agent.sh` script to add an AI-powered coding assistant
+2. Installs Cline AI code assistant - Executes the `3_2_install-cline-ai-agent.sh` script to add an AI coding agent
 
 #### Key Operations
 
@@ -1222,23 +1222,16 @@ This installation enables developers to access a full-featured VS Code environme
 - Uses a separate global directory (`$VSCODE_DATA/.continue`) for Continue's data
 - This provides AI-powered coding assistance within VS Code
 
-### 3_2_install-aider-ai-agent.sh
+### 3_2_install-cline-ai-agent.sh
 
-This script installs Aider, an AI pair programming tool that operates directly in the terminal.
+This script installs Cline, an open source AI coding agent that brings frontier AI models directly to your IDE. 
 
-Aider is an AI coding assistant that:
-- Works directly in your terminal/command line
-- Can help write, edit, and debug code
-- Provides pair programming assistance
-- Integrates with your existing codebase
-- Supports multiple programming languages (particularly Python in this context)
+Unlike autocomplete tools, Cline is a true coding agent that can understand entire codebases, plan complex changes, and execute multi-step tasks.
 
 #### Key Operations
 
-- Installs Aider using uv tool manager: 
-  - Uses `uv tool install` to install the `aider-chat` package
-  - Installs version 0.86.1 of Aider
-  - The `uv` tool manager is used for dependency resolution and installation
+- Installs Cline VsCode extension
+- Installs Cline CLI using npm -g
 
 ### 4__install-open-webui.sh
 

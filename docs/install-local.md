@@ -109,7 +109,7 @@ The Windows updates will be applied during the reboot.
 
 ![Install Jupyterlab](./images/install-local/12-jupyterlab-install.png)
 
-4. Visual Studio Code and several key extensions, Aider
+4. Visual Studio Code and several key extensions, Continue, Cline AI agent
 
 ![Install VS Code](./images/install-local/13-vscode-install.png)
 

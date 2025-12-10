@@ -63,7 +63,7 @@ export OPENWEBUI_PORT=8882
 
 # Note: ollama and docling are not exposed to the outside world
 # => they must be used from inside the container
-# ... used by Aider
+# ... used by Cline
 export OLLAMA_API_BASE=http://127.0.0.1:11434
 # ... used by Open WebUI
 export DOCLING_SERVER_URL=http://127.0.0.1:5001

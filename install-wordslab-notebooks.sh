@@ -59,7 +59,7 @@ source $BASHRC_FILE
 # Make sure the python package manager is available for the following scripts
 source $UV_INSTALL_DIR/env
 
-# Install the code environment: VS Code server, Aider AI agent
+# Install the code environment: VS Code server, Continue extension and Cline AI agent
 ./3__install-vscode-server.sh
 
 # Install the chat and LLM environment: Open WebUI, Ollama
