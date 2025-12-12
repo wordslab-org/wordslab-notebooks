@@ -2,7 +2,7 @@
 
 # https://docs.cline.bot/getting-started/installing-cline#vscodium%2Fwindsurf
 
-$VSCODE_DIR/bin/code-server --install-extension saoudrizwan.claude-dev@3.40.1 --extensions-dir $VSCODE_DATA/extensions
+$VSCODE_DIR/bin/code-server --install-extension saoudrizwan.claude-dev@3.41.0 --extensions-dir $VSCODE_DATA/extensions
 
 # https://docs.cline.bot/cline-cli/installation
 # https://nodejs.org/en/download

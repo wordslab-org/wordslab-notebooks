@@ -74,8 +74,7 @@ if [ "${OPENWEBUI_START_DOCLING:-no}" = "yes" ]; then
     # Environment variables to connect Open WebUI to Docling
     export CONTENT_EXTRACTION_ENGINE="Docling"
     export DOCLING_SERVER_URL="http://127.0.0.1:5001"
-    export DOCLING_OCR_ENGINE="easyocr" 
-    export DOCLING_OCR_LANG="en,fr,de,es"
+    export DOCLING_PARAMS="{\"do_ocr\": true, \"ocr_engine\": \"rapidocr\", \"ocr_lang\": \"eng,fra,deu,spa\"}"
 else
     pid4=""
 fi
