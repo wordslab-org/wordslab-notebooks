@@ -6,7 +6,7 @@ REM - %WORDSLAB_WINDOWS_MODELS% : directory to store the virtual disk for the wo
 REM Check if the shared virtual disks where already initialized
 wsl -d wordslab-notebooks-workspace -- : >nul
 if %errorlevel% neq 0 (
-    curl -L -o alpine.tar https://dl-cdn.alpinelinux.org/alpine/v3.23/releases/x86_64/alpine-minirootfs-3.23.0-x86_64.tar.gz
+    curl -L -o alpine.tar https://dl-cdn.alpinelinux.org/alpine/v3.23/releases/x86_64/alpine-minirootfs-3.23.2-x86_64.tar.gz
     mkdir %WORDSLAB_WINDOWS_WORKSPACE%
     wsl --import wordslab-notebooks-workspace %WORDSLAB_WINDOWS_WORKSPACE% alpine.tar
     mkdir %WORDSLAB_WINDOWS_MODELS%

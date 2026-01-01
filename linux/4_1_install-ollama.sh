@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.13.3 -o ollama-linux-amd64.tgz
+curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.13.5 -o ollama-linux-amd64.tgz
 tar -C $OLLAMA_DIR -xzf ollama-linux-amd64.tgz
 rm ollama-linux-amd64.tgz
 
@@ -103,7 +103,7 @@ models:
     provider: ollama
     model: $OLLAMA_CODE_MODEL    
     defaultCompletionOptions:
-      contextLength: 8192
+      contextLength: 32768
     roles:
       - chat
   - name: $OLLAMA_COMPLETION_MODEL

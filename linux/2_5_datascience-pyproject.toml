@@ -7,10 +7,10 @@ dependencies = [
     "ipywidgets==8.1.8",
     "pandas==2.3.3",
     "scikit-learn==1.8.0",
-    "fastai==2.8.5",
-    "nbdev==2.4.6",
+    "fastai==2.8.6",
+    "nbdev==2.4.7",
     "ollama==0.6.1",
-    "openai==2.11.0",
+    "openai==2.14.0",
     "jupyter-ai-magics==2.31.7",
     "langchain-ollama==0.3.10",
     "langchain-openai==0.3.35",
@@ -27,7 +27,7 @@ cuda = [
   "torch==2.9.0",
   "torchvision==0.24.0",
   "torchaudio==2.9.0",
-  "vllm==0.12.0"
+  "vllm==0.13.0"
 ]
 
 [dependency-groups]

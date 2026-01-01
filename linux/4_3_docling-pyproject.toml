@@ -5,7 +5,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
 # https://github.com/docling-project/docling-serve/blob/v1.3.1/pyproject.toml
     "vllm==0.12.0", # Pin the version of vLLM to avoid downloading it twice
-    "docling==2.64.1", # Pin the version of Docling to ensure reproducibility
+    "docling==2.66.0", # Pin the version of Docling to ensure reproducibility
     "docling-serve[ui]==1.9.0",
 ]
 
