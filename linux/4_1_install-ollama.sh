@@ -4,9 +4,9 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tgz?version=0.13.5 -o ollama-linux-amd64.tgz
-tar -C $OLLAMA_DIR -xzf ollama-linux-amd64.tgz
-rm ollama-linux-amd64.tgz
+curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.14.1 -o ollama-linux-amd64.tar.zst
+tar -C $OLLAMA_DIR -xf ollama-linux-amd64.tar.zst
+rm ollama-linux-amd64.tar.zst
 
 # Add ollama to the path so that anyone can control it on the machine
 echo '' >> ./_wordslab-notebooks-env.bashrc
