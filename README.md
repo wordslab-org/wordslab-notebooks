@@ -30,8 +30,8 @@ One click install of all the tools you need to learn, explore and build AI appli
 3 main applications
 
 - A rich chat interface (text, images, voice) : Open WebUI
-- A notebooks platform (text & code) : JupyterJab + Jupyter AI extension 
-- A development environment (code) : Visual Studio Code + Continue.dev extension + Cline AI coding agent
+- A notebooks platform (text & code) : JupyterJab + wordslab "AI prompt cells" + Jupyter AI extension
+- A development environment (code) : Visual Studio Code + Cline, Kilo Code, and Mistral Vibe AI coding agents
 
 ![wordslab-notebooks main applications](./docs/images/wordslab-notebooks-main-apps.jpg)
 
@@ -613,13 +613,13 @@ If you are a developer and want to code more serious projects, a server version 
 
 By default, only Python development tools are installed, but you can use the extensions manager to download support for any other popular language.
 
-To provide AI assistance in your Visual Studio Code IDE, the Continue.dev extension is installed. It provides
+To provide AI assistance in your Visual Studio Code IDE, the Cline and Kilo Code extensions are installed. They provide
 - a chat ui directly integrated in your IDE which can interact with your code files
 - an agent which can executing coding tasks on your behalf
 - an autocomplete feature when you write code
 - shortcuts to execute common development operations with a language model
 
-To provide AI assistance in you Terminal, the Cline AI coding agent is also installed and ready to use: it is a command line agentic asssitant which can generate code for you.
+To provide AI assistance in you Terminal, the Mistral Vibe coding agent is also installed and ready to use: it is a command line agentic asssitant which can generate code for you.
 
 For more details read the [Visual Studio Code tutorial](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/04_visual-studio_code.ipynb).
 
