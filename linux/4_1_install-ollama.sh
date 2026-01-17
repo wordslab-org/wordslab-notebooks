@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.14.1 -o ollama-linux-amd64.tar.zst
+curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.14.2 -o ollama-linux-amd64.tar.zst
 tar -C $OLLAMA_DIR -xf ollama-linux-amd64.tar.zst
 rm ollama-linux-amd64.tar.zst
 
@@ -89,43 +89,3 @@ EOF
 #mkdir -p "$(dirname "$JIC_CONFIG_FILE")"
 #cat > "$JIC_CONFIG_FILE" <<EOF
 #EOF
-
-# Configure models for VsCode extension Continue.dev
-
-CONT_CONFIG_FILE="$VSCODE_DATA/.continue/config.yaml"
-mkdir -p "$(dirname "$CONT_CONFIG_FILE")"
-cat > "$CONT_CONFIG_FILE" <<EOF
-name: Local Assistant
-version: 1.0.0
-schema: v1
-models:
-  - name: $OLLAMA_CODE_MODEL
-    provider: ollama
-    model: $OLLAMA_CODE_MODEL    
-    defaultCompletionOptions:
-      contextLength: 32768
-    roles:
-      - chat
-  - name: $OLLAMA_COMPLETION_MODEL
-    provider: ollama
-    model: $OLLAMA_COMPLETION_MODEL    
-    defaultCompletionOptions:
-      contextLength: 8192
-    roles:
-      - autocomplete
-  - name: $OLLAMA_EMBED_MODEL
-    provider: ollama
-    model: $OLLAMA_EMBED_MODEL    
-    defaultCompletionOptions:
-      contextLength: 8192
-    roles:
-      - embed
-context:
-  - provider: code
-  - provider: docs
-  - provider: diff
-  - provider: terminal
-  - provider: problems
-  - provider: folder
-  - provider: codebase
-EOF

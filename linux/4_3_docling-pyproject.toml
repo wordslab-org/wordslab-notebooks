@@ -4,9 +4,9 @@ version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
 # https://github.com/docling-project/docling-serve/blob/v1.3.1/pyproject.toml
-    "vllm==0.12.0", # Pin the version of vLLM to avoid downloading it twice
-    "docling==2.66.0", # Pin the version of Docling to ensure reproducibility
-    "docling-serve[ui]==1.9.0",
+    "vllm==0.13.0", # Pin the version of vLLM to avoid downloading it twice
+    "docling==2.68.0", # Pin the version of Docling to ensure reproducibility
+    "docling-serve[ui]==1.10.0",
 ]
 
 [project.optional-dependencies]
@@ -23,11 +23,6 @@ conflicts = [
     { extra = "cpu" },
     { extra = "cuda" },
   ],
-]
-# Specific fix for incompatibilities between vllm 0.12.0 and docling-serve 1.9.0
-override-dependencies = [
-  "fastapi>=0.119.0,<0.120.0",
-  "starlette>=0.49.1",
 ]
 
 [tool.uv.sources]
