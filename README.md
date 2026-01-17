@@ -7,7 +7,7 @@
 > Install
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2025-11" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2026-01" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
 ```
 
 > Start
@@ -74,7 +74,7 @@ Local PC requirements
 
 - Windows 10 or 11, Ubuntu Linux 22.04+
 - x64 CPU (Intel or AMD), 16 GB RAM
-- 50 GB free disk space (see [more details here](./docs/install-local.md#storage-directories-size-mb---version-2025-11))
+- 50 GB free disk space (see [more details here](./docs/install-local.md#storage-directories-size-mb---version-2026-01))
 - Nvidia GPU recommended but not mandatory, RTX 3000 or newer, at least 8 GB VRAM
 - CPU-only install possible, if you plan to use models hosted in the cloud in combination with your own PC
 - Administrator access (except if the Windows Subsystem for Linux is already installed on your Windows machine)
@@ -141,7 +141,7 @@ Local PC requirements
 
 - Windows 10 or 11, Ubuntu Linux 22.04+
 - x64 CPU (Intel or AMD), 16 GB RAM
-- 50 GB free disk space (see [more details here](./docs/install-local.md#storage-directories-size-mb---version-2025-11))
+- 50 GB free disk space (see [more details here](./docs/install-local.md#storage-directories-size-mb---version-2026-01))
 - Nvidia GPU recommended but not mandatory, RTX 3000 or newer, at least 8 GB VRAM
 - CPU-only install possible, if you plan to use models hosted in the cloud in combination with your own PC
 - administrator access (except if the Windows Subsystem for Linux is already installed on your Windows machine)
@@ -161,7 +161,7 @@ For the followinig installations, if you are already familiar with the procedure
 > Install
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2025-11" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2026-01" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
 ```
 
 > Start
@@ -187,7 +187,7 @@ Then enter your password.
 > Install
 
 ```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2025-11 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2026-01 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
 ```
 
 > Start
@@ -229,13 +229,13 @@ Execute one of the two commands below depending on your client machine status.
 On the client machine, if wordslab-notebooks is not yet installed:
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-11" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/prepare-client-machine.bat -o "%temp%\prepare-client-machine.bat" && call "%temp%\prepare-client-machine.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-01" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/prepare-client-machine.bat -o "%temp%\prepare-client-machine.bat" && call "%temp%\prepare-client-machine.bat"
 ```
 
 On the client machine, if wordslab-notebooks is already installed :
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-11" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-client-machine.bat
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-01" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-client-machine.bat
 ```
 
 2. Generate secrets for the server machine
@@ -245,7 +245,7 @@ On the client machine, generate a tar file containing secrets for a specific ser
 - optional: a password to protect access to Jupyterlab and Visual Studio Code - just type Enter if you don't need a password
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-11" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-server-secrets.bat
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-01" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-server-secrets.bat
 ```
 
 This script will generate the file: %WORDSLAB_WINDOWS_HOME%\secrets\wordslab-server-192.168.1.28-secrets.tar (where 192.168.1.28 is replaced with your server machine IP address).
@@ -286,7 +286,7 @@ Execute one of the two steps below depending on your server operating system.
 On a Windows server machine: 
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2025-11" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-server-machine.bat
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-01" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-server-machine.bat
 ```
 The secrets files are now installed on your Windows server machine.
 
@@ -367,7 +367,7 @@ Open the [detailed installation instructions](./docs/install-jarvislabs.md) for 
 
 ### Update your installation to a more recent version
 
-The wordslab-notebooks distribution is versioned with version identifiers like '2025-11' (release published in September 2025).
+The wordslab-notebooks distribution is versioned with version identifiers like '2026-01' (release published in January 2026).
 
 The AI space is moving incredibly quickly: new models and new major tool versions are published every day. The goal of wordslab-notebooks is to protect you as much as possible from being distracted by this constant flux of change. You should keep your platform stable as long as possible and concentrate on building a solution instead of always chasing the latest shiny new thing.
 
@@ -385,10 +385,10 @@ Initial command (version 2025-05)
 set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2025-05" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
 ```
 
-Update command (version 2025-11)
+Update command (version 2026-01)
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2025-11" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2026-01" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
 ```
 
 If you want to make sure you don't loose any data, consider making a backup of your environment first, as described in the next section.
@@ -427,11 +427,11 @@ Then, each time you want to backup your wordslab-notebooks environment, execute 
   - replace c:\\wordslab\\virtual-machines\\wordslab-workspace with the directory you selected during wordslab installation
   - for example %WORDSLAB_WINDOWS_HOME%\\virtual-machines\\wordslab-workspace
 - the target directory: replace d:\\backups with the backup location of your choice
-- the backup date: replace 2025-11-15 with the current date
+- the backup date: replace 2026-01-15 with the current date
 
 ```shell
 wsl --shutdown
-"%ProgramFiles%\7-Zip\7z" a -v1g "d:\backups\wordslab-notebooks-2025-11-15.7z" "c:\wordslab\virtual-machines\wordslab-workspace\ext4.vhdx"
+"%ProgramFiles%\7-Zip\7z" a -v1g "d:\backups\wordslab-notebooks-2026-01-15.7z" "c:\wordslab\virtual-machines\wordslab-workspace\ext4.vhdx"
 ```
 
 Notes
@@ -442,7 +442,7 @@ To **restore the virtual machine workspace disk after an incident**, execute the
 
 ```shell
 wsl --shutdown
-"%ProgramFiles%\7-Zip\7z" e "d:\backup\wordslab-notebooks-2025-11-15.7z.001" "-oc:\wordslab\virtual-machines\wordslab-workspace\"
+"%ProgramFiles%\7-Zip\7z" e "d:\backup\wordslab-notebooks-2026-01-15.7z.001" "-oc:\wordslab\virtual-machines\wordslab-workspace\"
 ```
 
 Notes
@@ -457,7 +457,7 @@ Quick commands for Windows
 
 The two scripts below can be used to fully uninstall wordslab-notebooks from your Windows machine.
 
-Navigate to the installation directory, for example: *C:\wordslab\wordslab-notebooks-2025-11\windows*.
+Navigate to the installation directory, for example: *C:\wordslab\wordslab-notebooks-2026-01\windows*.
 
 **WARNING**: all the code and data stored in your virtual machine will be **irremediably lost** !
 
@@ -526,7 +526,7 @@ Always read the license, usage restrictions, and terms of service of a model: yo
 
 To start, just stick with the model that was installed by default.
 
-Language model installed by default in wordslab 2025-11 : [Google Deepmind Gemma 3](https://deepmind.google/models/gemma/gemma-3/)
+Language model installed by default in wordslab 2026-01 : [Google Deepmind Gemma 3](https://deepmind.google/models/gemma/gemma-3/)
 - 24 GB or biggerGPU : gemma3:27b (27 billion parameters)
 - 16 GB GPU: gemma3:12b (12 billion parameters)
 - 8GB or smaller GPU: gemma3:4b (4 billion parameters)

@@ -9,7 +9,7 @@ if [ -z "${WORDSLAB_HOME}" ]; then
 fi
 # Set WORDSLAB_VERSION to its default value if necessary
 if [ -z "${WORDSLAB_VERSION}" ]; then
-    export WORDSLAB_VERSION="2025-11"
+    export WORDSLAB_VERSION="2026-01"
 fi
 
 # Download wordslab-notebooks scripts in a persistent directory
