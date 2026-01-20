@@ -19,15 +19,15 @@ dependencies = [
 
 [project.optional-dependencies]
 cpu = [
-  "torch==2.9.0",
-  "torchvision==0.24.0",
-  "torchaudio==2.9.0"
+  "torch==2.9.1",
+  "torchvision==0.24.1",
+  "torchaudio==2.9.1"
 ]
 cuda = [
-  "torch==2.9.0",
-  "torchvision==0.24.0",
-  "torchaudio==2.9.0",
-  "vllm==0.13.0"
+  "torch==2.9.1",
+  "torchvision==0.24.1",
+  "torchaudio==2.9.1",
+  "vllm==0.14.0"
 ]
 
 [dependency-groups]
@@ -46,15 +46,15 @@ conflicts = [
 [tool.uv.sources]
 torch = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu129", extra = "cuda" },
+  { index = "pytorch-cu130", extra = "cuda" },
 ]
 torchvision = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu129", extra = "cuda" },
+  { index = "pytorch-cu130", extra = "cuda" },
 ]
 torchaudio = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu129", extra = "cuda" },
+  { index = "pytorch-cu130", extra = "cuda" },
 ]
 
 [[tool.uv.index]]
@@ -63,6 +63,6 @@ url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [[tool.uv.index]]
-name = "pytorch-cu129"
-url = "https://download.pytorch.org/whl/cu129"
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
 explicit = true

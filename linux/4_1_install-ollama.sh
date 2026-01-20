@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.14.2 -o ollama-linux-amd64.tar.zst
+curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.14.3-rc3 -o ollama-linux-amd64.tar.zst
 tar -C $OLLAMA_DIR -xf ollama-linux-amd64.tar.zst
 rm ollama-linux-amd64.tar.zst
 
@@ -29,22 +29,28 @@ done
 if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     OLLAMA_CHAT_MODEL="gemma3:1b"
     OLLAMA_CODE_MODEL="qwen3:1.7b"
-    OLLAMA_COMPLETION_MODEL="qwen2.5-coder:0.5b-base"
+    OLLAMA_AGENT_MODEL="lfm2.5-thinking:1.2b"
     OLLAMA_EMBED_MODEL="embeddinggemma:300m"
 else
     # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
-    if [ "$vram_gib" -ge 23 ]; then        
+    if [ "$vram_gib" -ge 31 ]; then        
+        OLLAMA_CHAT_MODEL="gemma3:27b"
+        OLLAMA_CODE_MODEL="glm-4.7-flash:q4_K_M"
+        OLLAMA_AGENT_MODEL="devstral-small-2:24b"
+    elif [ "$vram_gib" -ge 23 ]; then        
         OLLAMA_CHAT_MODEL="gemma3:27b"
         OLLAMA_CODE_MODEL="qwen3:30b"
+        OLLAMA_AGENT_MODEL="ministral-3:14b"
     elif [ "$vram_gib" -ge 15 ]; then
         OLLAMA_CHAT_MODEL="gemma3:12b"
         OLLAMA_CODE_MODEL="qwen3:14b"
+        OLLAMA_AGENT_MODEL="ministral-3:8b"
     else
         OLLAMA_CHAT_MODEL="gemma3:4b"
         OLLAMA_CODE_MODEL="qwen3:4b"
+        OLLAMA_AGENT_MODEL="ministral-3:3b"
     fi
-    OLLAMA_COMPLETION_MODEL="qwen2.5-coder:1.5b-base"
     OLLAMA_EMBED_MODEL="embeddinggemma:300m"
 fi
 
@@ -53,13 +59,13 @@ echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_COMPLETION_MODEL=$OLLAMA_COMPLETION_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_AGENT_MODEL=$OLLAMA_AGENT_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 
 # Download the default local LLMs
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CODE_MODEL
-$OLLAMA_DIR/bin/ollama pull $OLLAMA_COMPLETION_MODEL
+$OLLAMA_DIR/bin/ollama pull $OLLAMA_AGENT_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_EMBED_MODEL
 
 # Stop ollama
@@ -75,9 +81,7 @@ cat > "$JAI_CONFIG_FILE" <<EOF
     "embeddings_provider_id": "ollama:$OLLAMA_EMBED_MODEL",
     "send_with_shift_enter": false,
     "fields": {},
-    "api_keys": {},
-    "completions_model_provider_id": "ollama:$OLLAMA_COMPLETION_MODEL",
-    "completions_fields": {}
+    "api_keys": {}
 }
 EOF
 
