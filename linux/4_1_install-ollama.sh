@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.14.3-rc3 -o ollama-linux-amd64.tar.zst
+curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.15.0 -o ollama-linux-amd64.tar.zst
 tar -C $OLLAMA_DIR -xf ollama-linux-amd64.tar.zst
 rm ollama-linux-amd64.tar.zst
 
@@ -51,7 +51,7 @@ else
         OLLAMA_CODE_MODEL="qwen3:4b"
         OLLAMA_AGENT_MODEL="ministral-3:3b"
     fi
-    OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+    OLLAMA_EMBED_MODEL="qwen3-embedding:0.6b"
 fi
 
 # Save the LLM names as env variables 
