@@ -30,8 +30,8 @@ One click install of all the tools you need to learn, explore and build AI appli
 3 main applications
 
 - A rich chat interface (text, images, voice) : Open WebUI
-- A notebooks platform (text & code) : JupyterJab + wordslab "AI prompt cells" + Jupyter AI extension
-- A development environment (code) : Visual Studio Code + Cline, Kilo Code, and Mistral Vibe AI coding agents
+- A notebooks platform (text & code) : JupyterLab with wordslab-notebooks "AI prompt cells" + Jupyter AI extension
+- A development environment (code) : Visual Studio Code + Cline & Kilo Code extensions, and OpenCode & Mistral Vibe AI coding agents
 
 ![wordslab-notebooks main applications](./docs/images/wordslab-notebooks-main-apps.jpg)
 
@@ -42,17 +42,17 @@ Installs a ready to use and fully integrated AI environment with
 
 Why use this instead of a popular cloud services like ChatGPT ou Gemini ?
 
+- Understand how AI works and build your own solutions 
 - Free solution with no rate limits if you already own a powerful machine
 - Confidentiality and privacy of your data and projects
 - Choose what tools and models you install and **when you upgrade**
-- Understand how AI works and build your own solutions 
 
 ## Installation overview
 
 When installed on Windows, wordslab-notebooks leverages the Windows Subsystem for Linux to create and run a lightweight Linux virtual machine
 - No impact on the configuration of your windows machine
 - Everything is contained in three virtual disks files: software, workspace, models
-- You can choose a different location for these three files to optimize your local storage
+- You can choose a different location for each one of these three files to optimize the usage of your local storage
 
 When installed on Linux, wordslab-notebooks is directly installed in one to three directories of your choice.
 
@@ -72,7 +72,7 @@ You will see over time that **everything you try just works out of the box**.
 
 Local PC requirements
 
-- Windows 10 or 11, Ubuntu Linux 22.04+
+- Windows 10 or 11, Ubuntu Linux 24.04+
 - x64 CPU (Intel or AMD), 16 GB RAM
 - 50 GB free disk space (see [more details here](./docs/install-local.md#storage-directories-size-mb---version-2026-01))
 - Nvidia GPU recommended but not mandatory, RTX 3000 or newer, at least 8 GB VRAM
@@ -139,7 +139,7 @@ WARNING: the local AI development environment is meant to be used **for personal
 
 Local PC requirements
 
-- Windows 10 or 11, Ubuntu Linux 22.04+
+- Windows 10 or 11, Ubuntu Linux 24.04+
 - x64 CPU (Intel or AMD), 16 GB RAM
 - 50 GB free disk space (see [more details here](./docs/install-local.md#storage-directories-size-mb---version-2026-01))
 - Nvidia GPU recommended but not mandatory, RTX 3000 or newer, at least 8 GB VRAM
@@ -482,9 +482,9 @@ Click on the link provided in the startup script to launch the Wordslab notebook
 The dashboard provides:
 
 Links to the three main applications
-- OpenWebUI chat interface
-- JupyterLab notebooks
-- Visual Studio Code development environment 
+- OpenWebUI AI chat interface
+- JupyterLab notebooks with AI prompt cells
+- Visual Studio Code development environment with AI agents
 
 Information and metrics to manage your AI environment
 - Virtual machine hardware and usage : cpu, ram, gpu, vram.
@@ -500,9 +500,11 @@ For more details, read the [Wordslab dashboard tutorial](https://github.com/word
 
 Use the dropdown list to select the language model wich will generate the answers in your chats.
 
-Option 1: download a language model from an internet repository to your machine as a big file of several GB and run it locally.
+3 language models are installed by default in wordslab-notebooks, for chat, code and agents. They were selected as the best ones available at the time of installation that can run on your machine.
 
-Option 2: connect to a cloud service with an API key and access a remote language model running in the cloud.
+But you can download many other models if you hacve specific needs.
+- Option 1: download a language model from an internet repository to your machine as a big file of several GB and run it locally.
+- Option 2: connect to a cloud service with an API key and access a remote language model running in the cloud : OpenRouter is recommended.
 
 Here are a few tips to select the right language model for your needs
 - the size of a model is measured in billions of parameters
@@ -526,13 +528,13 @@ Always read the license, usage restrictions, and terms of service of a model: yo
 
 To start, just stick with the model that was installed by default.
 
-Language model installed by default in wordslab 2026-01 : [Google Deepmind Gemma 3](https://deepmind.google/models/gemma/gemma-3/)
+Language model installed by default for chat in wordslab 2026-01 : [Google Deepmind Gemma 3](https://deepmind.google/models/gemma/gemma-3/)
 - 24 GB or biggerGPU : gemma3:27b (27 billion parameters)
 - 16 GB GPU: gemma3:12b (12 billion parameters)
 - 8GB or smaller GPU: gemma3:4b (4 billion parameters)
 - CPU only: gemma3:1b (1 billion parameters)
 
-Gemma 3 is a multilingual a multimodal generalist model: it means that it can process text AND images as input in your native language.
+Gemma 3 is a multilingual and multimodal generalist model: it means that it can process text AND images as input in your native language.
 
 Type "hello" in the chat, wait a few seconds for the model to load in memory, and verify that you get an answer.
 
@@ -562,7 +564,7 @@ If you don't add more context to the conversation, the model will try to answer 
 - the model only memorizes facts that are very common on the internet: it generally knows nothing of your small company, your local regulations, your neighborhood
 - the model was trained with data extracted from the internet one or two years ago: it doesn't know who the president of the country is today, what the current tax rate is, what happened yesterday 
 
-If you created a Google PSE account (see the detailed tutorial below), you can activate the "web search" tool: when the tool is activated, the model will first do a web seach before generating an answer, to try to ground it on facts (Admin Panel / Settings / Web Search).
+If you created a Tavily account (see the detailed tutorial below), you can activate the "web search" tool: when the tool is activated, the model will first do a web seach before generating an answer, to try to ground it on facts (Admin Panel / Settings / Web Search).
 
 If the information necessary to answer your questions or execute your instructions can't be found on the internet, you can index your own documents to create a local knowledge base (Workspace / Knowledge / +).
 
@@ -592,6 +594,7 @@ You can work on your code projects in two different environments which share the
 - Visual Studio Code projects: a more complex integrated development environment for developers, perfect to integrate and test all the code snippets in a consistent and reliable application 
 
 Both tools are installed with extensions enabling AI assistance directly in the development environment.
+**wordslab-notebooks-lib** is installed by default in jupyterlab environments and provides a new type of cell: **prompt cells** are sent to a local AI model along with all the previous cells as context, and enable you to get AI assistance directly embedded in your notebook codinf workflow.
 
 To transition from one environment to another, the [nbdev](https://nbdev.fast.ai/) toolset is preinstalled by wordslab: you can use it to create a code library from a set of notebooks.
 
@@ -619,7 +622,7 @@ To provide AI assistance in your Visual Studio Code IDE, the Cline and Kilo Code
 - an autocomplete feature when you write code
 - shortcuts to execute common development operations with a language model
 
-To provide AI assistance in you Terminal, the Mistral Vibe coding agent is also installed and ready to use: it is a command line agentic asssitant which can generate code for you.
+To provide AI assistance in you Terminal, the OpenCode and Mistral Vibe coding agents are also installed and ready to use: they are command line agentic asssitants which can generate code for you.
 
 For more details read the [Visual Studio Code tutorial](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/04_visual-studio_code.ipynb).
 
@@ -627,10 +630,28 @@ For more details read the [Visual Studio Code tutorial](https://github.com/words
 
 If you are serious about learning, exploring and building ai, we strongly advise that you subscribe to the following services
 
-- Github: central repository for all open and private code projects - mandatory, free
-- Huggingface: central repository for all open and private models and datasets - mandatory, free
-- Openrouter: get access to all large langage models from one single account (no need to create an account with openai, then anthropic, then google, then groq ...) - recommended, paid
-- Google personalized search engine: use it to enable web search in the openwebui chat interface or in your agents - recommended, paid
-- Replicate: get access to many models beyond text => image generation, speech transcription... - optional, paid
+- [Github](https://github.com/): central repository for all open and private code projects - mandatory, free
+- [Huggingface](https://huggingface.co/): central repository for all open and private models and datasets - mandatory, free
+- [Openrouter](https://openrouter.ai/): get access to all large langage models from one single account (no need to create an account with openai, then anthropic, then google, then groq ...) - recommended, paid
+- [Tavily](https://www.tavily.com/): web search, extraction, research, and web crawling through a single, secure API. - recommended, free tier
+- [Replicate](https://replicate.com/): get access to many models beyond text => image generation, speech transcription... - optional, paid
+
+To save your API keys in the wordslab-notebooks workspace, use the following python function in a notebook code cell:
+
+```python
+import wordslab_notebooks_lib
+wordslab = Wordslab()
+
+wordslab.env.setup_openrouter(openrouter_api_key="...")
+```
+
+At any later time, you can retrieve your API keys with this function:
+
+```python
+import wordslab_notebooks_lib
+wordslab = Wordslab()
+
+wordslab.env.cloud_openrouter_api_key
+```
 
 More details directly in the [Wordslab notebooks tutorials](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/README.md).
