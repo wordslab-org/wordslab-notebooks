@@ -70,9 +70,6 @@ Change the Template Name: wordslab-notebooks.
 
 ![Template name](./images/install-vastai/03-template-name.png)
 
-Select a specific Version Tag in the dropdown list: 2.7.1-cuda-12.8.1-py312-24.04. 
-- Note: don't select the outdated version in the screenshot below
-
 In the ports section, click on the + button to Add ports
 - Add 9 ports from 8880, 8881 ... to 8888
 
@@ -100,7 +97,9 @@ Select the GPU you want to use, for example: RTX 5090.
 
 See [Choosing a GPU to run a generative AI application](cloud-machines.md).
 
-Make sure that you choose a machine with a good internet bandwidth to accelerate the downloads.
+Make sure that you choose a machine with a **good internet bandwidth** to accelerate the downloads.
+
+**IMPORTANT** make sure that the Max CUDA version avialable on the machine is at least 12.9.
 
 Click on the RENT button.
 
@@ -114,7 +113,7 @@ A list of your running virtual machines is now displayed on the screen.
 
 Wait for a few seconds or a few minutes before your rented machine is ready. Look at the bottom of the tile
 - Status: not running
-- Status: success, running vastai/pytorch_2.7.1-cuda-12.8.1-py312-24.04/ssh
+- Status: success, running vastai/pytorch_cuda-13.0.2-auto/ssh
 
 Click on the >_ "Open terminal access" button.
 
