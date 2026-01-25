@@ -2,13 +2,13 @@
 
 Choose 3 directories on your machine
 
-WORDSLAB_HOME : wordslab installation scripts and virtual disk containing the Linux virtual machine OS and all applications installed by wordslab (initial size 20 GB) 
+WORDSLAB_HOME : wordslab installation scripts and virtual disk containing the Linux virtual machine OS and all applications installed by wordslab (initial size 22 GB) 
 - default: c:\wordslab
 
 WORDSLAB_WORKSPACE : virtual disk containing your projects code and data + their specific software dependencies (initial size 1 GB) 
 - default: %WORDSLAB_HOME%\virtual-machines\wordslab-workspace
 
-WORDSLAB_MODELS : virtual disk containing all the AI models initially installed by wordslab and then downloaded in the course of your projects (initial size 8 to 36 GB depending of your GPU VRAM) 
+WORDSLAB_MODELS : virtual disk containing all the AI models initially installed by wordslab and then downloaded in the course of your projects (initial size 10 to 52 GB depending of your GPU VRAM) 
 - default: %WORDSLAB_HOME%\virtual-machines\wordslab-models
 		
 If your machine has several physical disks or partitions, you can split your wordslab install between all of them to best use your available storage space.
@@ -24,7 +24,7 @@ If the Windows Subsystem for Linux is not yet installed on your machine
 - then the script will ask you to reboot your machine once
 - after reboot, relaunch the same command as above a second time to continue and finish the installation 
 
-The installation scripts will download 30 GB to 60 GB: the install time will mainly depend on your network bandwidth.
+The installation scripts will download 30 GB to 70 GB: the install time will mainly depend on your network bandwidth.
 
 Installation script parameters for special cases (you shouldn't need them)
 - you can add the -cpu flag to the install command if you want to force a CPU-only install even if a Nvidia GPU is available on your machine 
@@ -109,7 +109,7 @@ The Windows updates will be applied during the reboot.
 
 ![Install Jupyterlab](./images/install-local/12-jupyterlab-install.png)
 
-4. Visual Studio Code and several key extensions, Continue, Cline AI agent
+4. Visual Studio Code and several key extensions, Cline and Kilo Code AI agents
 
 ![Install VS Code](./images/install-local/13-vscode-install.png)
 
@@ -117,7 +117,7 @@ The Windows updates will be applied during the reboot.
 
 ![Download ollama](./images/install-local/14-ollama-download.png)
 
-6. 3 language models for chat, code and embeddings
+6. 3 language models for chat, code, agents and embeddings
 
 ![Download models](./images/install-local/15-models-download.png)
 
@@ -251,41 +251,40 @@ Press Enter to launch the startup script
 
 Please note that the exact install size will vary for each wordslab version and also depends on your GPU memory capacity (wordslab downloads bigger models by default if your GPU has more VRAM): the numbers below should be seen as a minimum.
 
-Minimal install size = **30 GB** (8 GB GPU with small models)
-Maximal install size = **60 GB** (24 GB GPU with bigger models)
+Minimal install size = **33 GB** (8 GB GPU with small models)
+Maximal install size = **80 GB** (32 GB GPU with bigger models)
 
 ### WORDSLAB_HOME disk
 
-**21.4 GB**
+**21.8 GB**
 
 System	
-- Operating system:	1550
-- Root user:	191
+- Operating system:	1516
+- Root user:	297
 
 Applications	
-- JupyterLab:	116
-- Visual Studio:	463
-- Ollama:	3239
-- Open WebUI:	519
+- JupyterLab:	118
+- Visual Studio:	472
+- Ollama:	4407
+- Open WebUI:	585
 
 Python packages	
-- torch-2.9.0+cu129	2120
-- nvidia_cudnn_cu12-9.10.2.21	1004
-- vllm-0.11.2	980
-- nvidia_cublas_cu12-12.9.1.4	816
-- triton-3.5.0	591
-- nvidia_cusolver_cu12-11.7.5.82	472
-- nvidia_cusparse_cu12-12.5.10.65	464
-- nvidia_cusparselt_cu12-0.7.1	431
-- nvidia_nccl_cu12-2.27.5	409
-- xformers-0.0.33.post1	390
-- nvidia_cufft_cu12-11.4.1.4	280
-- open_webui-0.6.36	255
-- cupy_cuda12x-13.6.0	222
-- nvidia_cuda_nvrtc_cu12-12.9.86	216
-- gradio-5.50.0	197
-- nvidia_cutlass_dsl-4.3.0	184
-- ray-2.52.0	179
+- torch-2.9.1+cu129:	2120
+- vllm-0.14.0:	1187
+- nvidia_cudnn_cu12-9.10.2.21:	1004
+- nvidia_cublas_cu12-12.9.1.4:	816
+- triton-3.5.1:	591
+- nvidia_cusolver_cu12-11.7.5.82:	472
+- nvidia_cusparse_cu12-12.5.10.65:	464
+- nvidia_cusparselt_cu12-0.7.1:	431
+- nvidia_nccl_cu12-2.27.5:	409
+- nvidia_cufft_cu12-11.4.1.4:	280
+- open_webui-0.7.2:	257
+- cupy_cuda12x-13.6.0:	222
+- nvidia_cuda_nvrtc_cu12-12.9.86:	216
+- gradio-5.50.0:	197
+- opencv_python-4.13.0.90:	191
+- ray-2.53.0:	180
 - ... and many others
 
 ### WORDSLAB_WORKSPACE disk
@@ -293,23 +292,22 @@ Python packages
 **1.3 GB**
 
 Workspace projects	
-- wordslab-notebooks-tutorials:	242
+- wordslab-notebooks-tutorials:	247
 
 Applications data	
 - JupyterLab data:	0
-- Visual Studio data:	301
+- Visual Studio data:	291
 - Open WebUI data:	464
 
 ### WORDSLAB_MODELS disk
 
-**8.7 GB** for GPUs with 8 GB VRAM // **37 GB** for GPUs with 24 GB VRAM
+**10.0 GB** for GPUs with 8 GB VRAM // **52 GB** for GPUs with 32 GB VRAM
 
 Ollama models	
-- gemma3:4b:	3184  // gemma3:27b:   16591
-- qwen3:4b:     2381  // qwen3:30b:    17697
-- qwen2.5-coder:1.5b-base:	940
+- gemma3:4b:	3184  //  gemma3:27b:   17 GB
+- qwen3:4b:     2381  //  glm-4.7-flash:q4_K_M:    19 GB
+- ministral-3:3b:	2817  //  devstral-small-2:24b:  15 GB 
 - embeddinggemma:300m:	593
-
 vLLM models	
 
 - Docling documents analysis models: 1692

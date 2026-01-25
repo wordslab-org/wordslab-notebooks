@@ -16,7 +16,7 @@ echo 'export PATH="$OLLAMA_DIR/bin:$PATH"' >> ./_wordslab-notebooks-env.bashrc
 # Need to set OLLAMA_HOME before downloading the language model
 source ./_wordslab-notebooks-env.bashrc
 
-# Download small llama model for local inference
+# Download models for local inference
 OLLAMA_HOME=0.0.0.0  $OLLAMA_DIR/bin/ollama serve &
 pid=$!
 
@@ -31,6 +31,7 @@ if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     OLLAMA_CODE_MODEL="qwen3:1.7b"
     OLLAMA_AGENT_MODEL="lfm2.5-thinking:1.2b"
     OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+    OLLAMA_CONTEXT_LENGTH=8192
 else
     # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
@@ -38,20 +39,27 @@ else
         OLLAMA_CHAT_MODEL="gemma3:27b"
         OLLAMA_CODE_MODEL="glm-4.7-flash:q4_K_M"
         OLLAMA_AGENT_MODEL="devstral-small-2:24b"
+        OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+        OLLAMA_CONTEXT_LENGTH=32768
     elif [ "$vram_gib" -ge 23 ]; then        
         OLLAMA_CHAT_MODEL="gemma3:27b"
         OLLAMA_CODE_MODEL="qwen3:30b"
         OLLAMA_AGENT_MODEL="ministral-3:14b"
+        OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+        OLLAMA_CONTEXT_LENGTH=32768
     elif [ "$vram_gib" -ge 15 ]; then
         OLLAMA_CHAT_MODEL="gemma3:12b"
         OLLAMA_CODE_MODEL="qwen3:14b"
         OLLAMA_AGENT_MODEL="ministral-3:8b"
+        OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+        OLLAMA_CONTEXT_LENGTH=32768
     else
         OLLAMA_CHAT_MODEL="gemma3:4b"
         OLLAMA_CODE_MODEL="qwen3:4b"
         OLLAMA_AGENT_MODEL="ministral-3:3b"
+        OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+        OLLAMA_CONTEXT_LENGTH=16384
     fi
-    OLLAMA_EMBED_MODEL="qwen3-embedding:0.6b"
 fi
 
 # Save the LLM names as env variables 
@@ -61,6 +69,7 @@ echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.
 echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_AGENT_MODEL=$OLLAMA_AGENT_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_CONTEXT_LENGTH=$OLLAMA_CONTEXT_LENGTH" >> ./_wordslab-notebooks-env.bashrc
 
 # Download the default local LLMs
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL
