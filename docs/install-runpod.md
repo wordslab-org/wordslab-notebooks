@@ -209,6 +209,8 @@ At the end of the startup process, the script will display a link to the wordsla
 
 Click on this link to access the applications.
 
+NOTE: you may need to try the start script several times, and you may need to wait a few minutes before everything is started and Open WebUI is accessible.
+
 ![Open dashboard link](./images/install-runpod/14-open-dashboard.png)
 
 ## 7. Stop wordslab-notebooks and Terminate your virtual machine

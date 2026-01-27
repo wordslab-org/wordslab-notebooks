@@ -58,9 +58,50 @@ gpt-oss:20b
 - 65536: 14258 MB - 149 tokens/sec
 - 98304: 15122 MB - 148 tokens/sec => 100% GPU
 
-# RTX 4090 24 GB - at home
+# RTX 4090 24 GB - Runpod.io
 
+ministral-3:14b
+- 65536: 19844 MB - 97 tokens/sec
+- 81920: 22412 MB - 98 tokens/sec
+- 98304: 23666 MB - 44 tokens/sec
 
+gpt-oss:20b
+- 131072: 16190 MB - 184 tokens/sec
+
+gemma3:27b 
+- 32768: 20536 MB - 47 tokens/sec
+- 49152: 21846 MB - 47 tokens/sec
+- 57344: 22502 MB - 47 tokens/sec
+- 65536: 23158 MB - 47 tokens/sec
+
+qwen3:30b
+qwen3-coder:30b
+- 32768: 21284 MB - 175 tokens/sec
+- 49152: 22820 MB - 173 tokens/sec
+- 57344: 23628 MB - 180 tokens/sec
+
+qwen3-vl:30b
+- 24576: 21940 MB - 177 tokens/sec
+- 32768: 22818 MB - 184 tokens/sec
+
+nemotron-3-nano:30b
+- 8192: 1%/99% CPU/GPU - 74 tokens/sec
+- 16384: 5%/95% CPU/GPU - 58 tokens/sec
+- 24576: 5%/95% CPU/GPU - 57 tokens/sec
+- 32768: 5%/95% CPU/GPU - 57 tokens/sec
+
+mistral-small3.2:24b
+devstral-small-2:24b
+- 32768: 20554 MB - 60 tokens/sec
+- 40960: 21832 MB - 60 tokens/sec
+- 49152: 23112 MB - 60 tokens/sec
+- 57344: 7%/93% CPU/GPU - 34 tokens/sec
+
+glm-4.7-flash:q4_K_M
+- 32768: 21888 MB - 133 tokens/sec
+- 40960: 22788 MB - 132 tokens/sec
+- 49152: 23564 MB - 134 tokens/sec
+- 57344: 13%/87% CPU/GPU - 45 tokens/sec
 
 # RTX 5090 32 GB - at home
 
@@ -99,7 +140,9 @@ nemotron-3-nano:30b
 - 32768: 24266 MB - 260 tokens/sec
 - 65536: 27 GB - 260 tokens/sec
 - 131072: 29 GB - 259 tokens/sec
-- 
+- 147456: 30 GB - 259 tokens/sec
+- 180224: 31 GB - 258 tokens/sec
+- 196608: 32 GB - 257 tokens/sec
 - 262,144: 7%/93% CPU/GPU - 24 tokens/sec
 
 mistral-small3.2:24b
