@@ -46,6 +46,12 @@ if [ -f "$WORDSLAB_NOTEBOOKS_ENV/.cpu-only" ]; then
     export USE_CUDA_DOCKER="false"
 else
     export USE_CUDA_DOCKER="true"
+    # ctranslate2 used by fasterwhisper disabled INT8 for Balckwell GPUs
+    # https://github.com/OpenNMT/CTranslate2/pull/1937
+    # In this case force FP16
+    if command -v nvidia-smi >/dev/null 2>&1 && nvidia-smi --query-gpu=compute_cap --format=csv,noheader 2>/dev/null | awk -F. '$1 >= 12 {exit 0} {exit 1}'; then
+        export WHISPER_COMPUTE_TYPE="float16"
+    fi
 fi
 
 # Load the small Whisper model for speech to text

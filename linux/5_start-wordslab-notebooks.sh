@@ -86,6 +86,12 @@ if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     export USE_CUDA_DOCKER="false"
 else
     export USE_CUDA_DOCKER="true"
+    # ctranslate2 used by fasterwhisper disabled INT8 for Balckwell GPUs
+    # https://github.com/OpenNMT/CTranslate2/pull/1937
+    # In this case force FP16
+    if command -v nvidia-smi >/dev/null 2>&1 && nvidia-smi --query-gpu=compute_cap --format=csv,noheader 2>/dev/null | awk -F. '$1 >= 12 {exit 0} {exit 1}'; then
+        export WHISPER_COMPUTE_TYPE="float16"
+    fi
 fi
 
 ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools DEFAULT_MODELS="$OLLAMA_CHAT_MODEL" RAG_EMBEDDING_ENGINE="ollama" RAG_EMBEDDING_MODEL="$OLLAMA_EMBED_MODEL" WHISPER_MODEL="small" LD_LIBRARY_PATH="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/nvidia/cudnn/lib/:$LD_LIBRARY_PATH" open-webui serve --host 0.0.0.0 --port $OPENWEBUI_PORT $OPENWEBUI_SECURE_PARAMS &
