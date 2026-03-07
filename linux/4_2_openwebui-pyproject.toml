@@ -11,8 +11,7 @@ cpu = [
   "torch==2.10.0"
 ]
 cuda = [
-  "torch==2.10.0",
-  "nvidia-cublas-cu12" # ctranslate2 is used for voice transcription and requires Cuda 12
+  "torch==2.10.0"
 ]
 
 [tool.uv]
