@@ -18,4 +18,7 @@ curl -LsSf https://astral.sh/uv/0.9.24/install.sh | sh
 source $UV_INSTALL_DIR/env
 
 # Install Python version
-uv python install 3.12.13
+# ----
+# Python 3.12.13 is only supported starting with uv 0.10.8
+# ----
+uv python install 3.12.12
