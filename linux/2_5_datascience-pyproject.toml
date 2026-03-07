@@ -10,7 +10,7 @@ dependencies = [
     "fastai==2.8.7",
     "nbdev==2.4.14",
     "ollama==0.6.1",
-    "openai==2.26.0",
+    "openai==2.24.0", # vllm==0.17.0 depends on openai>=1.99.1,<2.25.0
     "jupyter-ai-magics==2.31.7",
     "langchain-ollama==0.3.10",
     "langchain-openai==0.3.35",
