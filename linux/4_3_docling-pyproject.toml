@@ -11,10 +11,14 @@ dependencies = [
 
 [project.optional-dependencies]
 cpu = [
-  "torch==2.10.0"
+  "torch==2.10.0",
+  "torchvision==0.25.0",
+  "torchaudio==2.10.0"
 ]
 cuda = [
-  "torch==2.10.0"
+  "torch==2.10.0",
+  "torchvision==0.25.0",
+  "torchaudio==2.10.0"
 ]
 
 [tool.uv]
@@ -27,6 +31,14 @@ conflicts = [
 
 [tool.uv.sources]
 torch = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu130", extra = "cuda" },
+]
+torchvision = [
+  { index = "pytorch-cpu", extra = "cpu" },
+  { index = "pytorch-cu130", extra = "cuda" },
+]
+torchaudio = [
   { index = "pytorch-cpu", extra = "cpu" },
   { index = "pytorch-cu130", extra = "cuda" },
 ]
