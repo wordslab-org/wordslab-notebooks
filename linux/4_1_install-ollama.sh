@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.15.1 -o ollama-linux-amd64.tar.zst
+curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.17.7 -o ollama-linux-amd64.tar.zst
 tar -C $OLLAMA_DIR -xf ollama-linux-amd64.tar.zst
 rm ollama-linux-amd64.tar.zst
 
@@ -28,7 +28,7 @@ done
 # Choose a default local LLMs for this machine
 if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     OLLAMA_CHAT_MODEL="gemma3:1b"
-    OLLAMA_CODE_MODEL="qwen3:1.7b"
+    OLLAMA_CODE_MODEL="qwen3.5:2b"
     OLLAMA_AGENT_MODEL="lfm2.5-thinking:1.2b"
     OLLAMA_EMBED_MODEL="embeddinggemma:300m"
     OLLAMA_CONTEXT_LENGTH=8192
@@ -37,28 +37,28 @@ else
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
     if [ "$vram_gib" -ge 31 ]; then        
         OLLAMA_CHAT_MODEL="gemma3:27b"
-        OLLAMA_CODE_MODEL="qwen3-vl:30b"
+        OLLAMA_CODE_MODEL="qwen3.5:35b"
         OLLAMA_AGENT_MODEL="devstral-small-2:24b"
         OLLAMA_EMBED_MODEL="embeddinggemma:300m"
         OLLAMA_CONTEXT_LENGTH=65536
         OLLAMA_AGENT_CONTEXT_LENGTH=98304
     elif [ "$vram_gib" -ge 23 ]; then        
         OLLAMA_CHAT_MODEL="gemma3:27b"
-        OLLAMA_CODE_MODEL="qwen3-vl:30b"
+        OLLAMA_CODE_MODEL="qwen3.5:27b"
         OLLAMA_AGENT_MODEL="glm-4.7-flash:q4_K_M"
         OLLAMA_EMBED_MODEL="embeddinggemma:300m"
         OLLAMA_CONTEXT_LENGTH=32768
         OLLAMA_AGENT_CONTEXT_LENGTH=49152
     elif [ "$vram_gib" -ge 15 ]; then
         OLLAMA_CHAT_MODEL="gemma3:12b"
-        OLLAMA_CODE_MODEL="qwen3:14b"
+        OLLAMA_CODE_MODEL="qwen3.5:9b"
         OLLAMA_AGENT_MODEL="gpt-oss:20b"
         OLLAMA_EMBED_MODEL="embeddinggemma:300m"
         OLLAMA_CONTEXT_LENGTH=32768
         OLLAMA_AGENT_CONTEXT_LENGTH=98304
     else
         OLLAMA_CHAT_MODEL="gemma3:4b"
-        OLLAMA_CODE_MODEL="qwen3-vl:4b"
+        OLLAMA_CODE_MODEL="qwen3.5:4b"
         OLLAMA_AGENT_MODEL="ministral-3:3b"
         OLLAMA_EMBED_MODEL="embeddinggemma:300m"
         OLLAMA_CONTEXT_LENGTH=16384
@@ -97,12 +97,3 @@ cat > "$JAI_CONFIG_FILE" <<EOF
     "api_keys": {}
 }
 EOF
-
-# Disable inline completion with Jupyter-ai: it is an "experimental" feature in Jupyterlab 4.1
-# - doesn't work well, context is too small (one cell), implementation too naive
-# - completions are triggered continuously, pushed the GPU to 100% all the time
-
-#JIC_CONFIG_FILE="$JUPYTERLAB_SETTINGS_DIR/@jupyterlab/completer-extension/inline-completer.jupyterlab-settings"
-#mkdir -p "$(dirname "$JIC_CONFIG_FILE")"
-#cat > "$JIC_CONFIG_FILE" <<EOF
-#EOF

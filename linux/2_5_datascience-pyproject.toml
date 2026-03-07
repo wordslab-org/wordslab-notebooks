@@ -5,12 +5,12 @@ description = "Add your project description here"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "ipywidgets==8.1.8",
-    "pandas==2.3.3",
+    "pandas==3.0.1",
     "scikit-learn==1.8.0",
-    "fastai==2.8.6",
-    "nbdev==2.4.11",
+    "fastai==2.8.7",
+    "nbdev==2.4.14",
     "ollama==0.6.1",
-    "openai==2.15.0",
+    "openai==2.26.0",
     "jupyter-ai-magics==2.31.7",
     "langchain-ollama==0.3.10",
     "langchain-openai==0.3.35",
@@ -19,20 +19,20 @@ dependencies = [
 
 [project.optional-dependencies]
 cpu = [
-  "torch==2.9.1",
-  "torchvision==0.24.1",
-  "torchaudio==2.9.1"
+  "torch==2.10.0",
+  "torchvision==0.25.0",
+  "torchaudio==2.10.0"
 ]
 cuda = [
-  "torch==2.9.1",
-  "torchvision==0.24.1",
-  "torchaudio==2.9.1",
-  "vllm==0.15.0"
+  "torch==2.10.0",
+  "torchvision==0.25.0",
+  "torchaudio==2.10.0",
+  "vllm==0.17.0"
 ]
 
 [dependency-groups]
 dev = [
-    "ipykernel==7.1.0",
+    "ipykernel==7.2.0",
 ]
 
 [tool.uv]
@@ -46,15 +46,15 @@ conflicts = [
 [tool.uv.sources]
 torch = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu129", extra = "cuda" },
+  { index = "pytorch-cu130", extra = "cuda" },
 ]
 torchvision = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu129", extra = "cuda" },
+  { index = "pytorch-cu130", extra = "cuda" },
 ]
 torchaudio = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu129", extra = "cuda" },
+  { index = "pytorch-cu130", extra = "cuda" },
 ]
 
 [[tool.uv.index]]
@@ -63,6 +63,6 @@ url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [[tool.uv.index]]
-name = "pytorch-cu129"
-url = "https://download.pytorch.org/whl/cu129"
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
 explicit = true
