@@ -32,6 +32,7 @@ if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     OLLAMA_AGENT_MODEL="lfm2.5-thinking:1.2b"
     OLLAMA_EMBED_MODEL="embeddinggemma:300m"
     OLLAMA_CONTEXT_LENGTH=8192
+    OLLAMA_AGENT_CONTEXT_LENGTH=16384
 else
     # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')

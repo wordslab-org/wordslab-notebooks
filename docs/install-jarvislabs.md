@@ -7,13 +7,13 @@ Open a terminal on your Windows machine and execute one of the commands below.
 Option 1: if wordslab-notebooks is not yet installed on your Windows machine
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-01" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/prepare-client-machine.bat -o "%temp%\prepare-client-machine.bat" && call "%temp%\prepare-client-machine.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-03" && call curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/prepare-client-machine.bat -o "%temp%\prepare-client-machine.bat" && call "%temp%\prepare-client-machine.bat"
 ```
 
 Option 2: if wordslab-notebooks is already installed on your Windows machine
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-01" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-client-machine.bat
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-03" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call prepare-client-machine.bat
 ```
 
 This command will download the installation scripts if necessary, and it will generate a secret **SSH key** to connect to the cloud virtual machine.
@@ -76,7 +76,7 @@ Go to Menu / File Storage.
 
 Click on Create New: choose a name, for example "storage-70G", and configure the size of the persistent storage you need in GB.
 
-The minimum size to install wordslab is 35 GB if you rent a small GPU (8 GB), and 70 GB if you rent a bigger GPU (24 GB or more).
+The minimum size to install wordslab is 50 GB if you rent a small GPU (8 GB), and 100 GB if you rent a bigger GPU (32 GB or more).
 
 See [Estimating the storage size](cloud-machines.md).
 
@@ -141,13 +141,13 @@ IMPORTANT: you only need to do this once, the first time you launch a virtual ma
 Open a terminal on your Windows machine and execute the command below.
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-01" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call install-wordslab-notebooks.bat [virtual machine IP address] [virtual machine SSH port]
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-03" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call install-wordslab-notebooks.bat [virtual machine IP address] [virtual machine SSH port]
 ```
 
 For example:
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-01" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call install-wordslab-notebooks.bat sshq.jarvislabs.ai 11014
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_VERSION=2026-03" && call cd "%WORDSLAB_WINDOWS_HOME%\wordslab-notebooks-%WORDSLAB_VERSION%" && call install-wordslab-notebooks.bat sshq.jarvislabs.ai 11014
 ```
 
 

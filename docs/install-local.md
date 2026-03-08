@@ -8,7 +8,7 @@ WORDSLAB_HOME : wordslab installation scripts and virtual disk containing the Li
 WORDSLAB_WORKSPACE : virtual disk containing your projects code and data + their specific software dependencies (initial size 1 GB) 
 - default: %WORDSLAB_HOME%\virtual-machines\wordslab-workspace
 
-WORDSLAB_MODELS : virtual disk containing all the AI models initially installed by wordslab and then downloaded in the course of your projects (initial size 10 to 52 GB depending of your GPU VRAM) 
+WORDSLAB_MODELS : virtual disk containing all the AI models initially installed by wordslab and then downloaded in the course of your projects (initial size 12 to 55 GB depending of your GPU VRAM) 
 - default: %WORDSLAB_HOME%\virtual-machines\wordslab-models
 		
 If your machine has several physical disks or partitions, you can split your wordslab install between all of them to best use your available storage space.
@@ -49,7 +49,7 @@ Installation script parameters for special cases (you shouldn't need them)
 4. Copy / paste the installation command below in the terminal
 
 ```shell
-set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2026-01" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
+set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace"  && call set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models" && call set "WORDSLAB_VERSION=2026-03" && call curl -sSL "https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/%WORDSLAB_VERSION%/install-wordslab-notebooks.bat" -o "%temp%\install-wordslab-notebooks.bat" && call "%temp%\install-wordslab-notebooks.bat"
 ```
 
 ![Installation command](./images/install-local/04-installation-command.png)
@@ -59,7 +59,7 @@ set "WORDSLAB_WINDOWS_HOME=C:\wordslab" && call set "WORDSLAB_WINDOWS_WORKSPACE=
 - set "WORDSLAB_WINDOWS_HOME=C:\wordslab" 
 - set "WORDSLAB_WINDOWS_WORKSPACE=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-workspace" 
 - set "WORDSLAB_WINDOWS_MODELS=%WORDSLAB_WINDOWS_HOME%\virtual-machines\wordslab-models"
-- set WORDSLAB_VERSION=2026-01
+- set WORDSLAB_VERSION=2026-03
 
 Press Enter to launch the installation script
 
@@ -213,7 +213,7 @@ You will need to enter your password.
 2. Copy / paste the installation command below in the terminal
 
 ```bash
-apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2026-01 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
+apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace && export WORDSLAB_MODELS=$WORDSLAB_HOME/models && export WORDSLAB_VERSION=2026-03 && curl -sSL https://raw.githubusercontent.com/wordslab-org/wordslab-notebooks/refs/tags/$WORDSLAB_VERSION/install-wordslab-notebooks.sh | bash
 ```
 
 3. Personalize the installation paths on your computer, and select the version you want to install
@@ -221,7 +221,7 @@ apt update && apt install -y curl && export WORDSLAB_HOME=/home/wordslab && expo
 - export WORDSLAB_HOME=/home/wordslab
 - export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace 
 - export WORDSLAB_MODELS=$WORDSLAB_HOME/models
-- export WORDSLAB_VERSION=2026-01
+- export WORDSLAB_VERSION=2026-03
 
 Press Enter to launch the installation script
 
@@ -247,7 +247,7 @@ Press Enter to launch the startup script
 
 => they are identical for a Windows or Linux machine, see the section "wordslab-notebooks startup steps" above
 
-## Storage directories size (MB) - Version 2026-01
+## Storage directories size (MB) - Version 2026-03
 
 Please note that the exact install size will vary for each wordslab version and also depends on your GPU memory capacity (wordslab downloads bigger models by default if your GPU has more VRAM): the numbers below should be seen as a minimum.
 
@@ -259,32 +259,32 @@ Maximal install size = **80 GB** (32 GB GPU with bigger models)
 **21.8 GB**
 
 System	
-- Operating system:	1516
-- Root user:	297
+- Operating system:	1566
+- Root user:	162
 
 Applications	
-- JupyterLab:	118
-- Visual Studio:	472
-- Ollama:	4407
-- Open WebUI:	585
+- JupyterLab:	115
+- Visual Studio:	492
+- Ollama:	4436
+- Open WebUI:	597
 
 Python packages	
-- torch-2.9.1+cu129:	2120
-- vllm-0.14.0:	1187
+- torch-2.10.0+cu129:	2166
+- vllm-0.17.0:	1121
 - nvidia_cudnn_cu12-9.10.2.21:	1004
 - nvidia_cublas_cu12-12.9.1.4:	816
-- triton-3.5.1:	591
+- triton-3.6.0:	638
 - nvidia_cusolver_cu12-11.7.5.82:	472
 - nvidia_cusparse_cu12-12.5.10.65:	464
 - nvidia_cusparselt_cu12-0.7.1:	431
 - nvidia_nccl_cu12-2.27.5:	409
+- cupy_cuda12x-14.0.1:	281
 - nvidia_cufft_cu12-11.4.1.4:	280
-- open_webui-0.7.2:	257
-- cupy_cuda12x-13.6.0:	222
+- open_webui-0.8.8:	260
 - nvidia_cuda_nvrtc_cu12-12.9.86:	216
-- gradio-5.50.0:	197
-- opencv_python-4.13.0.90:	191
-- ray-2.53.0:	180
+- nvidia_nvshmem_cu12-3.4.5:	194
+- opencv_python-4.13.0.92:	191
+- ray-2.54.0:	181
 - ... and many others
 
 ### WORDSLAB_WORKSPACE disk
@@ -292,24 +292,24 @@ Python packages
 **1.3 GB**
 
 Workspace projects	
-- wordslab-notebooks-tutorials:	247
+- wordslab-notebooks-tutorials:	248
 
 Applications data	
 - JupyterLab data:	0
-- Visual Studio data:	291
+- Visual Studio data:	244
 - Open WebUI data:	464
 
 ### WORDSLAB_MODELS disk
 
-**10.0 GB** for GPUs with 8 GB VRAM // **52 GB** for GPUs with 32 GB VRAM
+**11.4 GB** for GPUs with 8 GB VRAM // **54.8 GB** for GPUs with 32 GB VRAM
 
-Ollama models	
-- gemma3:4b:	3184  //  gemma3:27b:   17 GB
-- qwen3:4b:     2381  //  glm-4.7-flash:q4_K_M:    19 GB
-- ministral-3:3b:	2817  //  devstral-small-2:24b:  15 GB 
+Ollama models (sizes in MB)	
+- gemma3:4b:	3184  //  gemma3:27b:   16591
+- qwen3.5:4b:     3232  //  qwen3.5:35b:	22763
+- ministral-3:3b:	2817  //  devstral-small-2:24b	14474 
 - embeddinggemma:300m:	593
-vLLM models	
-
-- Docling documents analysis models: 1692
+  
+Other models	
+- Docling documents analysis models: 1752
 
 
