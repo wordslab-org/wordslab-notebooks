@@ -20,6 +20,9 @@ echo 'export KERAS_HOME=$WORDSLAB_MODELS/keras' >> ./_wordslab-notebooks-env.bas
 echo 'export TFHUB_CACHE_DIR=$WORDSLAB_MODELS/tfhub_modules' >> ./_wordslab-notebooks-env.bashrc
 echo 'export OLLAMA_MODELS=$WORDSLAB_MODELS/ollama' >> ./_wordslab-notebooks-env.bashrc
 
+# Install  the Huggingface CLI
+curl -LsSf https://hf.co/cli/install.sh | bash
+
 # Replace the tutorials project with a brand new one when upgrading to a new wordslab version
 if [ -d $WORDSLAB_WORKSPACE/wordslab-notebooks-tutorials ]; then
     rm -rf $WORDSLAB_WORKSPACE/wordslab-notebooks-tutorials

@@ -4,7 +4,7 @@
 mkdir -p $UV_INSTALL_DIR
 # ----
 # Pin uv to version 0.9.24
-# Version 0.9.25 and 0.9.26 create a deadlock when executing "uv python install" in WSL:
+# Versions 0.9.25 to 0.11.3 create a deadlock when executing "uv python install" in WSL:
 # > DEBUG Acquired shared lock for `/home/python`
 # > INFO Waiting to acquire exclusive lock for `/home/python` at `/home/python/.lock`
 # This is what’s happening internally:

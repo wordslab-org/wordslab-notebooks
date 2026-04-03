@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.17.7 -o ollama-linux-amd64.tar.zst
+curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.20.0 -o ollama-linux-amd64.tar.zst
 tar -C $OLLAMA_DIR -xf ollama-linux-amd64.tar.zst
 rm ollama-linux-amd64.tar.zst
 
@@ -27,60 +27,60 @@ done
 
 # Choose a default local LLMs for this machine
 if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
-    OLLAMA_CHAT_MODEL="gemma3:1b"
-    OLLAMA_CODE_MODEL="qwen3.5:2b"
-    OLLAMA_AGENT_MODEL="lfm2.5-thinking:1.2b"
-    OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+    OLLAMA_CHAT_MODEL="gemma4:e2b"
+    OLLAMA_FAST_MODEL="lfm2.5-thinking:1.2b"
+    OLLAMA_AGENT_MODEL="qwen3.5:2b"
     OLLAMA_CONTEXT_LENGTH=8192
     OLLAMA_AGENT_CONTEXT_LENGTH=16384
 else
     # Get the GPU VRAM in MiB and choose the best chat model which fits in memory
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
     if [ "$vram_gib" -ge 31 ]; then        
-        OLLAMA_CHAT_MODEL="gemma3:27b"
-        OLLAMA_CODE_MODEL="qwen3.5:35b"
-        OLLAMA_AGENT_MODEL="devstral-small-2:24b"
-        OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+        OLLAMA_CHAT_MODEL="gemma4:31b"
+        OLLAMA_FAST_MODEL="qwen3.5:35b"
+        OLLAMA_AGENT_MODEL="qwen3.5:27b"
         OLLAMA_CONTEXT_LENGTH=65536
         OLLAMA_AGENT_CONTEXT_LENGTH=98304
     elif [ "$vram_gib" -ge 23 ]; then        
-        OLLAMA_CHAT_MODEL="gemma3:27b"
-        OLLAMA_CODE_MODEL="qwen3.5:27b"
-        OLLAMA_AGENT_MODEL="glm-4.7-flash:q4_K_M"
-        OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+        OLLAMA_CHAT_MODEL="gemma4:26b"
+        OLLAMA_FAST_MODEL="glm-4.7-flash:q4_K_M"
+        OLLAMA_AGENT_MODEL="devstral-small-2:24b"
         OLLAMA_CONTEXT_LENGTH=32768
         OLLAMA_AGENT_CONTEXT_LENGTH=49152
     elif [ "$vram_gib" -ge 15 ]; then
-        OLLAMA_CHAT_MODEL="gemma3:12b"
-        OLLAMA_CODE_MODEL="qwen3.5:9b"
-        OLLAMA_AGENT_MODEL="gpt-oss:20b"
-        OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+        OLLAMA_CHAT_MODEL="gemma4:e4b"
+        OLLAMA_FAST_MODEL="gpt-oss:20b"
+        OLLAMA_AGENT_MODEL="qwen3.5:9b"
         OLLAMA_CONTEXT_LENGTH=32768
         OLLAMA_AGENT_CONTEXT_LENGTH=98304
     else
-        OLLAMA_CHAT_MODEL="gemma3:4b"
-        OLLAMA_CODE_MODEL="qwen3.5:4b"
-        OLLAMA_AGENT_MODEL="ministral-3:3b"
-        OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+        OLLAMA_CHAT_MODEL="gemma4:e2b"
+        OLLAMA_FAST_MODEL="ministral-3:3b"
+        OLLAMA_AGENT_MODEL="qwen3.5:4b"
         OLLAMA_CONTEXT_LENGTH=16384
         OLLAMA_AGENT_CONTEXT_LENGTH=24576
     fi
 fi
+OLLAMA_EMBED_MODEL="embeddinggemma:300m"
+OLLAMA_OCR_MODEL="glm-ocr:q8_0"
 
 # Save the LLM names as env variables 
 echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_CODE_MODEL=$OLLAMA_CODE_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_CODE_MODEL=$OLLAMA_FAST_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_AGENT_MODEL=$OLLAMA_AGENT_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_OCR_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_CONTEXT_LENGTH=$OLLAMA_CONTEXT_LENGTH" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_AGENT_CONTEXT_LENGTH=$OLLAMA_CONTEXT_LENGTH" >> ./_wordslab-notebooks-env.bashrc
 
 # Download the default local LLMs
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_CHAT_MODEL
-$OLLAMA_DIR/bin/ollama pull $OLLAMA_CODE_MODEL
+$OLLAMA_DIR/bin/ollama pull $OLLAMA_FAST_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_AGENT_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_EMBED_MODEL
+$OLLAMA_DIR/bin/ollama pull $OLLAMA_OCR_MODEL
 
 # Stop ollama
 kill $pid
