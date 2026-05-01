@@ -29,6 +29,8 @@ export VSCODE_DIR=$WORDSLAB_HOME/code-server
 export OPENWEBUI_ENV=$WORDSLAB_HOME/open-webui
 export OLLAMA_DIR=$WORDSLAB_HOME/ollama
 
+export XDG_CACHE_HOME=$WORDSLAB_HOME/.cache
+
 # Data directories
 export WORDSLAB_WORKSPACE=$WORDSLAB_HOME/workspace
 export WORDSLAB_MODELS=$WORDSLAB_HOME/models
@@ -36,6 +38,10 @@ export WORDSLAB_MODELS=$WORDSLAB_HOME/models
 export JUPYTER_DATA=$WORDSLAB_WORKSPACE/.jupyter
 export VSCODE_DATA=$WORDSLAB_WORKSPACE/.codeserver
 export OPENWEBUI_DATA=$WORDSLAB_WORKSPACE/.openwebui
+
+export XDG_CONFIG_HOME=$WORDSLAB_WORKSPACE/.config
+export XDG_DATA_HOME=$WORDSLAB_WORKSPACE/.data
+export XDG_STATE_HOME=$WORDSLAB_WORKSPACE/.state
 
 # Python global directories
 export UV_INSTALL_DIR=$WORDSLAB_HOME/python

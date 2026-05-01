@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.20.2 -o ollama-linux-amd64.tar.zst
+curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.22.1 -o ollama-linux-amd64.tar.zst
 tar -C $OLLAMA_DIR -xf ollama-linux-amd64.tar.zst
 rm ollama-linux-amd64.tar.zst
 
@@ -25,6 +25,44 @@ while ! curl -s http://localhost:11434 > /dev/null; do
     sleep 1
 done
 
+# Text Arena leaderboard
+# 1451    Gemma 4 31B
+# 1438    Gemma 4 26B A4B
+# 1405    Qwen3.5 27B
+# 1396    Qwen3.5 35B A3B
+# 1368    GLM-4.7-Flash
+# 1317    gpt-oss-20B (high)
+
+# Artificial Analysis Intelligence Index
+# 46    Qwen3.6 27B
+# 43    Qwen3.6 35B A3B
+# 39    Gemma 4 31B
+# 32    Qwen3.5 9B
+# 31    Gemma 4 26B A4B
+# 30    GLM-4.7-Flash
+# 27    Qwen3.5 4B
+# 24    gpt-oss-20B (high)
+# 19    Gemma 4 E4B
+# 16    Qwen3.5 2B
+# 15    Gemma 4 E2B
+# 11    Ministral 3 3B
+# 8     LFM2.5-1.2B-Thinking
+
+# Artificial Analysis Agentic Index
+# 63    Qwen3.6 27B
+# 58    Qwen3.6 35B A3B
+# 46    GLM-4.7-Flash
+# 41    Gemma 4 31B
+# 37    Qwen3.5 9B
+# 32    Qwen3.5 4B
+# 32    Gemma 4 26B A4B
+# 28    gpt-oss-20B (high)
+# 23    Qwen3.5 2B
+# 11    Ministral 3 3B
+# 7     Gemma 4 E2B
+# 7     Gemma 4 E4B
+# 7     LFM2.5-1.2B-Thinking
+
 # Choose a default local LLMs for this machine
 if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     OLLAMA_CHAT_MODEL="gemma4:e2b"
@@ -37,14 +75,14 @@ else
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
     if [ "$vram_gib" -ge 31 ]; then        
         OLLAMA_CHAT_MODEL="gemma4:31b"
-        OLLAMA_FAST_MODEL="qwen3.5:35b"
-        OLLAMA_AGENT_MODEL="qwen3.5:27b"
+        OLLAMA_FAST_MODEL="qwen3.6:35b"
+        OLLAMA_AGENT_MODEL="qwen3.6:27b"
         OLLAMA_CONTEXT_LENGTH=65536
         OLLAMA_AGENT_CONTEXT_LENGTH=98304
     elif [ "$vram_gib" -ge 23 ]; then        
         OLLAMA_CHAT_MODEL="gemma4:26b"
         OLLAMA_FAST_MODEL="glm-4.7-flash:q4_K_M"
-        OLLAMA_AGENT_MODEL="devstral-small-2:24b"
+        OLLAMA_AGENT_MODEL="qwen3.6:27b"
         OLLAMA_CONTEXT_LENGTH=32768
         OLLAMA_AGENT_CONTEXT_LENGTH=49152
     elif [ "$vram_gib" -ge 15 ]; then
@@ -68,7 +106,7 @@ OLLAMA_OCR_MODEL="glm-ocr:q8_0"
 echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_CHAT_MODEL=$OLLAMA_CHAT_MODEL" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_CODE_MODEL=$OLLAMA_FAST_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_FAST_MODEL=$OLLAMA_FAST_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_AGENT_MODEL=$OLLAMA_AGENT_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_OCR_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc

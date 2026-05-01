@@ -8,22 +8,22 @@ dependencies = [
     "pandas==3.0.2",
     "scikit-learn==1.8.0",
     "fastai==2.8.7",
-    "nbdev==3.0.12",
-    "ollama==0.6.1",
-    "openai==2.30.0",
+    "nbdev==3.0.15",
+    "ollama==0.6.2",
+    "openai==2.33.0",
     "wordslab-notebooks-lib"
 ]
 
 [project.optional-dependencies]
 cpu = [
-  "torch==2.10.0",
-  "torchvision==0.25.0",
-  "torchaudio==2.10.0"
+  "torch==2.11.0",
+  "torchvision==0.26.0",
+  "torchaudio==2.11.0"
 ]
 cuda = [
-  "torch==2.10.0",
-  "torchvision==0.25.0",
-  "torchaudio==2.10.0"
+  "torch==2.11.0",
+  "torchvision==0.26.0",
+  "torchaudio==2.11.0"
 ]
 
 [dependency-groups]
@@ -42,15 +42,15 @@ conflicts = [
 [tool.uv.sources]
 torch = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu129", extra = "cuda" },
+  { index = "pytorch-cu130", extra = "cuda" },
 ]
 torchvision = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu129", extra = "cuda" },
+  { index = "pytorch-cu130", extra = "cuda" },
 ]
 torchaudio = [
   { index = "pytorch-cpu", extra = "cpu" },
-  { index = "pytorch-cu129", extra = "cuda" },
+  { index = "pytorch-cu130", extra = "cuda" },
 ]
 
 [[tool.uv.index]]
@@ -59,6 +59,6 @@ url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [[tool.uv.index]]
-name = "pytorch-cu129"
-url = "https://download.pytorch.org/whl/cu129"
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
 explicit = true
