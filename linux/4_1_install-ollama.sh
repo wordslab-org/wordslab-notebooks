@@ -111,12 +111,12 @@ OLLAMA_OCR_MODEL="glm-ocr:q8_0"
 
 # Download the default local LLMs
 pairs=(
-  "$OLLAMA_CHAT_MODEL:$OLLAMA_CHAT_CONTEXT"
-  "$OLLAMA_FAST_MODEL:$OLLAMA_FAST_CONTEXT"
-  "$OLLAMA_AGENT_MODEL:$OLLAMA_AGENT_CONTEXT"
+  "$OLLAMA_CHAT_MODEL#$OLLAMA_CHAT_CONTEXT"
+  "$OLLAMA_FAST_MODEL#$OLLAMA_FAST_CONTEXT"
+  "$OLLAMA_AGENT_MODEL#$OLLAMA_AGENT_CONTEXT"
 )
 for pair in "${pairs[@]}"; do
-  IFS=":" read -r OLLAMA_MODEL OLLAMA_CONTEXT <<< "$pair"
+  IFS="#" read -r OLLAMA_MODEL OLLAMA_CONTEXT <<< "$pair"
   NEW_MODEL="${OLLAMA_MODEL}-${OLLAMA_CONTEXT}k"
   CONTEXT_TOKENS=$((OLLAMA_CONTEXT * 1024))
 
@@ -129,7 +129,6 @@ PARAMETER num_ctx ${CONTEXT_TOKENS}
 EOF
   ollama create "${NEW_MODEL}" -f "${MODELFILE}"
   rm -f "${MODELFILE}"
-  ollama rm "${OLLAMA_MODEL}"
 done
 
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_EMBED_MODEL
@@ -146,17 +145,3 @@ echo "export OLLAMA_OCR_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.
 
 # Stop ollama
 kill $pid
-
-# Configure models for Jupyter AI extension
-
-JAI_CONFIG_FILE="$JUPYTER_DATA_DIR/jupyter_ai/config.json"
-mkdir -p "$(dirname "$JAI_CONFIG_FILE")"
-cat > "$JAI_CONFIG_FILE" <<EOF
-{
-    "model_provider_id": "ollama:$OLLAMA_CHAT_MODEL",
-    "embeddings_provider_id": "ollama:$OLLAMA_EMBED_MODEL",
-    "send_with_shift_enter": false,
-    "fields": {},
-    "api_keys": {}
-}
-EOF
