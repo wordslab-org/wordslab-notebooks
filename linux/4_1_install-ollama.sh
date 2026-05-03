@@ -72,38 +72,39 @@ if [ -f "$WORDSLAB_WORKSPACE/.cpu-only" ]; then
     OLLAMA_FAST_MODEL="lfm2.5-thinking:1.2b"
     OLLAMA_FAST_CONTEXT=128
     OLLAMA_AGENT_MODEL="qwen3.5:0.8b"
-    OLLAMA_AGENT_CONTEXT=64
+    OLLAMA_AGENT_CONTEXT=120 # 104 fp16
 else
     # Get the GPU VRAM in MiB and choose the best local models which fit in memory
+    # Warning: all token generation speeds measured with ollama 0.10.4 on a RTX 5090, comparison at mid context length
     vram_gib=$(nvidia-smi --query-gpu=memory.total --format=csv,nounits,noheader | awk '{print int($1 / 1024)}')
     if [ "$vram_gib" -ge 31 ]; then        
-        OLLAMA_CHAT_MODEL="gemma4:31b"
-        OLLAMA_CHAT_CONTEXT=72
-        OLLAMA_FAST_MODEL="qwen3.6:35b"
-        OLLAMA_FAST_CONTEXT=128
-        OLLAMA_AGENT_MODEL="qwen3.6:27b"
-        OLLAMA_AGENT_CONTEXT=92
+        OLLAMA_CHAT_MODEL="gemma4:31b" # 60-47-39 t/s q8 | 60-52-48 fp16 (+10%)
+        OLLAMA_CHAT_CONTEXT=136 # 72 fp16 (-47%)
+        OLLAMA_FAST_MODEL="qwen3.6:35b" # 130-120-103 t/s q8 | 143-123-109 fp16 (+3%)
+        OLLAMA_FAST_CONTEXT=160 # 128 fp16 (-20%)
+        OLLAMA_AGENT_MODEL="qwen3.6:27b" # 61-54-47 t/s q8 | 60-51-35 fp16 (-6%)
+        OLLAMA_AGENT_CONTEXT=136 # 92 fp16 (-32%)
     elif [ "$vram_gib" -ge 23 ]; then        
-        OLLAMA_CHAT_MODEL="gemma4:26b"
-        OLLAMA_CHAT_CONTEXT=124
-        OLLAMA_FAST_MODEL="glm-4.7-flash:q4_K_M"
-        OLLAMA_FAST_CONTEXT=32
-        OLLAMA_AGENT_MODEL="qwen3.5:9b"
+        OLLAMA_CHAT_MODEL="gemma4:26b" # 166-94-65 t/s q8 | 166-124-103 fp16 (+32%)
+        OLLAMA_CHAT_CONTEXT=176 # 124 fp16 (-30%)
+        OLLAMA_FAST_MODEL="glm-4.7-flash:q4_K_M" # 139-70-42 t/s q8 | 148-96-71 fp16 (+37%)
+        OLLAMA_FAST_CONTEXT=50 # 32 fp16 (-36%)
+        OLLAMA_AGENT_MODEL="qwen3.5:9b" # 152-118-94 t/s q8 | 152-111-84 fp16 (-6%)
         OLLAMA_AGENT_CONTEXT=256
     elif [ "$vram_gib" -ge 15 ]; then
-        OLLAMA_CHAT_MODEL="gemma4:e4b"
+        OLLAMA_CHAT_MODEL="gemma4:e4b" # 180-120-86 t/s q8 | 189-148-128 fp16 (+23%)
         OLLAMA_CHAT_CONTEXT=128
-        OLLAMA_FAST_MODEL="gpt-oss:20b"
-        OLLAMA_FAST_CONTEXT=44
-        OLLAMA_AGENT_MODEL="qwen3.5:9b"
-        OLLAMA_AGENT_CONTEXT=136
+        OLLAMA_FAST_MODEL="gpt-oss:20b" # 235-162-121 q8 | 238-189-157 fp16 (+16%) 
+        OLLAMA_FAST_CONTEXT=64 # 44 fp16 (-43%)
+        OLLAMA_AGENT_MODEL="qwen3.5:9b" # 152-118-94 t/s q8 | 152-111-84 fp16 (-6%)
+        OLLAMA_AGENT_CONTEXT=176 # 136 fp16 (-22%)
     else
-        OLLAMA_CHAT_MODEL="gemma3:4b" 
-        OLLAMA_CHAT_CONTEXT=100
-        OLLAMA_FAST_MODEL="ministral-3:3b"
-        OLLAMA_FAST_CONTEXT=20
-        OLLAMA_AGENT_MODEL="qwen3.5:2b"
-        OLLAMA_AGENT_CONTEXT=100
+        OLLAMA_CHAT_MODEL="gemma3:4b" # 246-220-200 t/s q8 | 248-208-175 t/s fp16 (-6%)
+        OLLAMA_CHAT_CONTEXT=120 # 100 fp16 (-16%)
+        OLLAMA_FAST_MODEL="ministral-3:3b" # 326-125-70 t/s q8 | 338-120-68 fp16 (-4%)
+        OLLAMA_FAST_CONTEXT=32 # 20 fp16 (-37%)
+        OLLAMA_AGENT_MODEL="qwen3.5:2b" # 276-227-186 t/s q8 | 280-213-177 fp16 (-6%)
+        OLLAMA_AGENT_CONTEXT=112 # 100 fp16 (-10%) 
     fi
 fi
 OLLAMA_EMBED_MODEL="embeddinggemma:300m"

@@ -63,7 +63,7 @@ jupyter lab -ServerApp.base_url="/" -ServerApp.ip=0.0.0.0 -ServerApp.port=$JUPYT
 pid2=$!
 
 # Start ollama server
-OLLAMA_HOST=0.0.0.0 OLLAMA_KEEP_ALIVE=-1 OLLAMA_FLASH_ATTENTION=1 OLLAMA_NEW_ESTIMATES=1 ollama serve &
+OLLAMA_HOST=0.0.0.0 OLLAMA_KEEP_ALIVE=-1 OLLAMA_FLASH_ATTENTION=1 OLLAMA_NEW_ENGINE=1 OLLAMA_MULTIUSER_CACHE=1 OLLAMA_KV_CACHE_TYPE=q8_0 ollama serve &
 pid3=$!
 
 # Start Docling server
