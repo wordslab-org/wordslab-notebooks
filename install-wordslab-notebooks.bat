@@ -144,6 +144,43 @@ cd .\wordslab-notebooks-%WORDSLAB_VERSION%\windows
 call 1_install-or-update-windows-subsystem-for-linux.bat
 if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
 
+REM Check if the distribution already exists
+set "CURRENT_VERSION="
+wsl -d %name% -- : >nul 2>&1
+set "DISTRO_EXISTS=%errorlevel%"
+
+if %DISTRO_EXISTS% equ 0 (
+    REM Distro exists — read currently installed version from ~/.wordslab-installed
+    REM (written by linux/1_3_configure-shell-environment.sh line 20)
+    wsl -d %name% -- bash -c "cat /home/.wordslab-installed 2>/dev/null" > "%TEMP%\.wordslab-installed-ver.tmp" 2>&1
+    for /f "delims=" %%v in ('type "%TEMP%\.wordslab-installed-ver.tmp" 2^>nul') do set "CURRENT_VERSION=%%v"
+    del "%TEMP%\.wordslab-installed-ver.tmp" 2>nul
+    if not defined CURRENT_VERSION set "CURRENT_VERSION=unknown"
+
+    echo.
+    echo =========================================
+    echo  wordslab-notebooks version %WORDSLAB_VERSION%
+    echo =========================================
+    echo.
+    echo  Current distribution '%name%' has version !CURRENT_VERSION! installed.
+    echo.
+    echo  Select an option:
+    echo.
+    echo    1 - Delete '%name%' and create a fresh distribution (default)
+    echo    2 - Update software in the existing '%name%' distribution
+    echo.
+    set /p "RECREATE=Press 1 to delete and recreate (default) or 2 to update in place [1]: "
+    if "%RECREATE%"=="2" goto :skip_recreate
+
+    REM Option 1: Delete and recreate the distro
+    echo.
+    echo Terminating and unregistering distribution '%name%'...
+    wsl --terminate %name%
+    wsl --unregister %name%
+)
+
+:skip_recreate
+
 REM This will only create the virtual machine if it doesn't exist
 call 2_create-linux-virtual-machine.bat %name%
 
