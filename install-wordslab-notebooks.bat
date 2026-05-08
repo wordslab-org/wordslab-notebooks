@@ -152,7 +152,7 @@ set "DISTRO_EXISTS=%errorlevel%"
 if %DISTRO_EXISTS% equ 0 (
     REM Distro exists — read currently installed version from ~/.wordslab-installed
     REM (written by linux/1_3_configure-shell-environment.sh line 20)
-    wsl -d %name% -- bash -c "cat /home/.wordslab-installed 2>/dev/null" > "%TEMP%\.wordslab-installed-ver.tmp" 2>&1
+    wsl -d %name% -- bash -c "cat /root/.wordslab-installed 2>/dev/null" > "%TEMP%\.wordslab-installed-ver.tmp" 2>&1
     for /f "delims=" %%v in ('type "%TEMP%\.wordslab-installed-ver.tmp" 2^>nul') do set "CURRENT_VERSION=%%v"
     del "%TEMP%\.wordslab-installed-ver.tmp" 2>nul
     if not defined CURRENT_VERSION set "CURRENT_VERSION=unknown"
