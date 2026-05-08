@@ -148,9 +148,10 @@ echo "export OLLAMA_AGENT_MODEL=$AGENT_FINAL_MODEL" >> ./_wordslab-notebooks-env
 echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_OCR_MODEL=$OLLAMA_OCR_MODEL" >> ./_wordslab-notebooks-env.bashrc
 
-# Initialize Kilo config
+# Initialize Kilo config (only if not already present)
 KILO_CONFIG_DIR="$WORDSLAB_WORKSPACE/.config/kilo"
 mkdir -p $KILO_CONFIG_DIR
+if [ ! -f "$KILO_CONFIG_DIR/kilo.jsonc" ]; then
 cat > "$KILO_CONFIG_DIR/kilo.jsonc" <<EOF
 {
   "\$schema": "https://app.kilo.ai/config.json",
@@ -182,10 +183,14 @@ cat > "$KILO_CONFIG_DIR/kilo.jsonc" <<EOF
   }
 }
 EOF
+else
+  echo "Kilo config already exists, skipping."
+fi
 
-# Initialize Mistral Vibe config (also used by Jupyter AI v3 as ACP agent)
+# Initialize Mistral Vibe config only if not already present (also used by Jupyter AI v3 as ACP agent)
 VIBE_CONFIG_DIR="$WORDSLAB_WORKSPACE/.vibe"
 mkdir -p "$VIBE_CONFIG_DIR"
+if [ ! -f "$VIBE_CONFIG_DIR/config.toml" ]; then
 cat > "$VIBE_CONFIG_DIR/config.toml" <<EOF
 # Mistral Vibe config — Ollama provider for local models
 active_model = "${AGENT_FINAL_MODEL}"
@@ -215,9 +220,14 @@ provider = "ollama"
 alias = "${AGENT_FINAL_MODEL}"
 temperature = 0.2
 EOF
+else
+  echo "Mistral Vibe config already exists, skipping."
+fi
 
-# Initialize Hermes Agent config — Ollama provider for local models
+# Initialize Hermes Agent config only if not already present — Ollama provider for local models
 HERMES_CONFIG_DIR="$WORDSLAB_WORKSPACE/.hermes"
+mkdir -p "$HERMES_CONFIG_DIR"
+if [ ! -f "$HERMES_CONFIG_DIR/config.yaml" ]; then
 cat > "$HERMES_CONFIG_DIR/config.yaml" <<EOF
 # Hermes Agent config — local Ollama provider
 custom_providers:
@@ -235,6 +245,9 @@ model:
   default: "${AGENT_FINAL_MODEL}"
   provider: custom:ollama
 EOF
+else
+  echo "Hermes Agent config already exists, skipping."
+fi
 
 # Stop ollama
 kill $pid
