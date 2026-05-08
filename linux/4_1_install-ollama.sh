@@ -144,5 +144,42 @@ echo "export OLLAMA_AGENT_MODEL=${OLLAMA_AGENT_MODEL}-$((OLLAMA_AGENT_CONTEXT * 
 echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_OCR_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 
+# Initialize Kilo config
+mkdir -p "$WORDSLAB_WORKSPACE/.config/kilo"
+CHAT_FINAL_MODEL="${OLLAMA_CHAT_MODEL}-${OLLAMA_CHAT_CONTEXT}k"
+FAST_FINAL_MODEL="${OLLAMA_FAST_MODEL}-${OLLAMA_FAST_CONTEXT}k"
+AGENT_FINAL_MODEL="${OLLAMA_AGENT_MODEL}-${OLLAMA_AGENT_CONTEXT}k"
+cat > "$WORDSLAB_WORKSPACE/.config/kilo/kilo.jsonc" <<EOF
+{
+  "\$schema": "https://app.kilo.ai/config.json",
+  "model": "ollama/${AGENT_FINAL_MODEL}",
+  "bash": "allow",
+  "disabled_providers": [],
+  "provider": {
+    "ollama": {
+      "name": "ollama local",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "${CHAT_FINAL_MODEL}": {
+          "name": "${CHAT_FINAL_MODEL}",
+          "reasoning": true
+        },
+        "${FAST_FINAL_MODEL}": {
+          "name": "${FAST_FINAL_MODEL}",
+          "reasoning": true
+        },
+        "${AGENT_FINAL_MODEL}": {
+          "name": "${AGENT_FINAL_MODEL}",
+          "reasoning": true
+        }
+      }
+    }
+  }
+}
+EOF
+
 # Stop ollama
 kill $pid
