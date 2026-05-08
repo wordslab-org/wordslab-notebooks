@@ -156,7 +156,6 @@ cat > "$KILO_CONFIG_DIR/kilo.jsonc" <<EOF
 {
   "\$schema": "https://app.kilo.ai/config.json",
   "model": "ollama/${AGENT_FINAL_MODEL}",
-  "bash": "allow",
   "disabled_providers": [],
   "provider": {
     "ollama": {
