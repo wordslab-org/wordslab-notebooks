@@ -9,7 +9,7 @@ mkdir -p $WORDSLAB_WORKSPACE/.vibe
 
 echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Agents data directories' >> ./_wordslab-notebooks-env.bashrc
-echo 'export VIBE_HOME=' >> ./_wordslab-notebooks-env.bashrc
+echo 'export VIBE_HOME=$WORDSLAB_WORKSPACE/.vibe' >> ./_wordslab-notebooks-env.bashrc
 echo 'export HERMES_INSTALL_DIR=$WORDSLAB_HOME/hermes-agent' >> ./_wordslab-notebooks-env.bashrc
 echo 'export HERMES_HOME=$WORDSLAB_WORKSPACE/.hermes' >> ./_wordslab-notebooks-env.bashrc
 

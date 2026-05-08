@@ -136,20 +136,22 @@ $OLLAMA_DIR/bin/ollama pull $OLLAMA_EMBED_MODEL
 $OLLAMA_DIR/bin/ollama pull $OLLAMA_OCR_MODEL
 
 # Save the LLM names as env variables 
-echo '' >> ./_wordslab-notebooks-env.bashrc
-echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_CHAT_MODEL=${OLLAMA_CHAT_MODEL}-$((OLLAMA_CHAT_CONTEXT * 1024))k" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_FAST_MODEL=${OLLAMA_FAST_MODEL}-$((OLLAMA_FAST_CONTEXT * 1024))k" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_AGENT_MODEL=${OLLAMA_AGENT_MODEL}-$((OLLAMA_AGENT_CONTEXT * 1024))k" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_OCR_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
-
-# Initialize Kilo config
-mkdir -p "$WORDSLAB_WORKSPACE/.config/kilo"
 CHAT_FINAL_MODEL="${OLLAMA_CHAT_MODEL}-${OLLAMA_CHAT_CONTEXT}k"
 FAST_FINAL_MODEL="${OLLAMA_FAST_MODEL}-${OLLAMA_FAST_CONTEXT}k"
 AGENT_FINAL_MODEL="${OLLAMA_AGENT_MODEL}-${OLLAMA_AGENT_CONTEXT}k"
-cat > "$WORDSLAB_WORKSPACE/.config/kilo/kilo.jsonc" <<EOF
+
+echo '' >> ./_wordslab-notebooks-env.bashrc
+echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_CHAT_MODEL=$CHAT_FINAL_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_FAST_MODEL=$FAST_FINAL_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_AGENT_MODEL=$AGENT_FINAL_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_OCR_MODEL=$OLLAMA_OCR_MODEL" >> ./_wordslab-notebooks-env.bashrc
+
+# Initialize Kilo config
+KILO_CONFIG_DIR="$WORDSLAB_WORKSPACE/.config/kilo"
+mkdir -p $KILO_CONFIG_DIR
+cat > "$KILO_CONFIG_DIR/kilo.jsonc" <<EOF
 {
   "\$schema": "https://app.kilo.ai/config.json",
   "model": "ollama/${AGENT_FINAL_MODEL}",
@@ -179,6 +181,39 @@ cat > "$WORDSLAB_WORKSPACE/.config/kilo/kilo.jsonc" <<EOF
     }
   }
 }
+EOF
+
+# Initialize Mistral Vibe config (also used by Jupyter AI v3 as ACP agent)
+VIBE_CONFIG_DIR="$WORDSLAB_WORKSPACE/.vibe"
+mkdir -p "$VIBE_CONFIG_DIR"
+cat > "$VIBE_CONFIG_DIR/config.toml" <<EOF
+# Mistral Vibe config — Ollama provider for local models
+active_model = "${AGENT_FINAL_MODEL}"
+
+[[providers]]
+name = "ollama"
+api_base = "http://localhost:11434/v1"
+api_key_env_var = ""
+api_style = "openai"
+backend = "generic"
+
+[[models]]
+name = "${CHAT_FINAL_MODEL}"
+provider = "ollama"
+alias = "${CHAT_FINAL_MODEL}"
+temperature = 0.2
+
+[[models]]
+name = "${FAST_FINAL_MODEL}"
+provider = "ollama"
+alias = "${FAST_FINAL_MODEL}"
+temperature = 0.2
+
+[[models]]
+name = "${AGENT_FINAL_MODEL}"
+provider = "ollama"
+alias = "${AGENT_FINAL_MODEL}"
+temperature = 0.2
 EOF
 
 # Stop ollama
