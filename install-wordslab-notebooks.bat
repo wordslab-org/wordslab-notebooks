@@ -1,5 +1,5 @@
 @echo off
-setlocal
+setlocal enabledelayedexpansion
 
 REM Usage 1 - Install on local Widows machine
 REM install-wordslab-notebooks.bat --cpu(optional) --name <wsl distribution name>(optional)
@@ -162,11 +162,11 @@ if %DISTRO_EXISTS% equ 0 (
     echo  wordslab-notebooks version %WORDSLAB_VERSION%
     echo =========================================
     echo.
-    echo  Current distribution '%name%' has version !CURRENT_VERSION! installed.
+    echo  Current distribution '%name%' has wordslab version !CURRENT_VERSION! installed.
     echo.
     echo  Select an option:
     echo.
-    echo    1 - Delete '%name%' and create a fresh distribution (default)
+    echo    1 - Delete '%name%' and create a fresh distribution
     echo    2 - Update software in the existing '%name%' distribution
     echo.
     set /p "RECREATE=Press 1 to delete and recreate (default) or 2 to update in place [1]: "
