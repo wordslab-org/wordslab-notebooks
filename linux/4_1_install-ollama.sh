@@ -216,5 +216,25 @@ alias = "${AGENT_FINAL_MODEL}"
 temperature = 0.2
 EOF
 
+# Initialize Hermes Agent config — Ollama provider for local models
+HERMES_CONFIG_DIR="$WORDSLAB_WORKSPACE/.hermes"
+cat > "$HERMES_CONFIG_DIR/config.yaml" <<EOF
+# Hermes Agent config — local Ollama provider
+custom_providers:
+  - name: ollama
+    base_url: http://localhost:11434/v1
+    models:
+      "${CHAT_FINAL_MODEL}":
+        context_length: $((OLLAMA_CHAT_CONTEXT * 1024))
+      "${FAST_FINAL_MODEL}":
+        context_length: $((OLLAMA_FAST_CONTEXT * 1024))
+      "${AGENT_FINAL_MODEL}":
+        context_length: $((OLLAMA_AGENT_CONTEXT * 1024))
+
+model:
+  default: "${AGENT_FINAL_MODEL}"
+  provider: custom:ollama
+EOF
+
 # Stop ollama
 kill $pid
