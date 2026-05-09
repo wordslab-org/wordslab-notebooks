@@ -14,4 +14,5 @@ if %errorlevel% neq 0 (
 
     REM Configure wsl.conf (automount disabled, interop disabled, systemd enabled)
     wsl -d %1 -- sh -c "printf '[automount]\nenabled = false\nmountFsTab = true\n\n[interop]\nenabled = false\nappendWindowsPath = false\n\n[boot]\nsystemd = true\n' > /etc/wsl.conf"
+    wsl --shutdown
 )

@@ -64,7 +64,7 @@ elif platform=="UnknownLinux":
 print(f"export JUPYTERLAB_URL={endpoints[0]}")
 print(f"export VSCODE_URL={endpoints[1]}")
 print(f"export OPENWEBUI_URL={endpoints[2]}")
-print(f"export HERMESAGENT_URL={endpoints[3]}")
+print(f"export HERMESAGENT_URL={endpoints[3].replace('https:','http:')}")
 print(f"export USER_APP1_URL={endpoints[4]}")
 print(f"export USER_APP2_URL={endpoints[5]}")
 print(f"export USER_APP3_URL={endpoints[6]}")
