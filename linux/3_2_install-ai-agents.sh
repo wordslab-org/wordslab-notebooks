@@ -29,6 +29,6 @@ curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scri
 source ~/.bashrc
 
 # Needs [boot]systemd=true in wsl.conf
-hermes config set API_SERVER_ENABLED true 
-hermes config set API_SERVER_KEY wordslab-notebooks-hermes-agent
-hermes gateway install
+$HOME/.local/bin/hermes config set API_SERVER_ENABLED true 
+$HOME/.local/bin/hermes config set API_SERVER_KEY wordslab-notebooks-hermes-agent
+$HOME/.local/bin/hermes gateway install
