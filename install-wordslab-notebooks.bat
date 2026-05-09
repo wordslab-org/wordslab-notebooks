@@ -191,4 +191,14 @@ call 4_mount-linux-virtual-disks.bat  %name%
 
 call 5_install-linux-virtual-machine.bat %name% %cpu%
 
+REM Configure wsl.conf for all 3 distributions (automount disabled, interop disabled, systemd for main distro)
+REM ONLY if it was not already done in 2_create_linux_virtual_machine.bat and 3_create_linux_virtual_disk.bat
+wsl -d %name% -- sh -c "if [ ! -f /etc/wsl.conf ]; then printf '[automount]\nenabled = false\nmountFsTab = true\n\n[interop]\nenabled = false\nappendWindowsPath = false\n\n[boot]\nsystemd = true\n' > /etc/wsl.conf; fi"
+wsl -d wordslab-notebooks-workspace -- sh -c "if [ ! -f /etc/wsl.conf ]; then printf '[automount]\nenabled = false\nmountFsTab = true\n\n[interop]\nenabled = false\nappendWindowsPath = false\n' > /etc/wsl.conf; fi"
+wsl -d wordslab-notebooks-models -- sh -c "if [ ! -f /etc/wsl.conf ]; then printf '[automount]\nenabled = false\nmountFsTab = true\n\n[interop]\nenabled = false\nappendWindowsPath = false\n' > /etc/wsl.conf; fi"
+
+wsl --terminate %name%
+wsl --terminate wordslab-notebooks-workspace
+wsl --terminate wordslab-notebooks-models
+
 cd %WORDSLAB_WINDOWS_HOME%

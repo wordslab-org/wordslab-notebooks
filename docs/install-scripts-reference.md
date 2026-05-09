@@ -1793,7 +1793,8 @@ The script handles different deployment platforms:
   - `JUPYTERLAB_URL`
   - `VSCODE_URL`
   - `OPENWEBUI_URL`
-  - `USER_APP1_URL` through `USER_APP5_URL`
+  - `HERMESAGENT_URL`
+  - `USER_APP1_URL` through `USER_APP4_URL`
   - `DASHBOARD_URL` (always HTTP for dashboard)
 
 ### 5_1_start-docling-documents-extraction.sh

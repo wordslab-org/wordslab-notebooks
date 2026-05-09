@@ -9,12 +9,12 @@ dashboard_port=int(os.getenv("DASHBOARD_PORT"))
 jupyterlab_url = os.getenv("JUPYTERLAB_URL")
 vscode_url = os.getenv("VSCODE_URL")
 openwebui_url = os.getenv("OPENWEBUI_URL")
+hermesagent_url = os.getenv("HERMESAGENT_URL")
 
 app1_url = os.getenv("USER_APP1_URL")
 app2_url = os.getenv("USER_APP2_URL")
 app3_url = os.getenv("USER_APP3_URL")
 app4_url = os.getenv("USER_APP2_URL")
-app5_url = os.getenv("USER_APP3_URL")
 
 # --- Virtual Machine properties ---
 
@@ -149,26 +149,8 @@ def map_paths_to_devices(wordslab_paths, mountpoints):
 
 wordslab_paths_devices = map_paths_to_devices(wordslab_paths, mountpoints)
 
-windows_disks = wordslab_platform == "WindowsSubsystemForLinux"
-if windows_disks:
-    wordslab_windows_home = (Path(wordslab_home) / ".WORDSLAB_WINDOWS_HOME").read_text().strip()
-    wordslab_windows_workspace = (Path(wordslab_workspace) / ".WORDSLAB_WINDOWS_WORKSPACE").read_text().strip()
-    wordslab_windows_models = (Path(wordslab_models) / ".WORDSLAB_WINDOWS_MODELS").read_text().strip()
+wordslab_platform_is_wsl = wordslab_platform == "WindowsSubsystemForLinux"
 
-    def windows_path_to_linux_vm_file(env_variable, windows_path):
-        # Replace backslashes with forward slashes
-        windows_path = windows_path.replace('\\', '/')
-        # Replace the drive letter with /mnt/<drive>
-        if len(windows_path) > 1 and windows_path[1] == ':':
-            drive_letter = windows_path[0].lower()
-            drive_path = f"/mnt/{drive_letter}"
-            linux_file = Path(f"{drive_path}{windows_path[2:]}") / "ext4.vhdx"
-        return (windows_path[:2], psutil.disk_usage(drive_path), env_variable, f"{windows_path}\\ext4.vhdx", linux_file.stat().st_size) 
-
-    wordslab_windows_home_vm_file = windows_path_to_linux_vm_file("WORDSLAB_WINDOWS_HOME", wordslab_windows_home)
-    wordslab_windows_workspace_vm_file = windows_path_to_linux_vm_file("WORDSLAB_WINDOWS_WORKSPACE", wordslab_windows_workspace)
-    wordslab_windows_models_vm_file = windows_path_to_linux_vm_file("WORDSLAB_WINDOWS_MODELS", wordslab_windows_models)
-   
 @dataclass
 class DirectoryMetrics: 
     name: str
@@ -230,27 +212,6 @@ def get_vm_disks_metrics():
             vm_disk_metrics.directories.append(dir_metrics)
     return vm_disks_metrics
 
-def get_windows_disks_metrics():
-    windows_disks_metrics = {}
-    for disk_letter,disk_usage,env_variable,vm_file_path,file_size in [wordslab_windows_home_vm_file, wordslab_windows_workspace_vm_file, wordslab_windows_models_vm_file]:
-        if disk_letter in windows_disks_metrics:
-            windows_disk_metrics = windows_disks_metrics[disk_letter]
-        else:
-            windows_disk_metrics = DiskMetrics(
-                name=disk_letter,
-                size_total=disk_usage.total / 1024**3,
-                size_used=disk_usage.used / 1024**3,
-                directories=[] 
-            )
-            windows_disks_metrics[disk_letter] = windows_disk_metrics
-        windows_disk_metrics.directories.append(
-            DirectoryMetrics(
-                name=env_variable,
-                path=vm_file_path,
-                size=file_size / 1024**3
-            )
-        )
-    return windows_disks_metrics
 
 def get_known_directories_metrics():
     dirs_metrics = KnownDirectoriesMetrics()
@@ -361,14 +322,14 @@ def get():
                 ToolCard("Open WebUI", "Chat", "openwebui.jpg", openwebui_url),
                 ToolCard("JupyterLab", "Learn", "jupyterlab.jpg", jupyterlab_url),
                 ToolCard("Visual Studio", "Code", "vscode.jpg", vscode_url),
+                ToolCard("Hermes Agent", "Act", "hermesagent.jpg", hermesagent_url),
                 Card(DivVStacked(
                     H3("User applications"),
                     Ol(
                         ToolLink("USER_APP1_PORT", app1_url),
                         ToolLink("USER_APP2_PORT", app2_url),
                         ToolLink("USER_APP3_PORT", app3_url),
-                        ToolLink("USER_APP4_PORT", app4_url),
-                        ToolLink("USER_APP5_PORT", app5_url)
+                        ToolLink("USER_APP4_PORT", app4_url)
                     )
                 ))
             ),
@@ -380,8 +341,7 @@ def get():
             DivHStacked(
                 CPUCard(),
                 GPUCard() if not cpu_only else None,
-                Card(Div("Linux disks: loading ..."), style="width:400px", hx_get=f"/vmdisks", hx_trigger="every 1s", hx_swap="outerHTML") if not windows_disks else None,
-                Card(Div("Windows disks: loading ..."), style="width:400px", hx_get=f"/windisks", hx_trigger="every 1s", hx_swap="outerHTML") if windows_disks else None
+                Card(Div("Linux disks: loading ..."), style="width:400px", hx_get=f"/vmdisks", hx_trigger="every 1s", hx_swap="outerHTML")
             ),
             DivCentered(
                 DivHStacked(H4("Storage directories size (MB)", cls="mr-2"), cls="mt-4"),
@@ -476,11 +436,6 @@ def VmDisksCard():
         style="width:400px", hx_get=f"/vmdisks", hx_trigger="every 60s", hx_swap="outerHTML"
     )
 
-@app.get("/windisks")
-def WindowsDisksCard():    
-    return Card(DisksCardContent("Windows disks", "database", get_windows_disks_metrics()),
-        style="width:400px", hx_get=f"/windisks", hx_trigger="every 60s", hx_swap="outerHTML"
-    )
 
 def DisksCardContent(title, icon, disks_metrics):
     return Div(

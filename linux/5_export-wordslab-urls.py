@@ -6,13 +6,13 @@ import socket
 jupyterlab_port = os.getenv("JUPYTERLAB_PORT")
 vscode_port = os.getenv("VSCODE_PORT")
 openwebui_port = os.getenv("OPENWEBUI_PORT")
+hermesagent_port = os.getenv("HERMESAGENT_PORT")
 user_app1_port = os.getenv("USER_APP1_PORT")
 user_app2_port = os.getenv("USER_APP2_PORT")
 user_app3_port = os.getenv("USER_APP3_PORT")
 user_app4_port = os.getenv("USER_APP4_PORT")
-user_app5_port = os.getenv("USER_APP5_PORT")
 dahsboard_port = os.getenv("DASHBOARD_PORT")
-wordslab_ports = [jupyterlab_port, vscode_port, openwebui_port, user_app1_port, user_app2_port, user_app3_port, user_app4_port, user_app5_port, dahsboard_port]
+wordslab_ports = [jupyterlab_port, vscode_port, openwebui_port, hermesagent_port, user_app1_port, user_app2_port, user_app3_port, user_app4_port, dahsboard_port]
 
 # Check if apps are exposed as https
 workspace_path = Path(os.getenv("WORDSLAB_WORKSPACE"))
@@ -64,11 +64,11 @@ elif platform=="UnknownLinux":
 print(f"export JUPYTERLAB_URL={endpoints[0]}")
 print(f"export VSCODE_URL={endpoints[1]}")
 print(f"export OPENWEBUI_URL={endpoints[2]}")
-print(f"export USER_APP1_URL={endpoints[3]}")
-print(f"export USER_APP2_URL={endpoints[4]}")
-print(f"export USER_APP3_URL={endpoints[5]}")
-print(f"export USER_APP4_URL={endpoints[6]}")
-print(f"export USER_APP5_URL={endpoints[7]}")
+print(f"export HERMESAGENT_URL={endpoints[3]}")
+print(f"export USER_APP1_URL={endpoints[4]}")
+print(f"export USER_APP2_URL={endpoints[5]}")
+print(f"export USER_APP3_URL={endpoints[6]}")
+print(f"export USER_APP4_URL={endpoints[7]}")
 
 # For now, the dashboard URL is http only
 print(f"export DASHBOARD_URL={endpoints[8].replace('https:','http:')}")

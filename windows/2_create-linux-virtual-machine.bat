@@ -11,4 +11,7 @@ if %errorlevel% neq 0 (
     del ubuntu-noble.tar
     
     wsl -d %1 -- sh -c "echo '%WORDSLAB_WINDOWS_HOME%\\\\virtual-machines\wordslab-notebooks' > /home/.WORDSLAB_WINDOWS_HOME"
+
+    REM Configure wsl.conf (automount disabled, interop disabled, systemd enabled)
+    wsl -d %1 -- sh -c "printf '[automount]\nenabled = false\nmountFsTab = true\n\n[interop]\nenabled = false\nappendWindowsPath = false\n\n[boot]\nsystemd = true\n' > /etc/wsl.conf"
 )

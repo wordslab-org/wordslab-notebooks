@@ -18,5 +18,9 @@ if %errorlevel% neq 0 (
     
     wsl -d wordslab-notebooks-workspace -- sh -c "echo '%WORDSLAB_WINDOWS_WORKSPACE%' > /home/workspace/.WORDSLAB_WINDOWS_WORKSPACE"
     wsl -d wordslab-notebooks-models -- sh -c "echo '%WORDSLAB_WINDOWS_MODELS%' > /home/models/.WORDSLAB_WINDOWS_MODELS"
+
+    REM Configure wsl.conf (automount disabled, interop disabled, systemd enabled)
+    wsl -d wordslab-notebooks-workspace -- sh -c "printf '[automount]\nenabled = false\nmountFsTab = true\n\n[interop]\nenabled = false\nappendWindowsPath = false\n' > /etc/wsl.conf"
+    wsl -d wordslab-notebooks-models -- sh -c "printf '[automount]\nenabled = false\nmountFsTab = true\n\n[interop]\nenabled = false\nappendWindowsPath = false\n' > /etc/wsl.conf"
 )
 

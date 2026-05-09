@@ -3,7 +3,6 @@
 # kilocode uses XDG_CACHE_HOME, XDG_CONFIG_HOME, XDG_DATA_HOME already set in the environment
 # mistral vibe install directory is hardcoded depending based on uv tool install target directory
 
-mkdir -p $WORDSLAB_HOME/hermes-agent
 mkdir -p $WORDSLAB_WORKSPACE/.hermes
 mkdir -p $WORDSLAB_WORKSPACE/.vibe
 
@@ -27,6 +26,9 @@ uv tool install mistral-vibe==2.9.3
 # https://hermes-agent.nousresearch.com/docs/user-guide/security
 
 curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash -s -- --skip-setup
+source ~/.bashrc
 
-
-
+# Needs [boot]systemd=true in wsl.conf
+hermes config set API_SERVER_ENABLED true 
+hermes config set API_SERVER_KEY wordslab-notebooks-hermes-agent
+hermes gateway install

@@ -13,11 +13,11 @@ fi
 #  export JUPYTERLAB_URL=https://192.168.1.28:8880
 #  export VSCODE_URL=https://192.168.1.28:8881
 #  export OPENWEBUI_URL=https://192.168.1.28:8882
-#  export USER_APP1_URL=https://192.168.1.28:8883
-#  export USER_APP2_URL=https://192.168.1.28:8884
-#  export USER_APP3_URL=https://192.168.1.28:8885
-#  export USER_APP4_URL=https://192.168.1.28:8886
-#  export USER_APP5_URL=https://192.168.1.28:8887
+#  export HERMESAGENT_URL=https://192.168.1.28:8883
+#  export USER_APP1_URL=https://192.168.1.28:8884
+#  export USER_APP2_URL=https://192.168.1.28:8885
+#  export USER_APP3_URL=https://192.168.1.28:8886
+#  export USER_APP4_URL=https://192.168.1.28:8887
 #  export DASHBOARD_URL=https://192.168.1.28:8888
 eval $(source ../dashboard/.venv/bin/activate && python3 5_export-wordslab-urls.py)
 
@@ -79,6 +79,10 @@ else
     pid4=""
 fi
 
+# Start Hermes agent dashboard
+hermes dashboard --host 0.0.0.0 --port $HERMESAGENT_PORT --insecure --no-open --tui &
+pid5=$!
+
 # Start open-webui server
 source $OPENWEBUI_ENV/.venv/bin/activate
 
@@ -95,13 +99,13 @@ else
 fi
 
 FASTERWHISPER_CUBLAS12_LIB="$OPENWEBUI_ENV/.venv/lib/python3.12/site-packages/nvidia/cublas/lib"
-ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools DEFAULT_MODELS="$OLLAMA_CHAT_MODEL" RAG_EMBEDDING_ENGINE="ollama" RAG_EMBEDDING_MODEL="$OLLAMA_EMBED_MODEL" WHISPER_MODEL="small" LD_LIBRARY_PATH="$FASTERWHISPER_CUBLAS12_LIB:$LD_LIBRARY_PATH" open-webui serve --host 0.0.0.0 --port $OPENWEBUI_PORT $OPENWEBUI_SECURE_PARAMS &
-pid5=$!
+ENV=prod WEBUI_AUTH=false WEBUI_URL=http://localhost:$OPENWEBUI_PORT DATA_DIR=$OPENWEBUI_DATA FUNCTIONS_DIR=$OPENWEBUI_DATA/functions TOOLS_DIR=$OPENWEBUI_DATA/tools DEFAULT_MODELS="$OLLAMA_CHAT_MODEL" OPENAI_API_BASE_URL="http://localhost:8642/v1" OPENAI_API_KEY="wordslab-notebooks-hermes-agent" RAG_EMBEDDING_ENGINE="ollama" RAG_EMBEDDING_MODEL="$OLLAMA_EMBED_MODEL" WHISPER_MODEL="small" LD_LIBRARY_PATH="$FASTERWHISPER_CUBLAS12_LIB:$LD_LIBRARY_PATH" open-webui serve --host 0.0.0.0 --port $OPENWEBUI_PORT $OPENWEBUI_SECURE_PARAMS &
+pid6=$!
 
 # Start wordslab notebooks dashboard
 cd $WORDSLAB_SCRIPTS/dashboard
 ./start-dashboard.sh &
-pid6=$!
+pid7=$!
 
 sleep 5
 
@@ -118,9 +122,9 @@ echo ''
 # Define cleanup function to kill all commands
 cleanup() {
   echo "Stopping all servers..."
-  kill $pid1 $pid2 $pid3 $pid4 $pid5 $pid6
+  kill $pid1 $pid2 $pid3 $pid4 $pid5 $pid6 $pid7
 }
 # Trap SIGINT and call cleanup
 trap cleanup SIGINT
 # Wait for all processes to finish
-wait $pid1 $pid2 $pid3 $pid4 $pid5 $pid6
+wait $pid1 $pid2 $pid3 $pid4 $pid5 $pid6 $pid7
