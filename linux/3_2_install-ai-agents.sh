@@ -29,7 +29,8 @@ curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scri
 source ~/.bashrc
 
 # Needs [boot]systemd=true in wsl.conf
-systemctl is-system-running # necessary warmup - in WSL the D-Bus daemon sometimes hangs longer than 5 sec
+timeout 30 bash -c 'while true; do state=$(systemctl is-system-running); echo "$state"; [[ "$state" != "running" && "$state" != "degraded" ]] || break; sleep 5; done' # necessary warmup - in WSL the D-Bus daemon sometimes hangs longer than 5 sec
+systemctl is-system-running
 $HOME/.local/bin/hermes config set API_SERVER_ENABLED true 
 $HOME/.local/bin/hermes config set API_SERVER_KEY wordslab-notebooks-hermes-agent
 $HOME/.local/bin/hermes gateway install
