@@ -6,11 +6,12 @@ requires-python = ">=3.12"
 dependencies = [
     "jlclient",
     "requests",
-    "monsterui==1.0.26",
+    "fasthtml==0.13.4",
+    "monsterui==1.0.45",
     "pynvml==12.0.0",
-    "psutil==7.0.0",
-    "ipykernel==6.30.1",
-    "ollama==0.6.0",
+    "psutil==7.2.2",
+    "ipykernel==7.2.0",
+    "ollama==0.6.2",
 ]
 
 [tool.uv.sources]
