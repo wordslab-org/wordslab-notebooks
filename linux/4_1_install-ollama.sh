@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.23.2 -o ollama-linux-amd64.tar.zst
+curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.23.4 -o ollama-linux-amd64.tar.zst
 tar -C $OLLAMA_DIR -xf ollama-linux-amd64.tar.zst
 rm ollama-linux-amd64.tar.zst
 
@@ -143,8 +143,11 @@ AGENT_FINAL_MODEL="${OLLAMA_AGENT_MODEL}-${OLLAMA_AGENT_CONTEXT}k"
 echo '' >> ./_wordslab-notebooks-env.bashrc
 echo '# Default ollama model' >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_CHAT_MODEL=$CHAT_FINAL_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_CHAT_CONTEXT=$((OLLAMA_CHAT_CONTEXT * 1024))" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_FAST_MODEL=$FAST_FINAL_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_FAST_CONTEXT=$((OLLAMA_FAST_CONTEXT * 1024))" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_AGENT_MODEL=$AGENT_FINAL_MODEL" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_AGENT_CONTEX=$((OLLAMA_AGENT_CONTEX * 1024))" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_OCR_MODEL=$OLLAMA_OCR_MODEL" >> ./_wordslab-notebooks-env.bashrc
 
