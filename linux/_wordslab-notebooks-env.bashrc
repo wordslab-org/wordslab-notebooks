@@ -55,11 +55,16 @@ export UV_LINK_MODE="symlink"
 export UV_TOOL_DIR=$UV_INSTALL_DIR/tools 
 export UV_TOOL_BIN_DIR=$UV_INSTALL_DIR
 
-# Optional Docling documents extractions
-export OPENWEBUI_START_DOCLING=no # 'yes' or 'no' to start OpenWebUI with Docling support - 5 GB VRAM used
+# Docling document extraction
 export DOCLING_ENV=$WORDSLAB_HOME/docling
 export DOCLING_DATA=$WORDSLAB_WORKSPACE/.docling
 export DOCLING_MODELS=$WORDSLAB_MODELS/docling
+
+# Optional usage of Docling document extraction in OpenWebUI
+export OPENWEBUI_START_DOCLING=no # 'yes' or 'no' to start OpenWebUI with Docling support - 5 GB VRAM used
+
+# Optional vLLM inference engine
+export VLLM_ENV=$WORDSLAB_HOME/vllm
 
 # Open ports for wordslab-notebooks built-in applications
 export DASHBOARD_PORT=8888
@@ -68,13 +73,13 @@ export VSCODE_PORT=8881
 export OPENWEBUI_PORT=8882
 export HERMESAGENT_PORT=8883
 
-# Note: ollama and docling are not exposed to the outside world
+# Note: ollama, vllm and docling are not exposed to the outside world
 # => they must be used from inside the container
 export OLLAMA_API_BASE=http://127.0.0.1:11434
-# ... used by Open WebUI
 export DOCLING_SERVER_URL=http://127.0.0.1:5001
+export VLLM_SERVER_URL=http://127.0.0.1:8000
 
-# Additional open ports for 5 user defined applications
+# Additional open ports for 4 user defined applications
 export USER_APP1_PORT=8884
 export USER_APP2_PORT=8885
 export USER_APP3_PORT=8886
