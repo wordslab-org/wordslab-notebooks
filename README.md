@@ -27,20 +27,21 @@ One click install of all the tools you need to learn, explore and build AI appli
 - Options to leverage your own machines at home or to rent more powerful machines in the cloud 
 - Documentation to guide you in your AI learning and exploration journey
 	
-3 main applications
+4 main applications
 
 - A rich chat interface (text, images, voice) : Open WebUI
-- A notebooks platform (text & code) : JupyterLab with wordslab-notebooks "AI prompt cells" + Jupyter AI extension
-- A development environment (code) : Visual Studio Code + Cline & Kilo Code extensions, and OpenCode & Mistral Vibe AI coding agents
+- A notebooks platform (text & code) : JupyterLab with wordslab-notebooks "AI prompt cells"
+- A development environment (code) : Visual Studio Code + Kilo Code extension (+ Mistral Vibe AI coding agent)
+- A personal AI agent (actions) : Hermes Agent
 
 ![wordslab-notebooks main applications](./docs/images/wordslab-notebooks-main-apps.jpg)
 
 Installs a ready to use and fully integrated AI environment with
 
 - A visual dashboard to help you navigate all applications and manage your machine resources
-- Optimized inference engines to run AI models : Ollama + vLLM
+- An optimized inference engine to run the best local AI models your machine can run : Ollama
 
-Why use this instead of a popular cloud services like ChatGPT ou Gemini ?
+Why use this instead of a popular cloud services like ChatGPT or Claude ?
 
 - Understand how AI works and build your own solutions 
 - Free solution with no rate limits if you already own a powerful machine
@@ -72,7 +73,7 @@ You will see over time that **everything you try just works out of the box**.
 
 Local PC requirements
 
-- Windows 10 or 11, Ubuntu Linux 24.04+
+- Windows 11, Ubuntu Linux 24.04+
 - x64 CPU (Intel or AMD), 16 GB RAM
 - 50 GB to 100 GB free disk space (see [more details here](./docs/install-local.md#storage-directories-size-mb---version-2026-05))
 - Nvidia GPU recommended but not mandatory, RTX 3000 or newer, at least 8 GB VRAM
@@ -500,7 +501,7 @@ For more details, read the [Wordslab dashboard tutorial](https://github.com/word
 
 Use the dropdown list to select the language model wich will generate the answers in your chats.
 
-3 language models are installed by default in wordslab-notebooks, for chat, code and agents. They were selected as the best ones available at the time of installation that can run on your machine.
+3 language models are installed by default in wordslab-notebooks, for chat, fast generation and agents. They were selected as the best ones available at the time of installation that can run on your machine.
 
 But you can download many other models if you hacve specific needs.
 - Option 1: download a language model from an internet repository to your machine as a big file of several GB and run it locally.
@@ -532,11 +533,9 @@ Language models installed by default in wordslab 2026-05 :
 
 | Usage | 32 GB GPU | 24 GB GPU | 16 GB GPU | 8 GB GPU | CPU |
 |-------|-----------|-----------|-----------|----------|-----|
-| Chat | gemma3:27b | gemma3:27b | gemma3:12b | gemma3:4b | gemma3:1b |
-| Default Context | 65536 | 32768 | 32768 | 16384 | 8192 |
-| Code | qwen3.5:35b | qwen3.5:27b | qwen3.5:9b | qwen3.5:4b | qwen3.5:2b |
-| Agent | devstral-small-2:24b | glm-4.7-flash:q4_K_M | gpt-oss:20b | ministral-3:3b | lfm2.5-thinking:1.2b |
-| Agent Context | 98304 | 49152 | 98304 | 24576 | 16384 |
+| Chat | gemma4:31b | gemma4:26b | gemma4:e4b | gemma3:4b | gemma3:1b |
+| Fast | qwen3.6:35b | glm-4.7-flash | gpt-oss:20b | ministral-3:3b | lfm2.5-thinking:1.2b |
+| Agent | qwen3.6:27b | qwen3.5:9b | qwen3.5:9b | qwen3.5:2b | qwen3.5:0.8b |
 
 Embedding: embeddinggemma:300m 
 
@@ -586,18 +585,12 @@ For more details read the [Open WebUI tutorial](https://github.com/wordslab-org/
 
 If you want to build solutions, or if you want to go further than a simple chat interface, you will have to write a little bit of code.
 
-To help you get started, wordslab will provide ready to use code projects for the most frequent use cases of AI. You will just be able to clone them in your wordslab environment and read / execute them step by step to see how it works. Then you can just change a few parameters here and there to adapt the program to your needs.
-
-For example
-- wordslab-text will show you how to extract information from documents or user feedbacks
-- wordslab-images will show you how to analyze and generate images
-- wordslab-voice will teach you how to transcribe and summarize your meetings
-
 You can work on your code projects in two different environments which share the same source files
 - JupyterLab notebooks: a notebook is a mix of documentation and code which enables understanding, executing, and visualising operations step by step, and which is perfect to explore and develop new snippets of code, friendly for everybody
 - Visual Studio Code projects: a more complex integrated development environment for developers, perfect to integrate and test all the code snippets in a consistent and reliable application 
 
 Both tools are installed with extensions enabling AI assistance directly in the development environment.
+
 **wordslab-notebooks-lib** is installed by default in jupyterlab environments and provides a new type of cell: **prompt cells** are sent to a local AI model along with all the previous cells as context, and enable you to get AI assistance directly embedded in your notebook codinf workflow.
 
 To transition from one environment to another, the [nbdev](https://nbdev.fast.ai/) toolset is preinstalled by wordslab: you can use it to create a code library from a set of notebooks.
@@ -608,11 +601,14 @@ To create new JupyterLab projects and configure them properly with a dedicated v
 - create-workspace-project [github-project-url.git]
 - activate-workspace-project [project-name]
 
-For jupyterlab notebooks, the jupyter-ai extension adds 
-- a chat ui right next to your notebooks which can interact with their content
-- a magic command to execute a language model instructions directly in a notebook cell
-
 For more details read the [JupyterLab tutorial](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/03_jupyterlab-notebooks.ipynb).
+
+To help you get started, wordslab will provide ready to use code projects for the most frequent use cases of AI. You will just be able to clone them in your wordslab environment and read / execute them step by step to see how it works. Then you can just change a few parameters here and there to adapt the program to your needs.
+
+For example
+- wordslab-text will show you how to extract information from documents or user feedbacks
+- wordslab-images will show you how to analyze and generate images
+- wordslab-voice will teach you how to transcribe and summarize your meetings
 
 ### Develop with Visual Studio Code
 
@@ -620,13 +616,11 @@ If you are a developer and want to code more serious projects, a server version 
 
 By default, only Python development tools are installed, but you can use the extensions manager to download support for any other popular language.
 
-To provide AI assistance in your Visual Studio Code IDE, the Cline and Kilo Code extensions are installed. They provide
+To provide AI assistance in your Visual Studio Code IDE, the Kilo Code extension is installed:
 - a chat ui directly integrated in your IDE which can interact with your code files
 - an agent which can executing coding tasks on your behalf
-- an autocomplete feature when you write code
-- shortcuts to execute common development operations with a language model
 
-To provide AI assistance in you Terminal, the OpenCode and Mistral Vibe coding agents are also installed and ready to use: they are command line agentic asssitants which can generate code for you.
+To provide AI assistance in you Terminal, the Mistral Vibe coding agent is also installed and ready to use: it is command line agentic asssitans which can generate code for you.
 
 For more details read the [Visual Studio Code tutorial](https://github.com/wordslab-org/wordslab-notebooks-tutorials/blob/main/04_visual-studio_code.ipynb).
 
