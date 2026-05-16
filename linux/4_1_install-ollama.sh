@@ -147,7 +147,7 @@ echo "export OLLAMA_CHAT_CONTEXT=$((OLLAMA_CHAT_CONTEXT * 1024))" >> ./_wordslab
 echo "export OLLAMA_FAST_MODEL=$FAST_FINAL_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_FAST_CONTEXT=$((OLLAMA_FAST_CONTEXT * 1024))" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_AGENT_MODEL=$AGENT_FINAL_MODEL" >> ./_wordslab-notebooks-env.bashrc
-echo "export OLLAMA_AGENT_CONTEX=$((OLLAMA_AGENT_CONTEX * 1024))" >> ./_wordslab-notebooks-env.bashrc
+echo "export OLLAMA_AGENT_CONTEXT=$((OLLAMA_AGENT_CONTEXT * 1024))" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_EMBED_MODEL=$OLLAMA_EMBED_MODEL" >> ./_wordslab-notebooks-env.bashrc
 echo "export OLLAMA_OCR_MODEL=$OLLAMA_OCR_MODEL" >> ./_wordslab-notebooks-env.bashrc
 
