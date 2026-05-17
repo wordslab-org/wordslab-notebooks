@@ -26,7 +26,7 @@ uv tool install mistral-vibe==2.9.6
 # https://hermes-agent.nousresearch.com/docs/user-guide/security
 
 # First install a standalone Node.js version
-NVM_DIR=$HOME/.nvm curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+mkdir $HOME/.nvm && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | NVM_DIR=$HOME/.nvm bash
 \. "$HOME/.nvm/nvm.sh"
 nvm install 24
 
