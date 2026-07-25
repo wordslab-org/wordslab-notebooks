@@ -10,4 +10,4 @@ mkdir -p $VSCODE_DATA
 $VSCODE_DIR/bin/code-server --install-extension ms-python.python@2026.4.0 --extensions-dir $VSCODE_DATA/extensions
 
 # Install Mermaid Support for Markdown Preview
-$VSCODE_DIR/bin/code-server --install-extension bierner.markdown-mermaid@1.32.0 --extensions-dir $VSCODE_DATA/extensions
+$VSCODE_DIR/bin/code-server --install-extension bierner.markdown-mermaid@1.32.1 --extensions-dir $VSCODE_DATA/extensions

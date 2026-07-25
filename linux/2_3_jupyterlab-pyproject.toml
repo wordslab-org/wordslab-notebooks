@@ -9,7 +9,7 @@ dependencies = [
     "ipympl==0.10.0",
     "jupyterlab-execute-time==3.3.0",
     "jupyterlab-git==0.54.0",
-    "jupyterlab-nvdashboard==0.13.0",
+    "jupyterlab-nvdashboard==0.15.0",
 #    "jupyter-ai==3.0.0", --> many problems : websockets over remote access, mcp server not found by mistral vibe, breaks our custom extension
     "wordslab-notebooks-lib==0.0.17"
 ]

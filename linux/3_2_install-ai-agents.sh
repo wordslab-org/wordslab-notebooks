@@ -31,7 +31,7 @@ mkdir $HOME/.nvm && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.
 nvm install 24
 
 # Then install Hermes agent
-mkdir -p $HERMES_HOME/bin/
+ln -s "$UV_INSTALL_DIR/uv" "$HERMES_HOME/bin/uv" # workaround for recent uv versions deadlock
 curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash -s -- --skip-setup
 source ~/.bashrc
 
