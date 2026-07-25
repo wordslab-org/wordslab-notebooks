@@ -5,30 +5,30 @@ description = "Add your project description here"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "ipywidgets==8.1.8",
-    "pandas==3.0.2",
-    "scikit-learn==1.8.0",
+    "pandas==3.0.5",
+    "scikit-learn==1.9.0",
     "fastai==2.8.7",
-    "nbdev==3.0.15",
+    "nbdev==3.3.1",
     "ollama==0.6.2",
-    "openai==2.33.0",
+    "openai==2.48.0",
     "wordslab-notebooks-lib==0.0.17"
 ]
 
 [project.optional-dependencies]
 cpu = [
-  "torch==2.11.0",
-  "torchvision==0.26.0",
-  "torchaudio==2.11.0"
+  "torch==2.13.0",
+  "torchvision==0.28.0",
+  "torchaudio==2.13.0"
 ]
 cuda = [
-  "torch==2.11.0",
-  "torchvision==0.26.0",
-  "torchaudio==2.11.0"
+  "torch==2.13.0",
+  "torchvision==0.28.0",
+  "torchaudio==2.13.0"
 ]
 
 [dependency-groups]
 dev = [
-    "ipykernel==7.2.0",
+    "ipykernel==7.3.0",
 ]
 
 [tool.uv]

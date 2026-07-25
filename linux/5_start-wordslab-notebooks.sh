@@ -80,7 +80,7 @@ else
 fi
 
 # Start Hermes agent dashboard
-hermes dashboard --host 0.0.0.0 --port $HERMESAGENT_PORT --insecure --no-open --tui &
+hermes dashboard --host 0.0.0.0 --port $HERMESAGENT_PORT --no-open --tui &
 pid5=$!
 
 # Start open-webui server

@@ -16,17 +16,17 @@ source ./_wordslab-notebooks-env.bashrc
 
 # https://kilo.ai/docs/getting-started/installing#open-vsx-registry
 
-$VSCODE_DIR/bin/code-server --install-extension kilocode.kilo-code@7.2.52 --extensions-dir $VSCODE_DATA/extensions
+$VSCODE_DIR/bin/code-server --install-extension kilocode.kilo-code@7.4.16 --extensions-dir $VSCODE_DATA/extensions
 
 # https://github.com/mistralai/mistral-vibe?tab=readme-ov-file#using-uv
 
-uv tool install mistral-vibe==2.9.6
+uv tool install mistral-vibe==2.22.0
 
 # https://hermes-agent.nousresearch.com/docs/getting-started/installation
 # https://hermes-agent.nousresearch.com/docs/user-guide/security
 
 # First install a standalone Node.js version
-mkdir $HOME/.nvm && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | NVM_DIR=$HOME/.nvm bash
+mkdir $HOME/.nvm && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.6/install.sh | NVM_DIR=$HOME/.nvm bash
 \. "$HOME/.nvm/nvm.sh"
 nvm install 24
 
