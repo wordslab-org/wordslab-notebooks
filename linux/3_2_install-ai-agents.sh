@@ -38,6 +38,12 @@ source ~/.bashrc
 # Needs [boot]systemd=true in wsl.conf
 timeout 30 bash -c 'while true; do state=$(systemctl is-system-running); echo "$state"; [[ "$state" != "running" && "$state" != "degraded" ]] || break; sleep 5; done' # necessary warmup - in WSL the D-Bus daemon sometimes hangs longer than 5 sec
 systemctl is-system-running
+
+cd $WORDSLAB_HOME/hermes-agent/
+HASH=$(python -c "from plugins.dashboard_auth.basic import hash_password; print(hash_password('hermes-agent'))")
+$HOME/.local/bin/hermes config set HERMES_DASHBOARD_BASIC_AUTH_USERNAME admin
+$HOME/.local/bin/hermes config set HERMES_DASHBOARD_BASIC_AUTH_PASSWORD_HASH $HASH
+$HOME/.local/bin/hermes config set HERMES_DASHBOARD_BASIC_AUTH_SECRET $(openssl rand -base64 32)
 $HOME/.local/bin/hermes config set API_SERVER_ENABLED true 
 $HOME/.local/bin/hermes config set API_SERVER_KEY wordslab-notebooks-hermes-agent
 $HOME/.local/bin/hermes gateway install
