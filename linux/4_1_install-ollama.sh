@@ -4,7 +4,7 @@
 mkdir -p $OLLAMA_DIR
 
 # Download and uncompress the latest version of ollama
-curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.32.3 -o ollama-linux-amd64.tar.zst
+curl -L https://ollama.com/download/ollama-linux-amd64.tar.zst?version=0.34.4 -o ollama-linux-amd64.tar.zst
 tar -C $OLLAMA_DIR -xf ollama-linux-amd64.tar.zst
 rm ollama-linux-amd64.tar.zst
 
@@ -82,8 +82,8 @@ else
         OLLAMA_CHAT_CONTEXT=136 # 72 fp16 (-47%)
         OLLAMA_FAST_MODEL="qwen3.6:35b" # 130-120-103 t/s q8 | 143-123-109 fp16 (+3%)
         OLLAMA_FAST_CONTEXT=160 # 128 fp16 (-20%)
-        OLLAMA_AGENT_MODEL="qwen3.6:27b" # 61-54-47 t/s q8 | 60-51-35 fp16 (-6%)
-        OLLAMA_AGENT_CONTEXT=136 # 92 fp16 (-32%)
+        OLLAMA_AGENT_MODEL="qwen3.8:27b"
+        OLLAMA_AGENT_CONTEXT=160
     elif [ "$vram_gib" -ge 23 ]; then        
         OLLAMA_CHAT_MODEL="gemma4:26b" # 166-94-65 t/s q8 | 166-124-103 fp16 (+32%)
         OLLAMA_CHAT_CONTEXT=176 # 124 fp16 (-30%)

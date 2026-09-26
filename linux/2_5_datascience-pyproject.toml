@@ -4,13 +4,13 @@ version = "0.1.0"
 description = "Add your project description here"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "ipywidgets==8.1.8",
-    "pandas==3.0.5",
-    "scikit-learn==1.9.0",
-    "fastai==2.8.7",
-    "nbdev==3.3.1",
+    "ipywidgets==8.1.9",
+    "pandas==3.0.6",
+    "scikit-learn==1.9.1",
+    "fastai==2.8.12",
+    "nbdev==3.3.24",
     "ollama==0.6.2",
-    "openai==2.48.0",
+    "openai==3.19.2",
     "wordslab-notebooks-lib==0.0.17"
 ]
 

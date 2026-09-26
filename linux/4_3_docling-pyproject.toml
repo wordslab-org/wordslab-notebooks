@@ -3,8 +3,8 @@ name = "docling-env"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "docling==2.115.0", # Pin the version of Docling to ensure reproducibility
-    "docling-serve[ui]==1.27.0",
+    "docling==2.130.0", # Pin the version of Docling to ensure reproducibility
+    "docling-serve[ui]==1.35.0",
 ]
 
 [project.optional-dependencies]
