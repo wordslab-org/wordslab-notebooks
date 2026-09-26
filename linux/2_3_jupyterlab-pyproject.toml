@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "wordslab-notebooks jupyterlab environment"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "tornado==6.5.8", # Starting with tornado 6.5.9, symlinks are not allowed anymore
     "jupyterlab==4.6.4",
     "ipywidgets==8.1.9",
     "ipympl==0.10.0",
